@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Gym {
+public class Gym extends Auditing{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;

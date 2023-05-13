@@ -15,6 +15,10 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 public class Auditing {
+
+    /**
+     * 엔티티에 extend 함으로써 상속한 엔티티에 수정, 생성일 추적
+     */
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdDate;
