@@ -2,9 +2,13 @@ package com.backend.fitta.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,11 +18,8 @@ public class Member {
     private int age;
     private String address;
     private Gender gender;
-
     private Integer height;
-
     private Integer weight;
-
     private String occupation;
     private String note;
 

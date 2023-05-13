@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Entity
 @Getter
@@ -21,4 +21,12 @@ public class Gym {
     private String phone;
     private String address;
     private GenderDivision genderDivision;
+
+    public Gym( String name, String owner, String phone, String address, GenderDivision genderDivision) {
+        this.name = name;
+        this.owner = owner;
+        this.phone = phone;
+        this.address = address;
+        this.genderDivision = genderDivision;
+    }
 }
