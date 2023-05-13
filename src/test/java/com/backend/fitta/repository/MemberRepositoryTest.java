@@ -4,6 +4,7 @@ import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
 import lombok.RequiredArgsConstructor;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+//JPA 를 사용하려면 트랜잭션이 필요합니다.
 @Transactional
 class MemberRepositoryTest {
     @Autowired
@@ -20,14 +22,14 @@ class MemberRepositoryTest {
     @Autowired
     private TeamRepository teamRepository;
 
-    /*@BeforeEach
+    @BeforeEach
     void preTest(){
-        Team team=new Team("teamA");
-        teamRepository.save(team);
+        Team teamA=new Team("teamA");
+        teamRepository.save(teamA);
 
-        Member member = new Member(
+        Member memberA = new Member(
                 "email@email.com",
-                "memberName",
+                "memberA",
                 20L,
                 "address",
                 Gender.MALE,
@@ -35,18 +37,20 @@ class MemberRepositoryTest {
                 80L,
                 "beck-dev",
                 "nothing",
-                new Team("teamA")
+                teamA
         );
-    }*/
-    @Commit
+
+        memberRepository.save(memberA);
+    }
+
     @Test
     void join() {
         Team teamB=new Team("teamB");
         teamRepository.save(teamB);
 
-        Member member = new Member(
+        Member memberB = new Member(
                 "email@email.com",
-                "memberName",
+                "memberB",
                 20L,
                 "address",
                 Gender.MALE,
@@ -56,7 +60,9 @@ class MemberRepositoryTest {
                 "nothing",
                 teamB
         );
-        memberRepository.save(member);
+        Member savedMember = memberRepository.save(memberB);
+        Member member = memberRepository.findById(savedMember.getId()).get();
+        Assertions.assertThat(savedMember).isEqualTo(member);
     }
 
 
