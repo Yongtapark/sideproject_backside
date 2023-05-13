@@ -1,4 +1,4 @@
-package com.backend.fitta.entity.member;
+package com.backend.fitta.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
