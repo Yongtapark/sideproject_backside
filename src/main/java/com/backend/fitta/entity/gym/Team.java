@@ -21,4 +21,8 @@ public class Team {
     private List<Member> members = new ArrayList();
     @OneToMany(mappedBy = "team")
     private List<Staff> staffs =new ArrayList<>();
+
+    public Team(String name) {
+        this.name = name;
+    }
 }
