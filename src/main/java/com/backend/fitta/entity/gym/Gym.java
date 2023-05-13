@@ -1,5 +1,7 @@
-package com.backend.fitta.entity;
+package com.backend.fitta.entity.gym;
 
+import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.enums.GenderDivision;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Gym extends Auditing{
+public class Gym extends Auditing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
