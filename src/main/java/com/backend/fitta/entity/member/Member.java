@@ -1,6 +1,9 @@
-package com.backend.fitta.entity;
+package com.backend.fitta.entity.member;
 
 
+import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.gym.Team;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,5 +1,8 @@
-package com.backend.fitta.entity;
+package com.backend.fitta.entity.gym;
 
+import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.enums.Grade;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,11 +11,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Staff extends Auditing{
+public class Staff extends Auditing {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Long age;
+    private Gender gender;
     private String phone;
     private String address;
     private Grade grade;
@@ -20,9 +24,10 @@ public class Staff extends Auditing{
     @JoinColumn(name = "team_name")
     private Team team;
 
-    public Staff(String name, Long age, String phone, String address, Grade grade, Team team) {
+    public Staff(String name, Long age,Gender gender, String phone, String address, Grade grade, Team team) {
         this.name = name;
         this.age = age;
+        this.gender = gender;
         this.phone = phone;
         this.address = address;
         this.grade = grade;
