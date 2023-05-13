@@ -1,15 +1,25 @@
 package com.backend.fitta.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
+
+import jakarta.persistence.*;
 
 @Entity
 @Getter
 public class Member {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String userid;
+    private long id;
+    private String email;
+    private String name;
+    private int age;
+    private String address;
+    private Gender gender;
+
+    private Integer height;
+
+    private Integer weight;
+
+    private String occupation;
+    private String note;
+
 }
