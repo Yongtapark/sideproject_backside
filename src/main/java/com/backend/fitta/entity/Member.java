@@ -1,8 +1,10 @@
 package com.backend.fitta.entity;
 
+
 import jakarta.persistence.*;
 
 @Entity
+@Getter
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +21,5 @@ public class Member {
 
     private String occupation;
     private String note;
+
 }
