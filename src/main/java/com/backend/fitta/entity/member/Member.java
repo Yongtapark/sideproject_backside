@@ -18,18 +18,18 @@ public class Member extends Auditing {
     private long id;
     private String email;
     private String name;
-    private int age;
+    private Long age;
     private String address;
     private Gender gender;
-    private Integer height;
-    private Integer weight;
+    private Long height;
+    private Long weight;
     private String occupation;
     private String note;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_name")
     private Team team;
 
-    public Member(String email, String name, int age, String address, Gender gender, Integer height, Integer weight, String occupation, String note, Team team) {
+    public Member(String email, String name, Long age, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team) {
         this.email = email;
         this.name = name;
         this.age = age;
