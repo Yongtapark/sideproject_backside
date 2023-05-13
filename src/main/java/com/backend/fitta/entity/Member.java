@@ -22,5 +22,28 @@ public class Member extends Auditing {
     private Integer weight;
     private String occupation;
     private String note;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_name")
+    private Team team;
+
+    public Member(String email, String name, int age, String address, Gender gender, Integer height, Integer weight, String occupation, String note, Team team) {
+        this.email = email;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.gender = gender;
+        this.height = height;
+        this.weight = weight;
+        this.occupation = occupation;
+        this.note = note;
+        if(team!=null){
+            changeTeam(team);
+        }
+    }
+
+    public void changeTeam(Team team){
+        this.team=team;
+        team.getMembers().add(this);
+    }
 
 }
