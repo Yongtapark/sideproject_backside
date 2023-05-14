@@ -2,6 +2,7 @@ package com.backend.fitta.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Getter
