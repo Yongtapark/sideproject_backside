@@ -1,6 +1,6 @@
 package com.backend.fitta.dto.Member;
 
-import com.backend.fitta.entity.Gender;
+import com.backend.fitta.entity.enums.Gender;
 import lombok.Getter;
 
 import java.time.LocalDate;
