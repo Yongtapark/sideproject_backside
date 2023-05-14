@@ -1,6 +1,6 @@
-package com.backend.fitta.repository.member;
+package com.backend.fitta.repository;
 
-import com.backend.fitta.entity.Member;
+import com.backend.fitta.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
