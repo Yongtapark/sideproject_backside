@@ -37,7 +37,7 @@ class MemberRepositoryTest {
                 80L,
                 "beck-dev",
                 "nothing",
-                teamA
+
         );
 
         memberRepository.save(memberA);
