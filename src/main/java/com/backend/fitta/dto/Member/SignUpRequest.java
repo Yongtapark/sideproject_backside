@@ -20,10 +20,8 @@ public class SignUpRequest {
     private String name;
     @NotBlank
     private String address;
-    @NotBlank
     private Gender gender;
     @NotBlank
     private String phoneNumber;
-    @NotBlank
     private LocalDate birthday;
 }
