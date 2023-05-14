@@ -1,8 +1,8 @@
 package com.backend.fitta.service.member;
 
 import com.backend.fitta.dto.Member.SignUpRequest;
-import com.backend.fitta.entity.Member;
-import com.backend.fitta.repository.member.MemberRepository;
+import com.backend.fitta.entity.member.Member;
+import com.backend.fitta.repository.MemberRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

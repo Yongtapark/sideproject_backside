@@ -1,9 +1,9 @@
 package com.backend.fitta.dto.Member;
 
-import com.backend.fitta.entity.Gender;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import com.backend.fitta.entity.enums.Gender;
 
 import java.time.LocalDate;
 
