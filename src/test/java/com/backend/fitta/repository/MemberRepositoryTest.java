@@ -32,13 +32,14 @@ class MemberRepositoryTest {
                 "memberA",
                 20L,
                 "address",
-                Gender.MALE,
+                Gender.FEMALE,
                 180L,
                 80L,
                 "beck-dev",
                 "nothing",
-
-        );
+                null,
+                null,
+                null);
 
         memberRepository.save(memberA);
     }
@@ -58,8 +59,10 @@ class MemberRepositoryTest {
                 80L,
                 "beck-dev",
                 "nothing",
-                teamB
-        );
+                null,
+                null,
+                teamB);
+
         Member savedMember = memberRepository.save(memberB);
         Member member = memberRepository.findById(savedMember.getId()).get();
         Assertions.assertThat(savedMember).isEqualTo(member);
