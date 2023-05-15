@@ -1,7 +1,7 @@
-package com.backend.fitta.config.aouth;
+package com.backend.fitta.config.oauth;
 
-import com.backend.fitta.config.aouth.dto.OAuthAttributes;
-import com.backend.fitta.config.aouth.dto.SessionUser;
+import com.backend.fitta.config.oauth.dto.OAuthAttributes;
+import com.backend.fitta.config.oauth.dto.SessionUser;
 import com.backend.fitta.entity.user.User;
 import com.backend.fitta.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
@@ -39,8 +39,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         */
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
-        /*OAuthAttributes - OAuth2UserService를 통해 가져온 OAuth2User 의 attribute 를 담을 클래스*/
-        OAuthAttribute attributes = OAuthAttributes.of(registrationId,userNameAttributeName,oAuth2User.getAttribute());
+        /*OAuthAttributes - OAuth2UserService 를 통해 가져온 OAuth2User 의 attribute 를 담을 클래스*/
+        OAuthAttributes attributes = OAuthAttributes.of(registrationId,userNameAttributeName,oAuth2User.getAttributes());
 
         User user = saveOrUpdate(attributes);
         /*SessionUser - 세션에 사용자 정보를 저장하기위한 Dto 클래스*/
