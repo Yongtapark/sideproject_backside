@@ -47,4 +47,15 @@ public class MemberService {
 
         return member.getId();
     }
+
+    @Transactional
+    public Member findMember(String memberEmail) {
+        Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
+        return member;
+    }
+
+    @Transactional
+    public void deleteMember(String memberEmail) {
+        memberRepository.deleteByEmail(memberEmail);
+    }
 }
