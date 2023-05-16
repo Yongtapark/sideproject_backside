@@ -20,13 +20,24 @@ public class QOwner extends EntityPathBase<Owner> {
 
     public static final QOwner owner = new QOwner("owner");
 
+    public final com.backend.fitta.entity.QAuditing _super = new com.backend.fitta.entity.QAuditing(this);
+
     public final StringPath address = createString("address");
 
     public final StringPath BusinessRegistrationNumber = createString("BusinessRegistrationNumber");
 
+    //inherited
+    public final StringPath createdBy = _super.createdBy;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
+
     public final ListPath<Gym, QGym> gym = this.<Gym, QGym>createList("gym", Gym.class, QGym.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
     public final StringPath name = createString("name");
 

@@ -26,7 +26,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath address = createString("address");
 
-    public final NumberPath<Long> age = createNumber("age", Long.class);
+    public final StringPath birthdate = createString("birthdate");
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
@@ -53,6 +53,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath occupation = createString("occupation");
 
+    public final StringPath phone = createString("phone");
+
     public final com.backend.fitta.entity.gym.QTeam team;
 
     public final NumberPath<Long> weight = createNumber("weight", Long.class);
@@ -75,7 +77,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.gym = inits.isInitialized("gym") ? new com.backend.fitta.entity.gym.QGym(forProperty("gym")) : null;
+        this.gym = inits.isInitialized("gym") ? new com.backend.fitta.entity.gym.QGym(forProperty("gym"), inits.get("gym")) : null;
         this.team = inits.isInitialized("team") ? new com.backend.fitta.entity.gym.QTeam(forProperty("team")) : null;
     }
 
