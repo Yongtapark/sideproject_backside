@@ -10,6 +10,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,8 +21,8 @@ public class Member extends Auditing {
     private long id;
     private String email;
     private String name;
-    private String birthdate;
-    private String phone;
+    private LocalDate birthday;
+    private String phoneNumber;
     private String address;
     private Gender gender;
     private Long height;
@@ -34,11 +36,11 @@ public class Member extends Auditing {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-    public Member(String email, String name, String birthdate,String phone, String address, Gender gender, Long height, Long weight, String occupation, String note,Gym gym, Team team) {
+    public Member(String email, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
         this.email = email;
         this.name = name;
-        this.birthdate = birthdate;
-        this.phone = phone;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
         this.address = address;
         this.gender = gender;
         this.height = height;

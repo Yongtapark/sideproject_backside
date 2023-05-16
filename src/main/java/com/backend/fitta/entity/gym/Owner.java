@@ -30,5 +30,12 @@ public class Owner extends Auditing {
         BusinessRegistrationNumber = businessRegistrationNumber;
     }
 
+    public void changeOwnerInfo(String name, String phone, String address, String businessRegistrationNumber){
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.BusinessRegistrationNumber = businessRegistrationNumber;
+    }
+
 
 }

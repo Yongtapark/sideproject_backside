@@ -26,7 +26,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath address = createString("address");
 
-    public final StringPath birthdate = createString("birthdate");
+    public final DatePath<java.time.LocalDate> birthday = createDate("birthday", java.time.LocalDate.class);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
@@ -53,7 +53,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath occupation = createString("occupation");
 
-    public final StringPath phone = createString("phone");
+    public final StringPath phoneNumber = createString("phoneNumber");
 
     public final com.backend.fitta.entity.gym.QTeam team;
 
