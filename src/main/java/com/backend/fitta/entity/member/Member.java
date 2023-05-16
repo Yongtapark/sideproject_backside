@@ -3,6 +3,7 @@ package com.backend.fitta.entity.member;
 
 import com.backend.fitta.entity.Auditing;
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -18,7 +19,8 @@ public class Member extends Auditing {
     private long id;
     private String email;
     private String name;
-    private Long age;
+    private String birthdate;
+    private String phone;
     private String address;
     private Gender gender;
     private Long height;
@@ -26,22 +28,33 @@ public class Member extends Auditing {
     private String occupation;
     private String note;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_name")
+    @JoinColumn(name = "team_id")
     private Team team;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
 
-    public Member(String email, String name, Long age, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team) {
+    public Member(String email, String name, String birthdate,String phone, String address, Gender gender, Long height, Long weight, String occupation, String note,Gym gym, Team team) {
         this.email = email;
         this.name = name;
-        this.age = age;
+        this.birthdate = birthdate;
+        this.phone = phone;
         this.address = address;
         this.gender = gender;
         this.height = height;
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
+        if(gym!=null){
+            changeGym(gym);
+        }
         if(team!=null){
             changeTeam(team);
         }
+    }
+    public void changeGym(Gym gym){
+        this.gym=gym;
+        gym.getMember().add(this);
     }
 
     public void changeTeam(Team team){

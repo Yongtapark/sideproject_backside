@@ -1,7 +1,6 @@
 package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.Auditing;
-import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,17 +12,23 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Team extends Auditing {
-    @Column(name = "team_id")
+public class Owner extends Auditing {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "team")
-    private List<Member> members = new ArrayList<>();
-    @OneToMany(mappedBy = "team")
-    private List<Staff> staffs =new ArrayList<>();
+    private String phone;
+    private String address;
+    private String BusinessRegistrationNumber;
+    @OneToMany(mappedBy = "owner")
+    private List<Gym> gym = new ArrayList<>();
 
-    public Team(String name) {
+
+    public Owner(String name, String phone, String address, String businessRegistrationNumber) {
         this.name = name;
+        this.phone = phone;
+        this.address = address;
+        BusinessRegistrationNumber = businessRegistrationNumber;
     }
+
+
 }

@@ -1,3 +1,4 @@
+/*
 package com.backend.fitta.controller.member;
 
 import com.backend.fitta.dto.Member.SignUpRequest;
@@ -18,3 +19,4 @@ public class MemberController {
     }
 
 }
+*/
