@@ -15,6 +15,8 @@ public class UpdateMemberRequest {
     @Email
     private String email;
     @NotBlank
+    private String password;
+    @NotBlank
     private String name;
 
     private Long age;
