@@ -1,5 +1,6 @@
 package com.backend.fitta.service.member;
 
+import com.backend.fitta.dto.Member.FindByEmailResponse;
 import com.backend.fitta.dto.Member.SignUpRequest;
 import com.backend.fitta.dto.Member.UpdateMemberRequest;
 import com.backend.fitta.entity.member.Member;
@@ -41,17 +42,22 @@ public class MemberService {
     }
 
 
-    public Member findMember(String memberEmail) {
+    public FindByEmailResponse findMember(String memberEmail) {
         Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
-        return member;
+        return new FindByEmailResponse(member.getId(),member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
+        ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
     }
 
 
     public void deleteMember(String memberEmail) {
-        Optional<Member> findMember = memberRepository.findByEmail(memberEmail);
-        if (findMember.isEmpty()) {
-            throw new IllegalArgumentException("존재하지 않는 아이디입니다.");
-        }
+//        Optional<Member> findMember = memberRepository.findByEmail(memberEmail);
+//        if (findMember.isEmpty()) {
+//            throw new IllegalArgumentException("존재하지 않는 아이디입니다.");
+//        }
         memberRepository.deleteByEmail(memberEmail);
+    }
+
+    public Optional<Member> findByEmail(String memberEmail) {
+        return memberRepository.findByEmail(memberEmail);
     }
 }
