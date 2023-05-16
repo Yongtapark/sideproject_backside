@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity // 스프링 시큐리티 설정 활성화
+//@EnableWebSecurity // 스프링 시큐리티 설정 활성화
 @RequiredArgsConstructor
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
