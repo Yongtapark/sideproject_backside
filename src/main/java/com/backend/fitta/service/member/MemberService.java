@@ -14,10 +14,11 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    @Transactional
+
     public Long save(SignUpRequest rq) {
         Optional<Member> findMember = memberRepository.findByEmail(rq.getEmail());
         if (!findMember.isEmpty()) { //중복 체크
@@ -32,21 +33,25 @@ public class MemberService {
         return member.getId();
     }
 
-    @Transactional
+
     public Long update(String memberEmail, UpdateMemberRequest rq) {
         Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
         member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
         return member.getId();
     }
 
-    @Transactional
+
     public Member findMember(String memberEmail) {
         Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
         return member;
     }
 
-    @Transactional
+
     public void deleteMember(String memberEmail) {
+        Optional<Member> findMember = memberRepository.findByEmail(memberEmail);
+        if (findMember.isEmpty()) {
+            throw new IllegalArgumentException("존재하지 않는 아이디입니다.");
+        }
         memberRepository.deleteByEmail(memberEmail);
     }
 }
