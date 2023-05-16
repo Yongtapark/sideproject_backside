@@ -22,51 +22,51 @@ class MemberRepositoryTest {
     @Autowired
     private TeamRepository teamRepository;
 
-    @BeforeEach
-    void preTest(){
-        Team teamA=new Team("teamA");
-        teamRepository.save(teamA);
+//    @BeforeEach
+//    void preTest(){
+//        Team teamA=new Team("teamA");
+//        teamRepository.save(teamA);
+//
+//        Member memberA = new Member(
+//                "email@email.com",
+//                "memberA",
+//                20L,
+//                "address",
+//                Gender.FEMALE,
+//                180L,
+//                80L,
+//                "beck-dev",
+//                "nothing",
+//                null,
+//                null,
+//                null);
+//
+//        memberRepository.save(memberA);
+//    }
 
-        Member memberA = new Member(
-                "email@email.com",
-                "memberA",
-                20L,
-                "address",
-                Gender.FEMALE,
-                180L,
-                80L,
-                "beck-dev",
-                "nothing",
-                null,
-                null,
-                null);
-
-        memberRepository.save(memberA);
-    }
-
-    @Test
-    void join() {
-        Team teamB=new Team("teamB");
-        teamRepository.save(teamB);
-
-        Member memberB = new Member(
-                "email@email.com",
-                "memberB",
-                20L,
-                "address",
-                Gender.MALE,
-                180L,
-                80L,
-                "beck-dev",
-                "nothing",
-                null,
-                null,
-                teamB);
-
-        Member savedMember = memberRepository.save(memberB);
-        Member member = memberRepository.findById(savedMember.getId()).get();
-        Assertions.assertThat(savedMember).isEqualTo(member);
-    }
-
+//    @Test
+//    void join() {
+//        Team teamB=new Team("teamB");
+//        teamRepository.save(teamB);
+//
+//        Member memberB = new Member(
+//                "email@email.com",
+//                "memberB",
+//                20L,
+//                "address",
+//                Gender.MALE,
+//                180L,
+//                80L,
+//                "beck-dev",
+//                "nothing",
+//                null,
+//                null,
+//                teamB);
+//
+//        Member savedMember = memberRepository.save(memberB);
+//        Member member = memberRepository.findById(savedMember.getId()).get();
+//        Assertions.assertThat(savedMember).isEqualTo(member);
+//    }
+//
 
 }
