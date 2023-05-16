@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 public class SignUpRequest {
 
-     @Email
+    @Email
     private String email;
     @NotBlank
     private String password;
