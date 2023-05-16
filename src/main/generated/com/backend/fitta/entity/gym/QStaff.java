@@ -26,7 +26,7 @@ public class QStaff extends EntityPathBase<Staff> {
 
     public final StringPath address = createString("address");
 
-    public final NumberPath<Long> age = createNumber("age", Long.class);
+    public final DatePath<java.time.LocalDate> birthday = createDate("birthday", java.time.LocalDate.class);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
@@ -69,7 +69,7 @@ public class QStaff extends EntityPathBase<Staff> {
 
     public QStaff(Class<? extends Staff> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.gym = inits.isInitialized("gym") ? new QGym(forProperty("gym")) : null;
+        this.gym = inits.isInitialized("gym") ? new QGym(forProperty("gym"), inits.get("gym")) : null;
         this.team = inits.isInitialized("team") ? new QTeam(forProperty("team")) : null;
     }
 

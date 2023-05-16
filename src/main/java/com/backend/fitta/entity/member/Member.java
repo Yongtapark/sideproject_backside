@@ -3,20 +3,17 @@ package com.backend.fitta.entity.member;
 
 import com.backend.fitta.entity.Auditing;
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends Auditing {
 
@@ -24,36 +21,42 @@ public class Member extends Auditing {
     private long id;
     private String email;
     private String name;
-    private Long age;
+    private LocalDate birthday;
+    private String phoneNumber;
     private String address;
-    @Enumerated(EnumType.STRING)
     private Gender gender;
     private Long height;
     private Long weight;
     private String occupation;
     private String note;
-    private String phoneNumber;
-    private LocalDate birthday;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_name")
+    @JoinColumn(name = "team_id")
     private Team team;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
 
-    public Member(String email, String name, Long age, String address, Gender gender, Long height, Long weight, String occupation, String note, String phoneNumber, LocalDate birthday, Team team) {
+    public Member(String email, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
         this.email = email;
         this.name = name;
-        this.age = age;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
         this.address = address;
         this.gender = gender;
         this.height = height;
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
+        if(gym!=null){
+            changeGym(gym);
+        }
         if(team!=null){
             changeTeam(team);
         }
+    }
+    public void changeGym(Gym gym){
+        this.gym=gym;
+        gym.getMember().add(this);
     }
 
     public void changeTeam(Team team){

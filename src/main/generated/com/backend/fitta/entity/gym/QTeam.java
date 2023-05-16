@@ -20,7 +20,18 @@ public class QTeam extends EntityPathBase<Team> {
 
     public static final QTeam team = new QTeam("team");
 
+    public final com.backend.fitta.entity.QAuditing _super = new com.backend.fitta.entity.QAuditing(this);
+
+    //inherited
+    public final StringPath createdBy = _super.createdBy;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
     public final ListPath<com.backend.fitta.entity.member.Member, com.backend.fitta.entity.member.QMember> members = this.<com.backend.fitta.entity.member.Member, com.backend.fitta.entity.member.QMember>createList("members", com.backend.fitta.entity.member.Member.class, com.backend.fitta.entity.member.QMember.class, PathInits.DIRECT2);
 
