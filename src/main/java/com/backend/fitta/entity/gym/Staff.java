@@ -8,6 +8,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,9 +17,9 @@ public class Staff extends Auditing {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Long age;
+    private LocalDate birthday;
     private Gender gender;
-    private String phone;
+    private String phoneNumber;
     private String address;
     private Grade grade;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,11 +30,11 @@ public class Staff extends Auditing {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-    public Staff(String name, Long age, Gender gender, String phone, String address, Grade grade, Gym gym, Team team) {
+    public Staff(String name, LocalDate birthday, Gender gender, String phoneNumber, String address, Grade grade, Gym gym, Team team) {
         this.name = name;
-        this.age = age;
+        this.birthday = birthday;
         this.gender = gender;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.address = address;
         this.grade = grade;
         if (gym != null) {
@@ -43,6 +45,14 @@ public class Staff extends Auditing {
         }
     }
 
+    public void changeStaffInfo(String name, LocalDate birthday, Gender gender, String phone, String address, Grade grade) {
+        this.name = name;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.phoneNumber = phone;
+        this.address = address;
+        this.grade = grade;
+    }
 
     public void changeGym(Gym gym){
         this.gym=gym;

@@ -1,4 +1,4 @@
-package com.backend.fitta.service.gym;
+package com.backend.fitta.service.interfaces;
 
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.repository.OwnerRepository;
@@ -9,10 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface OwnerService {
-    Long saveOwner(Owner owner);
-    Owner selectOwner(Long id);
-    List<Owner> selectAll();
-    Long updateOwner(Long id, Owner owner);
+    Long save(Owner owner);
+    Owner findById(Long id);
+    List<Owner> findAll();
+    Long update(Long id, Owner owner);
+    void delete(Long id);
 
 
 
