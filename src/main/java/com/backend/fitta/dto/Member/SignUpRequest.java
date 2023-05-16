@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 public class SignUpRequest {
 
-     @Email
+    @Email
     private String email;
     @NotBlank
     private String password;
@@ -20,8 +20,10 @@ public class SignUpRequest {
     private String name;
     @NotBlank
     private String address;
+    @NotBlank
     private Gender gender;
     @NotBlank
     private String phoneNumber;
+    @NotBlank
     private LocalDate birthday;
 }

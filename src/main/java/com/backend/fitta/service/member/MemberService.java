@@ -1,23 +1,24 @@
 package com.backend.fitta.service.member;
 
 import com.backend.fitta.dto.Member.SignUpRequest;
-import com.backend.fitta.dto.Member.UpdateMemberRequest;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.repository.MemberRepository;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    @Transactional
+
     public Long save(SignUpRequest rq) {
         Optional<Member> findMember = memberRepository.findByEmail(rq.getEmail());
         if (!findMember.isEmpty()) { //중복 체크
@@ -32,7 +33,6 @@ public class MemberService {
         return member.getId();
     }
 
-    @Transactional
     public Long update(String memberEmail, UpdateMemberRequest rq) {
         Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
         member.setName(rq.getName());
@@ -48,13 +48,11 @@ public class MemberService {
         return member.getId();
     }
 
-    @Transactional
     public Member findMember(String memberEmail) {
         Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
         return member;
     }
-
-    @Transactional
+    
     public void deleteMember(String memberEmail) {
         memberRepository.deleteByEmail(memberEmail);
     }
