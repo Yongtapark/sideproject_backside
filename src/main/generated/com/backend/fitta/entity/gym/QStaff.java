@@ -26,7 +26,7 @@ public class QStaff extends EntityPathBase<Staff> {
 
     public final StringPath address = createString("address");
 
-    public final NumberPath<Long> age = createNumber("age", Long.class);
+    public final DatePath<java.time.LocalDate> birthday = createDate("birthday", java.time.LocalDate.class);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;

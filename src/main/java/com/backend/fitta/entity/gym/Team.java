@@ -26,4 +26,8 @@ public class Team extends Auditing {
     public Team(String name) {
         this.name = name;
     }
+
+    public void changeTeamInfo(String name){
+        this.name = name;
+    }
 }

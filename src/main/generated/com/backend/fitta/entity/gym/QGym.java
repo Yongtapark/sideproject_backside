@@ -45,7 +45,7 @@ public class QGym extends EntityPathBase<Gym> {
 
     public final QOwner owner;
 
-    public final StringPath phone = createString("phone");
+    public final StringPath phoneNumber = createString("phoneNumber");
 
     public final ListPath<Staff, QStaff> staff = this.<Staff, QStaff>createList("staff", Staff.class, QStaff.class, PathInits.DIRECT2);
 

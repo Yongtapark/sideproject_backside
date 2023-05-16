@@ -18,6 +18,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 //JPA 를 사용하려면 트랜잭션이 필요합니다.
@@ -45,7 +47,7 @@ class MemberRepositoryTest {
         Member memberA = new Member(
                 "email@email.com",
                 "memberA",
-                "1111-09-09",
+                LocalDate.of(1999,1,1),
                 "010-0000-0000",
                 "address",
                 Gender.MALE,
@@ -72,7 +74,7 @@ class MemberRepositoryTest {
         Member memberB = new Member(
                 "email@email.com",
                 "memberB",
-                "1111-09-09",
+                LocalDate.of(1999,1,1),
                 "010-0000-0000",
                 "address",
                 Gender.MALE,
