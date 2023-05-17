@@ -1,4 +1,4 @@
-package com.backend.fitta.service.member;
+package com.backend.fitta.service;
 
 import com.backend.fitta.dto.Member.FindByEmailResponse;
 import com.backend.fitta.dto.Member.SignUpRequest;
@@ -47,7 +47,7 @@ public class MemberService {
     public FindByEmailResponse findMember(String memberEmail) {
         Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
         return new FindByEmailResponse(member.getId(),member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
-        ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
+                ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
     }
 
 
