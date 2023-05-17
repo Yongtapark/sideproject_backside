@@ -20,10 +20,12 @@ public class Member extends Auditing {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String email;
+    private String password;
     private String name;
     private LocalDate birthday;
     private String phoneNumber;
     private String address;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private Long height;
     private Long weight;
@@ -36,8 +38,9 @@ public class Member extends Auditing {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-    public Member(String email, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
+    public Member(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
         this.email = email;
+        this.password = password;
         this.name = name;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
@@ -54,9 +57,22 @@ public class Member extends Auditing {
             changeTeam(team);
         }
     }
+
+    public void changeMemberInfo(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.height = height;
+        this.weight = weight;
+        this.occupation = occupation;
+        this.note = note;
+    }
     public void changeGym(Gym gym){
         this.gym=gym;
-        gym.getMember().add(this);
+//        gym.getMember().add(this);
     }
 
     public void changeTeam(Team team){
