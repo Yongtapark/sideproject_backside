@@ -1,4 +1,3 @@
-/*
 package com.backend.fitta.repository;
 
 import com.backend.fitta.entity.enums.Gender;
@@ -47,6 +46,7 @@ class MemberRepositoryTest {
 
         Member memberA = new Member(
                 "email@email.com",
+                "pass",
                 "memberA",
                 LocalDate.of(1999,1,1),
                 "010-0000-0000",
@@ -74,6 +74,7 @@ class MemberRepositoryTest {
 
         Member memberB = new Member(
                 "email@email.com",
+                "pass",
                 "memberB",
                 LocalDate.of(1999,1,1),
                 "010-0000-0000",
@@ -92,4 +93,4 @@ class MemberRepositoryTest {
     }
 
 
-}*/
+}

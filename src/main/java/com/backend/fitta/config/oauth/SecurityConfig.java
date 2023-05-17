@@ -5,6 +5,7 @@ import com.backend.fitta.entity.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -12,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity // 스프링 시큐리티 설정 활성화
 @RequiredArgsConstructor
 @Configuration
+
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     @Bean
