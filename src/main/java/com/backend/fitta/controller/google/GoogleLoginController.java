@@ -1,6 +1,6 @@
 package com.backend.fitta.controller.google;
 
-import com.backend.fitta.config.oauth.CustomOAuth2UserService;
+
 import com.backend.fitta.config.oauth.dto.OAuthAttributes;
 import com.backend.fitta.config.oauth.dto.SessionUser;
 import com.backend.fitta.entity.user.User;
