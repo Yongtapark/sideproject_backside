@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class GoogleLoginController {
     private final HttpSession httpSession;
-    private final CustomOAuth2UserService customOAuth2UserService;
     private final UserRepository userRepository;
 
    @GetMapping("/api/user/login")
