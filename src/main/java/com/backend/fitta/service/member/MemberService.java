@@ -1,4 +1,4 @@
-package com.backend.fitta.service;
+package com.backend.fitta.service.member;
 
 import com.backend.fitta.dto.Member.FindByEmailResponse;
 import com.backend.fitta.dto.Member.SignUpRequest;
@@ -27,9 +27,9 @@ public class MemberService {
         if (!findMember.isEmpty()) { //중복 체크
             throw new AlreadyExistMemberException("이미 존재하는 아이디입니다.");
         }
-//        if (!rq.getPassword().equals(rq.getPasswordConfirm())) {
-//            throw new PWNotCorrespondException("비밀번호가 일치하지 않습니다.");
-//        }
+        if (!rq.getPassword().equals(rq.getPasswordConfirm())) {
+            throw new PWNotCorrespondException("비밀번호가 일치하지 않습니다.");
+        }
         Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress()
                 , rq.getGender(), null, null, null, null, null, null);
         memberRepository.save(member);
@@ -47,7 +47,7 @@ public class MemberService {
     public FindByEmailResponse findMember(String memberEmail) {
         Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
         return new FindByEmailResponse(member.getId(),member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
-                ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
+        ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
     }
 
 

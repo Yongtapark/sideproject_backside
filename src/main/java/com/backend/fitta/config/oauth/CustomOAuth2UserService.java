@@ -7,6 +7,7 @@ import com.backend.fitta.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -51,7 +52,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         log.info("userNameAttributeName={}",userNameAttributeName);
         /*OAuthAttributes - OAuth2UserService 를 통해 가져온 OAuth2User 의 attribute 를 담을 클래스*/
         OAuthAttributes attributes = OAuthAttributes.of(registrationId,userNameAttributeName,oAuth2User.getAttributes());
-
+        log.info("attributes={}",attributes);
         User user = saveOrUpdate(attributes);
         /*SessionUser - 세션에 사용자 정보를 저장하기위한 Dto 클래스*/
         httpSession.setAttribute("user",new SessionUser(user));
@@ -62,7 +63,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     private User saveOrUpdate(OAuthAttributes attributes){
         User user = userRepository.findByEmail(attributes.getEmail()).map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
-
         return userRepository.save(user);
     }
 }
