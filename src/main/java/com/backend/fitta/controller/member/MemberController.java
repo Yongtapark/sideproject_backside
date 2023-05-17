@@ -25,6 +25,9 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<Long> saveMember(@Valid @RequestBody SignUpRequest request) {
+        log.info("id={}",request.getEmail());
+        log.info("pw={}",request.getPassword());
+
         return ResponseEntity.status(HttpStatus.CREATED).body(memberService.save(request));
     }
 
