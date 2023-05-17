@@ -5,7 +5,6 @@ import com.backend.fitta.entity.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,13 +14,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 @Profile("!test")
 @Configuration//이게 없어서 설정이 불가능했었다.
-
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .authorizeRequests()
                 .requestMatchers("/api/user/login")
                 .authenticated()
