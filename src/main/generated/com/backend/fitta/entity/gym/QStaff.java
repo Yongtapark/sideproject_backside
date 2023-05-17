@@ -47,7 +47,7 @@ public class QStaff extends EntityPathBase<Staff> {
 
     public final StringPath name = createString("name");
 
-    public final StringPath phone = createString("phone");
+    public final StringPath phoneNumber = createString("phoneNumber");
 
     public final QTeam team;
 
