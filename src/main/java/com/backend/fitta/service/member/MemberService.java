@@ -4,6 +4,8 @@ import com.backend.fitta.dto.Member.FindByEmailResponse;
 import com.backend.fitta.dto.Member.SignUpRequest;
 import com.backend.fitta.dto.Member.UpdateMemberRequest;
 import com.backend.fitta.entity.member.Member;
+import com.backend.fitta.exception.AlreadyExistMemberException;
+import com.backend.fitta.exception.PWNotCorrespondException;
 import com.backend.fitta.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +25,10 @@ public class MemberService {
     public Long save(SignUpRequest rq) {
         Optional<Member> findMember = memberRepository.findByEmail(rq.getEmail());
         if (!findMember.isEmpty()) { //중복 체크
-            throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
+            throw new AlreadyExistMemberException("이미 존재하는 아이디입니다.");
         }
         if (!rq.getPassword().equals(rq.getPasswordConfirm())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new PWNotCorrespondException("비밀번호가 일치하지 않습니다.");
         }
         Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress()
                 , rq.getGender(), null, null, null, null, null, null);
@@ -50,10 +52,6 @@ public class MemberService {
 
 
     public void deleteMember(String memberEmail) {
-//        Optional<Member> findMember = memberRepository.findByEmail(memberEmail);
-//        if (findMember.isEmpty()) {
-//            throw new IllegalArgumentException("존재하지 않는 아이디입니다.");
-//        }
         memberRepository.deleteByEmail(memberEmail);
     }
 
