@@ -2,6 +2,7 @@ package com.backend.fitta.dto.Member;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import com.backend.fitta.entity.enums.Gender;
@@ -22,10 +23,10 @@ public class SignUpRequest {
     private String name;
     @NotBlank
     private String address;
-    @NotBlank
+    @NotNull
     private Gender gender;
     @NotBlank
     private String phoneNumber;
-    @NotBlank
+    @NotNull
     private LocalDate birthday;
 }
