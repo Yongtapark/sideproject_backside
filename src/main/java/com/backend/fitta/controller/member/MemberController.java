@@ -40,6 +40,7 @@ public class MemberController {
     @DeleteMapping("/{memberEmail}")
     public ResponseEntity<Void> deleteMember(@PathVariable String memberEmail) {
         memberService.findByEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException("회원이 존재하지 않습니다."));
+        memberService.deleteMember(memberEmail);
         return ResponseEntity.noContent().build();
     }
 }
