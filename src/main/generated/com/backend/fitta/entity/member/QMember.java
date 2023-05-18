@@ -53,6 +53,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath occupation = createString("occupation");
 
+    public final StringPath password = createString("password");
+
     public final StringPath phoneNumber = createString("phoneNumber");
 
     public final com.backend.fitta.entity.gym.QTeam team;
