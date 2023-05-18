@@ -1,8 +1,10 @@
 package com.backend.fitta.controller.member;
 
-import com.backend.fitta.dto.Member.FindByEmailResponse;
-import com.backend.fitta.dto.Member.SignUpRequest;
-import com.backend.fitta.dto.Member.UpdateMemberRequest;
+import com.backend.fitta.config.jwt.TokenInfo;
+import com.backend.fitta.dto.member.FindByEmailResponse;
+import com.backend.fitta.dto.member.MemberLoginRequestDto;
+import com.backend.fitta.dto.member.SignUpRequest;
+import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.service.member.MemberService;
 import jakarta.validation.Valid;
@@ -19,6 +21,19 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @PostMapping("/test")
+    public String test() {
+        return "success";
+    }
+
+    @PostMapping("/login")
+    public TokenInfo login(@RequestBody MemberLoginRequestDto memberLoginRequestDto){
+        String email = memberLoginRequestDto.getEmail();
+        String password = memberLoginRequestDto.getPassword();
+        TokenInfo tokenInfo = memberService.login(email, password);
+        return tokenInfo;
+    }
 
     @PostMapping
     public ResponseEntity<Long> saveMember(@Valid @RequestBody SignUpRequest request) {

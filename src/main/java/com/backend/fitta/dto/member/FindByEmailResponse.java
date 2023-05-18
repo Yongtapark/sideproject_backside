@@ -1,4 +1,4 @@
-package com.backend.fitta.dto.Member;
+package com.backend.fitta.dto.member;
 
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Gym;

@@ -57,6 +57,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath phoneNumber = createString("phoneNumber");
 
+    public final EnumPath<com.backend.fitta.entity.user.Role> roles = createEnum("roles", com.backend.fitta.entity.user.Role.class);
+
     public final com.backend.fitta.entity.gym.QTeam team;
 
     public final NumberPath<Long> weight = createNumber("weight", Long.class);
