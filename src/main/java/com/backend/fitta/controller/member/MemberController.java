@@ -27,20 +27,24 @@ public class MemberController {
 
     @PutMapping("/{memberEmail}")
     public ResponseEntity<Long> updateMember(@PathVariable String memberEmail, @Valid @RequestBody UpdateMemberRequest request) {
-        memberService.findByEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException("회원이 존재하지 않습니다."));
+        validateExistMember(memberEmail);
         return ResponseEntity.ok(memberService.update(memberEmail, request));
     }
 
     @GetMapping("/{memberEmail}")
     public ResponseEntity<FindByEmailResponse> findMember(@PathVariable String memberEmail) {
-        memberService.findByEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException("회원이 존재하지 않습니다."));
+        validateExistMember(memberEmail);
         return ResponseEntity.ok(memberService.findMember(memberEmail));
     }
 
     @DeleteMapping("/{memberEmail}")
     public ResponseEntity<Void> deleteMember(@PathVariable String memberEmail) {
-        memberService.findByEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException("회원이 존재하지 않습니다."));
+        validateExistMember(memberEmail);
         memberService.deleteMember(memberEmail);
         return ResponseEntity.noContent().build();
+    }
+
+    private void validateExistMember(String memberEmail) {
+        memberService.findByEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException());
     }
 }

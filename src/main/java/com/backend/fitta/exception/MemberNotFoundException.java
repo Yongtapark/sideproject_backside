@@ -2,7 +2,7 @@ package com.backend.fitta.exception;
 
 public class MemberNotFoundException extends RuntimeException{
     public MemberNotFoundException() {
-        super();
+        super("회원이 존재하지 않습니다.");
     }
 
     public MemberNotFoundException(String message) {
