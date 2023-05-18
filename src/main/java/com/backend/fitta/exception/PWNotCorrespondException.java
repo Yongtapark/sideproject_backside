@@ -2,7 +2,7 @@ package com.backend.fitta.exception;
 
 public class PWNotCorrespondException extends RuntimeException{
     public PWNotCorrespondException() {
-        super();
+        super("비밀번호가 일치하지 않습니다.");
     }
 
     public PWNotCorrespondException(String message) {
