@@ -72,7 +72,7 @@ public class Member extends Auditing {
     }
     public void changeGym(Gym gym){
         this.gym=gym;
-//        gym.getMember().add(this);
+        gym.getMember().add(this);
     }
 
     public void changeTeam(Team team){
