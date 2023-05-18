@@ -25,10 +25,10 @@ public class MemberService {
     public Long save(SignUpRequest rq) {
         Optional<Member> findMember = memberRepository.findByEmail(rq.getEmail());
         if (!findMember.isEmpty()) { //중복 체크
-            throw new AlreadyExistMemberException("이미 존재하는 아이디입니다.");
+            throw new AlreadyExistMemberException();
         }
         if (!rq.getPassword().equals(rq.getPasswordConfirm())) {
-            throw new PWNotCorrespondException("비밀번호가 일치하지 않습니다.");
+            throw new PWNotCorrespondException();
         }
         Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress()
                 , rq.getGender(), null, null, null, null, null, null);
