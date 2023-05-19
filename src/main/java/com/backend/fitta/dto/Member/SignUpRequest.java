@@ -1,5 +1,6 @@
 package com.backend.fitta.dto.Member;
 
+import com.backend.fitta.entity.gym.Team;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,4 +30,7 @@ public class SignUpRequest {
     private String phoneNumber;
     @NotNull
     private LocalDate birthday;
+    private Team team;
+    //직업 추가
+    //전화번호, 비밀번호
 }
