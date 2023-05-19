@@ -25,34 +25,32 @@ public class SecurityConfig{
     private final JwtTokenProvider jwtTokenProvider;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-      /*  http    .csrf()
-                .disable()
-                .authorizeRequests()
-                .requestMatchers("/api/user/login")
-                .authenticated()
-                .anyRequest().permitAll()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .and()
-                .oauth2Login()
-                .userInfoEndpoint()
-                .userService(customOAuth2UserService);*/
 
-        http
+      /*  http
                 .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .shouldFilterAllDispatcherTypes(false)
-                .requestMatchers("/members/login").permitAll()
+                .requestMatchers("/members/login","/api/info").permitAll()
                 .requestMatchers("/members/test").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login()
+                .defaultSuccessUrl("/api/user/login")
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService);*/
+        http
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .requestMatchers("/v1/userinfo","/members/login","/oauth2/authorization/google").permitAll()
+                .anyRequest().permitAll()
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);// JWT 인증 필터를 추가
         return http.build();
     }
 
