@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -20,7 +19,6 @@ import java.net.URLEncoder;
 @Slf4j
 public class LoginController {
     private final LoginService loginService;
-    private final WebClient webClient=WebClient.builder().baseUrl("http://localhost:8081").build();
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
 
