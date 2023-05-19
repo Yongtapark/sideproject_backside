@@ -27,6 +27,7 @@ public class Member extends Auditing {
     private String address;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     private Long height;
     private Long weight;
     private String occupation;

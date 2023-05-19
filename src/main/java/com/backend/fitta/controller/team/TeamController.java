@@ -1,11 +1,8 @@
 package com.backend.fitta.controller.team;
 
-import com.backend.fitta.dto.Member.FindByEmailResponse;
-import com.backend.fitta.dto.Member.UpdateMemberRequest;
 import com.backend.fitta.dto.team.FindTeamByIdResponse;
 import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.dto.team.UpdateTeamRequest;
-import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.exception.TeamNotFoundException;
 import com.backend.fitta.service.interfaces.TeamService;
 import jakarta.validation.Valid;
@@ -41,7 +38,7 @@ public class TeamController {
 
 
     @DeleteMapping("/{teamId}")
-    public ResponseEntity<Void> deleteMember(@PathVariable Long teamId) {
+    public ResponseEntity<Void> deleteTeam(@PathVariable Long teamId) {
         validateExistTeam(teamId);
         teamService.deleteTeam(teamId);
         return ResponseEntity.noContent().build();

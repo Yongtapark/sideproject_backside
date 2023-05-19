@@ -1,8 +1,10 @@
 package com.backend.fitta.repository;
 
+import com.backend.fitta.dto.team.MemberTeamResponse;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
@@ -21,6 +26,8 @@ class MemberRepositoryTest {
     private MemberRepository memberRepository;
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    EntityManager em;
 
 //    @BeforeEach
 //    void preTest(){
@@ -69,4 +76,30 @@ class MemberRepositoryTest {
 //    }
 //
 
+    @Test
+    public void searchTest() {
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        em.persist(teamA);
+        em.persist(teamB);
+
+        Member member1 = new Member("member1@naver.com", "1234", "member1", LocalDate.of(2012, 10, 22),
+                "010234", "대구", Gender.FEMALE, null, null, null, null, null, teamA);
+        Member member2 = new Member("member2@naver.com", "1234", "member2", LocalDate.of(2012, 10, 22),
+                "010234", "서울", Gender.FEMALE, null, null, null, null, null, teamA);
+
+        Member member3 = new Member("member3@naver.com", "1234", "member3", LocalDate.of(2012, 10, 22),
+                "010234", "부산", Gender.FEMALE, null, null, null, null, null, teamB);
+        Member member4 = new Member("member4@naver.com", "1234", "member4", LocalDate.of(2012, 10, 22),
+                "010234", "인천", Gender.FEMALE, null, null, null, null, null, teamB);
+        em.persist(member1);
+        em.persist(member2);
+        em.persist(member3);
+        em.persist(member4);
+
+        List<MemberTeamResponse> result = memberRepository.search(1L);
+        for (MemberTeamResponse memberTeamResponse : result) {
+            System.out.println(memberTeamResponse);
+        }
+    }
 }
