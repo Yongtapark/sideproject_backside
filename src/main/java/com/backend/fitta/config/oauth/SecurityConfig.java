@@ -41,7 +41,8 @@ public class SecurityConfig{
                 new AntPathRequestMatcher("/oauth2/authorization/google"),
                 new AntPathRequestMatcher("/auth/sign"),
                 new AntPathRequestMatcher("https://fitta-git-dev-yiminwook.vercel.app/**"),
-                new AntPathRequestMatcher("/login/oauth2/code/{registrationId}")
+                new AntPathRequestMatcher("/login/oauth2/code/{registrationId}"),
+                new AntPathRequestMatcher("https://c76d-210-219-182-113.ngrok-free.app/**")
         );
 
         http

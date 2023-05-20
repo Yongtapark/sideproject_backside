@@ -10,8 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URLEncoder;
 
 @RestController
@@ -36,13 +38,15 @@ public class LoginController {
     public ResponseEntity<Urls> googleLogin() throws IOException {
         String scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
         String frontRedirectUrl ="https://fitta-git-dev-yiminwook.vercel.app/";
-
         String encodedScope = URLEncoder.encode(scope, "UTF-8");
         String encodeRedirectUrl = URLEncoder.encode(redirectUri, "UTF-8");
         String encodeFrontRedirectUrl = URLEncoder.encode(frontRedirectUrl, "UTF-8");
         loginPage="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id="+clientId+"&redirect_uri="+encodeRedirectUrl+"&response_type=code&scope="+encodedScope;
+
+        URI uri = URI.create(loginPage);
+
         Urls urls = new Urls(loginPage);
-        return ResponseEntity.ok().body(urls);
+        return ResponseEntity.created(uri).build();
     }
 
     /**
