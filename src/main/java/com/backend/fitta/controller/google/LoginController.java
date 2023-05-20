@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -28,12 +29,20 @@ public class LoginController {
 
     /**
      * 구글 로그인 페이지로 이동합니다
-     * @param response
+     * @param
      * @throws IOException
      */
-    @GetMapping("/v1/signin")
-    public void googleLogin(HttpServletResponse response) throws IOException {
-        encodeLoginPage(response);
+    @GetMapping("/auth/sign")
+    public ResponseEntity<Urls> googleLogin() throws IOException {
+        String scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+        String frontRedirectUrl ="https://fitta-git-dev-yiminwook.vercel.app/";
+
+        String encodedScope = URLEncoder.encode(scope, "UTF-8");
+        String encodeRedirectUrl = URLEncoder.encode(redirectUri, "UTF-8");
+        String encodeFrontRedirectUrl = URLEncoder.encode(frontRedirectUrl, "UTF-8");
+        loginPage="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id="+clientId+"&redirect_uri="+encodeRedirectUrl+"&response_type=code&scope="+encodedScope;
+        Urls urls = new Urls(loginPage);
+        return ResponseEntity.ok().body(urls);
     }
 
     /**
@@ -43,19 +52,11 @@ public class LoginController {
      * @return
      */
     @GetMapping("/login/oauth2/code/{registrationId}")
-    public AccountInfo login(@RequestParam String code, @PathVariable String registrationId) {
+    public ResponseEntity<AccountInfo> login(@RequestParam String code, @PathVariable String registrationId) {
         AccountInfo accountInfo = loginService.socialLogin(code, registrationId);
         log.info("userInfo={}",accountInfo);
-        return accountInfo;
+        return ResponseEntity.ok().body(accountInfo);
     }
 
 
-    private void encodeLoginPage(HttpServletResponse response) throws IOException {
-        String scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
-        String encodedScope = URLEncoder.encode(scope, "UTF-8");
-        String encodeRedirectUrl = URLEncoder.encode(redirectUri, "UTF-8");
-        loginPage="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id="+clientId+"&redirect_uri="+encodeRedirectUrl+"&response_type=code&scope="+encodedScope;
-
-        response.sendRedirect(loginPage);
-    }
 }

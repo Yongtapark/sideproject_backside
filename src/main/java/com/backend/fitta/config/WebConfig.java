@@ -11,7 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("https://fitta-git-dev-yiminwook.vercel.app")
-                .allowedMethods("GET", "POST", "PUT")
+                .allowedMethods("GET", "POST", "PUT","OPTIONS")
+                .allowedHeaders("access-control-allow-credentials", "access-control-allow-origin")
                 .allowCredentials(true)
                 .maxAge(3000);
     }
