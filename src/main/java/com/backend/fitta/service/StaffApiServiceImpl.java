@@ -1,10 +1,12 @@
 package com.backend.fitta.service;
 
+import com.backend.fitta.dto.team.FindStaffByIdResponse;
 import com.backend.fitta.dto.team.SaveStaffRequest;
+import com.backend.fitta.dto.team.UpdateStaffRequest;
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.repository.StaffRepository;
-import com.backend.fitta.service.interfaces.StaffService;
+import com.backend.fitta.service.interfaces.StaffApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class StaffServiceImpl implements StaffService {
+public class StaffApiServiceImpl implements StaffApiService {
     private final StaffRepository staffRepository;
 
     @Override
@@ -23,8 +25,9 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Staff findById(Long id) {
-        return staffRepository.findById(id).orElseThrow(()->new StaffNotFoundException());
+    public FindStaffByIdResponse findById(Long id) {
+        Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
+        return new FindStaffByIdResponse(staff.getName(), staff.getBirthday(), staff.getGender(), staff.getPhoneNumber(), staff.getAddress(), staff.getGrade());
     }
 
     @Override
@@ -33,10 +36,10 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Long update(Long id, Staff staff) {
-        Staff findStaff = findById(id);
-        findStaff.changeStaffInfo(staff.getName(),staff.getBirthday(),staff.getGender(),staff.getPhoneNumber(), staff.getAddress(),staff.getGrade());
-        return findStaff.getId();
+    public Long update(Long id, UpdateStaffRequest request) {
+        Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
+        staff.changeStaffInfo(request.getName(),request.getBirthday(),request.getPhoneNumber(), request.getAddress(),request.getGrade());
+        return staff.getId();
     }
 
     @Override
