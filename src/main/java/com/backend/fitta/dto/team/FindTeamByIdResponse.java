@@ -17,6 +17,5 @@ public class FindTeamByIdResponse {
         this.name = name;
         this.members = members;
         this.staffs = staffs;
-
     }
 }
