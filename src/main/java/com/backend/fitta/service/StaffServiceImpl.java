@@ -1,5 +1,6 @@
 package com.backend.fitta.service;
 
+import com.backend.fitta.dto.team.SaveStaffRequest;
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.repository.StaffRepository;
@@ -14,8 +15,10 @@ import java.util.List;
 @Service
 public class StaffServiceImpl implements StaffService {
     private final StaffRepository staffRepository;
+
     @Override
-    public Long save(Staff staff) {
+    public Long save(SaveStaffRequest request) {
+        Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(),request.getGrade(),request.getGym(), request.getTeam());
         return staffRepository.save(staff).getId();
     }
 
