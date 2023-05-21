@@ -2,17 +2,16 @@ package com.backend.fitta.service.interfaces;
 
 import com.backend.fitta.dto.team.FindStaffByIdResponse;
 import com.backend.fitta.dto.team.SaveStaffRequest;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.dto.team.UpdateStaffRequest;
 import com.backend.fitta.entity.gym.Staff;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface StaffService{
+public interface StaffApiService {
     Long save(SaveStaffRequest request);
     FindStaffByIdResponse findById(Long id);
     List<Staff> findAll();
-    Long update(Long id, Staff staff);
+    Long update(Long id, UpdateStaffRequest request);
     void delete(Long id);
 
 }
