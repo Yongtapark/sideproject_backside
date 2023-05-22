@@ -1,12 +1,14 @@
 package com.backend.fitta.service;
 
 import com.backend.fitta.dto.team.FindTeamByIdResponse;
+import com.backend.fitta.dto.team.MemberTeamResponse;
 import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.dto.team.UpdateTeamRequest;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.repository.MemberRepository;
 import com.backend.fitta.repository.TeamRepository;
-import com.backend.fitta.service.interfaces.TeamService;
+import com.backend.fitta.service.interfaces.TeamApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,18 +19,21 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TeamServiceImpl implements TeamService {
+public class TeamServiceImpl implements TeamApiService {
     private final TeamRepository teamRepository;
+    private final MemberRepository memberRepository;
     @Override
     public Long save(SaveTeamRequest request) {
         Team team = new Team(request.getName());
         return teamRepository.save(team).getId();
     }
 
+
     @Override
-    public Optional<FindTeamByIdResponse> findById(Long id) {
+    public FindTeamByIdResponse findById(Long id) {
+        List<MemberTeamResponse> result = memberRepository.search(id);
         Team team = teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException());
-        return Optional.of(new FindTeamByIdResponse(team.getId(), team.getName(), team.getMembers(), team.getStaffs()));
+        return new FindTeamByIdResponse(team.getName(), result, null);
     }
 
     @Override

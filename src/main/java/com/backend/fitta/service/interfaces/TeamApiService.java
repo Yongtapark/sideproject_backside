@@ -10,9 +10,10 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-public interface TeamService {
+public interface TeamApiService {
     Long save(SaveTeamRequest request);
-    Optional<FindTeamByIdResponse> findById(Long id);
+    FindTeamByIdResponse findById(Long id);
+
     List<Team> findAll();
     Long updateTeam(Long id, UpdateTeamRequest request);
     void deleteTeam(Long id);

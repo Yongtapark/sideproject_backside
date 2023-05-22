@@ -18,9 +18,11 @@ public class Staff extends Auditing {
     private Long id;
     private String name;
     private LocalDate birthday;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String phoneNumber;
     private String address;
+    @Enumerated(EnumType.STRING)
     private Grade grade;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
@@ -45,10 +47,9 @@ public class Staff extends Auditing {
         }
     }
 
-    public void changeStaffInfo(String name, LocalDate birthday, Gender gender, String phone, String address, Grade grade) {
+    public void changeStaffInfo(String name, LocalDate birthday, String phone, String address, Grade grade) {
         this.name = name;
         this.birthday = birthday;
-        this.gender = gender;
         this.phoneNumber = phone;
         this.address = address;
         this.grade = grade;
