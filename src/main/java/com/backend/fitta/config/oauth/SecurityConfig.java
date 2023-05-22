@@ -57,7 +57,7 @@ public class SecurityConfig{
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new OrRequestMatcher(permitAllRequestMatchers)).permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .httpBasic().disable()
                 .csrf().disable()
