@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class OwnerServiceImplTest {
+class OwnerApiServiceImplTest {
     @Autowired
     OwnerService ownerService;
 
