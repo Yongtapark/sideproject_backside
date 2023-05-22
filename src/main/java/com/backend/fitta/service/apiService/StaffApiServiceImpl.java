@@ -1,4 +1,4 @@
-package com.backend.fitta.service;
+package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.team.FindStaffByIdResponse;
 import com.backend.fitta.dto.team.SaveStaffRequest;
@@ -6,7 +6,7 @@ import com.backend.fitta.dto.team.UpdateStaffRequest;
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.repository.StaffRepository;
-import com.backend.fitta.service.interfaces.StaffApiService;
+import com.backend.fitta.service.apiService.interfaces.StaffApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
