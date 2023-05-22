@@ -36,13 +36,21 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         List<RequestMatcher> permitAllRequestMatchers = Arrays.asList(
+                //Api
                 new AntPathRequestMatcher("/v1/userinfo"),
                 new AntPathRequestMatcher("/members/login"),
                 new AntPathRequestMatcher("/oauth2/authorization/google"),
                 new AntPathRequestMatcher("/auth/sign"),
-                new AntPathRequestMatcher("https://fitta-git-dev-yiminwook.vercel.app/**"),
                 new AntPathRequestMatcher("/login/oauth2/code/{registrationId}"),
-                new AntPathRequestMatcher("https://c76d-210-219-182-113.ngrok-free.app/**")
+                //swagger
+                new AntPathRequestMatcher("/swagger-ui/**"),//Swagger 페이지
+                new AntPathRequestMatcher("/v3/api-docs/**"),//Swagger api 들을 불러오는 주소
+
+                //FrontPage
+                new AntPathRequestMatcher("https://fitta-git-dev-yiminwook.vercel.app/**"),
+                new AntPathRequestMatcher("http://localhost:3000/**"),
+                //HostingDomain
+                new AntPathRequestMatcher("https://1071-210-219-182-113.ngrok-free.app/**")
         );
 
         http
@@ -65,7 +73,7 @@ public class SecurityConfig{
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://fitta-git-dev-yiminwook.vercel.app")); // 여기에 허용하려는 도메인을 추가
+        configuration.setAllowedOrigins(Arrays.asList("https://fitta-git-dev-yiminwook.vercel.app","http://localhost:3000")); // 여기에 허용하려는 도메인을 추가
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token", "access-control-allow-credentials", "access-control-allow-origin"));
         configuration.setAllowCredentials(true);
