@@ -1,4 +1,4 @@
-package com.backend.fitta.service.apiService;
+package com.backend.fitta.service.apiService.interfaces;
 
 import com.backend.fitta.dto.owner.FindByIdOwnerResponse;
 

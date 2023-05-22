@@ -1,4 +1,4 @@
-package com.backend.fitta.service.interfaces;
+package com.backend.fitta.service.apiService.interfaces;
 
 import com.backend.fitta.dto.team.FindTeamByIdResponse;
 import com.backend.fitta.dto.team.SaveTeamRequest;

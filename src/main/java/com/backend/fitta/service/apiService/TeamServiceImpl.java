@@ -1,4 +1,4 @@
-package com.backend.fitta.service;
+package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.team.FindTeamByIdResponse;
 import com.backend.fitta.dto.team.MemberTeamResponse;
@@ -8,13 +8,12 @@ import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.TeamNotFoundException;
 import com.backend.fitta.repository.MemberRepository;
 import com.backend.fitta.repository.TeamRepository;
-import com.backend.fitta.service.interfaces.TeamApiService;
+import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
