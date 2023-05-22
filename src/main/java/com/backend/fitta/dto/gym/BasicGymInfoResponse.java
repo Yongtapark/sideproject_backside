@@ -9,6 +9,5 @@ public class BasicGymInfoResponse {
     String ownerName;
     String phoneNumber;
     String address;
-
     GenderDivision genderDivision;
 }
