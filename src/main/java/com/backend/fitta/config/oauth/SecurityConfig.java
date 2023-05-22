@@ -27,8 +27,8 @@ import java.util.List;
 
 @EnableWebSecurity // 스프링 시큐리티 설정 활성화
 @RequiredArgsConstructor
-//@Profile("!test")
 @Configuration//이게 없어서 설정이 불가능했었다.
+@Profile("!test")
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     private final JwtTokenProvider jwtTokenProvider;
