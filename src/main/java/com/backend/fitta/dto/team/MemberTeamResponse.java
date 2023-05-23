@@ -12,10 +12,10 @@ import java.time.LocalDate;
 public class MemberTeamResponse {
     private String email;
     private String name;
-    private LocalDate birthday;
-    private String phoneNumber;
-    private String address;
     private Gender gender;
+    private String address;
+    private String phoneNumber;
+    private LocalDate birthday;
 
     @QueryProjection
     public MemberTeamResponse(String email, String name, LocalDate birthday, String phoneNumber, String address, Gender gender) {
