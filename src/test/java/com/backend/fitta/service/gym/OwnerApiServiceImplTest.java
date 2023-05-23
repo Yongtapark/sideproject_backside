@@ -7,6 +7,7 @@ import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,9 +53,13 @@ class OwnerApiServiceImplTest {
         BasicOwnerInfo findOwner1 = ownerApiService.findById(saved1);
         BasicOwnerInfo findOwner2 = ownerApiService.findById(saved2);
 
+
         //then
         assertThat(ownerA.getName()).isEqualTo(findOwner1.getName());
         assertThat(ownerB.getName()).isEqualTo(findOwner2.getName());
+        assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
+
+
 
 
     }

@@ -54,7 +54,7 @@ public class SecurityConfig{
         );
 
         http
-                .authorizeRequests(authorizeRequests ->
+                .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new OrRequestMatcher(permitAllRequestMatchers)).permitAll()
                                 .anyRequest().authenticated()
