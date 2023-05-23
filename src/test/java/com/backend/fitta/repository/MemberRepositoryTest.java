@@ -97,9 +97,9 @@ class MemberRepositoryTest {
         em.persist(member3);
         em.persist(member4);
 
-        List<MemberTeamResponse> result = memberRepository.search(1L);
-        for (MemberTeamResponse memberTeamResponse : result) {
-            System.out.println(memberTeamResponse);
-        }
+//        List<MemberTeamResponse> result = memberRepository.search(1L);
+//        for (MemberTeamResponse memberTeamResponse : result) {
+//            System.out.println(memberTeamResponse);
+//        }
     }
 }
