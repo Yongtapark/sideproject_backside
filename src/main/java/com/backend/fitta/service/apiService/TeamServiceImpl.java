@@ -1,9 +1,6 @@
 package com.backend.fitta.service.apiService;
 
-import com.backend.fitta.dto.team.FindTeamByIdResponse;
-import com.backend.fitta.dto.team.MemberTeamResponse;
-import com.backend.fitta.dto.team.SaveTeamRequest;
-import com.backend.fitta.dto.team.UpdateTeamRequest;
+import com.backend.fitta.dto.team.*;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.TeamNotFoundException;
 import com.backend.fitta.repository.MemberRepository;
@@ -30,9 +27,10 @@ public class TeamServiceImpl implements TeamApiService {
 
     @Override
     public FindTeamByIdResponse findById(Long id) {
-        List<MemberTeamResponse> result = memberRepository.search(id);
+        List<MemberTeamResponse> memberList = memberRepository.searchMemberList(id);
+        List<StaffTeamResponse> staffList = memberRepository.searchStaffList(id);
         Team team = teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException());
-        return new FindTeamByIdResponse(team.getName(), result, null);
+        return new FindTeamByIdResponse(team.getName(), memberList, staffList);
     }
 
     @Override

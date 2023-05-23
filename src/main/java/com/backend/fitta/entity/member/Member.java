@@ -16,11 +16,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -69,6 +66,16 @@ public class Member extends Auditing implements UserDetails {
             changeTeam(team);
         }
     }
+    public void changeGym(Gym gym){
+        this.gym=gym;
+        gym.getMember().add(this);
+    }
+
+    public void changeTeam(Team team){
+        this.team=team;
+        team.getMembers().add(this);
+    }
+
     @Builder
     public Member(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Role roles) {
         this.email = email;
@@ -86,7 +93,6 @@ public class Member extends Auditing implements UserDetails {
         this.gym = gym;
         this.roles = roles;
     }
-
     public void changeMemberInfo(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
         this.email = email;
         this.password = password;
@@ -98,15 +104,6 @@ public class Member extends Auditing implements UserDetails {
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
-    }
-    public void changeGym(Gym gym){
-        this.gym=gym;
-        gym.getMember().add(this);
-    }
-
-    public void changeTeam(Team team){
-        this.team=team;
-        team.getMembers().add(this);
     }
 
     @Override
