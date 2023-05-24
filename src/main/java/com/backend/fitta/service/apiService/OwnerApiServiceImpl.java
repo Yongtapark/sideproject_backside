@@ -24,7 +24,7 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     }
 
     @Override
-    public Result<BasicOwnerInfo> findAll() {
+    public Result<List<BasicOwnerInfo>> findAll() {
         List<Owner> all = ownerService.findAll();
         List<BasicOwnerInfo> collect = all.stream()
                 .map(o -> new BasicOwnerInfo(o))
@@ -42,7 +42,16 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     }
 
     @Override
-    public void delete(Long id) {
-
+    public BasicOwnerInfo update(Long id, BasicOwnerInfo updatedOwnerInfo) {
+        Owner findOwner = ownerService.findById(id);
+        Owner updateOwner = new Owner(
+                findOwner.getName(),
+                findOwner.getPhoneNumber(),
+                findOwner.getAddress(),
+                findOwner.getBusinessRegistrationNumber()
+        );
+        Owner update = ownerService.update(id, updateOwner);
+        return new BasicOwnerInfo(update);
     }
+
 }
