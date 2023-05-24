@@ -58,25 +58,26 @@ public class MemberService {
     }
 
 
-    public Long update(String memberEmail, UpdateMemberRequest rq) {
-        Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
+    public Long update(Long memberId, UpdateMemberRequest rq) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
         member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
         return member.getId();
     }
 
 
-    public FindByEmailResponse findMember(String memberEmail) {
-        Member member = memberRepository.findByEmail(memberEmail).orElseThrow();
+    public FindByEmailResponse findMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
         return new FindByEmailResponse(member.getId(),member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
         ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
     }
 
 
-    public void deleteMember(String memberEmail) {
-        memberRepository.deleteByEmail(memberEmail);
+    public void deleteMember(Long memberId) {
+        memberRepository.deleteById(memberId);
     }
 
-    public Optional<Member> findByEmail(String memberEmail) {
-        return memberRepository.findByEmail(memberEmail);
+
+    public Optional<Member> findById(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 }

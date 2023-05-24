@@ -2,12 +2,14 @@ package com.backend.fitta.dto.member;
 
 import com.backend.fitta.entity.gym.Team;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import com.backend.fitta.entity.enums.Gender;
 
 import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
 public class SignUpRequest {
 
     @Email

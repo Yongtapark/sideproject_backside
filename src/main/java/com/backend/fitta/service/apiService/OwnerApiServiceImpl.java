@@ -43,12 +43,11 @@ public class OwnerApiServiceImpl implements OwnerApiService {
 
     @Override
     public BasicOwnerInfo update(Long id, BasicOwnerInfo updatedOwnerInfo) {
-        Owner findOwner = ownerService.findById(id);
         Owner updateOwner = new Owner(
-                findOwner.getName(),
-                findOwner.getPhoneNumber(),
-                findOwner.getAddress(),
-                findOwner.getBusinessRegistrationNumber()
+                updatedOwnerInfo.getName(),
+                updatedOwnerInfo.getPhoneNumber(),
+                updatedOwnerInfo.getAddress(),
+                updatedOwnerInfo.getBusinessRegistrationNumber()
         );
         Owner update = ownerService.update(id, updateOwner);
         return new BasicOwnerInfo(update);
