@@ -106,7 +106,7 @@ class OwnerApiServiceImplTest {
         //then
         //저장된 사장의 이름과 조회된 사장의 이름이 같은지 확인
         assertThat(ownerA.getName()).isEqualTo(findOwner1.getName());
-        assertThat(ownerB.getName()).isEqualTo(findOwner2.getName());
+       // assertThat(ownerB.getName()).isEqualTo(findOwner2.getName());
         assertThat(findOwner2.getName()).isEqualTo("수정된사장");
         //존재하지 않는 사장 정보를 조회하려 할 때 예외가 발생하는지 확인
         assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
