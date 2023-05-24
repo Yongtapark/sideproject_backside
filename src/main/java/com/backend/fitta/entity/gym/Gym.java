@@ -33,7 +33,9 @@ public class Gym extends Auditing {
 
     public Gym(String name, Owner owner, String phoneNumber, String address, GenderDivision genderDivision) {
         this.name = name;
-        this.owner = owner;
+        if (owner != null) {
+            changeOwner(owner);
+        }
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.genderDivision = genderDivision;
@@ -44,5 +46,10 @@ public class Gym extends Auditing {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.genderDivision = genderDivision;
+    }
+
+    public void changeOwner(Owner owner){
+        this.owner=owner;
+        owner.getGym().add(this);
     }
 }
