@@ -38,8 +38,6 @@ class OwnerApiServiceImplTest {
     OwnerApiService ownerApiService;
     @Autowired
     GymService gymService;
-    @Autowired
-    EntityManager em;
 
     @Test
     void test(){
@@ -84,7 +82,6 @@ class OwnerApiServiceImplTest {
         Owner savedOwner1 = ownerService.findById(saved1);
         Owner savedOwner2 = ownerService.findById(saved2);
 
-        log.info("start");
         //사장2의 정보를 수정
         BasicOwnerInfo update = ownerApiService.update(savedOwner2.getId(), new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
         log.info("update={}",update);
@@ -94,8 +91,6 @@ class OwnerApiServiceImplTest {
         // 헬스장 정보 저장
         gymService.save(gym);
 
-        em.flush();
-        em.clear();
         // 헬스장 정보를 저장한 후 다시 사장 정보를 조회
         savedOwner1=ownerService.findById(saved1);
         savedOwner2=ownerService.findById(saved2);
@@ -105,10 +100,6 @@ class OwnerApiServiceImplTest {
         // 사장 전체 조회
         Result<List<BasicOwnerInfo>> owners = ownerApiService.findAll();
 
-        log.info("1234566901324");
-
-        log.info("----owner={}", ownerB);
-        log.info("name={}", ownerService.findById(saved2).getName());
         //then
         //저장된 사장의 이름과 조회된 사장의 이름이 같은지 확인
         assertThat(ownerA.getName()).isEqualTo(findOwner1.getName());
