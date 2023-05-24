@@ -6,8 +6,9 @@ branches:
   only:
     - main
 
+before_install:
+  - unset JAVA_HOME
 
-#Travis CI ??? Home
 cache:
   directories:
     - '$HOME/.m2/repository'
@@ -15,9 +16,7 @@ cache:
 
 script: "./gradlew clean build"
 
-#CI ?? ?? ? ??? ??
 notifications:
   email:
     recipients:
       - bjjtachan@gmail.com
-#check
