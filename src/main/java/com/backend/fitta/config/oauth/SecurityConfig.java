@@ -50,11 +50,11 @@ public class SecurityConfig{
                 new AntPathRequestMatcher("https://fitta-git-dev-yiminwook.vercel.app/**"),
                 new AntPathRequestMatcher("http://localhost:3000/**"),
                 //HostingDomain
-                new AntPathRequestMatcher("https://1071-210-219-182-113.ngrok-free.app/**")
+                new AntPathRequestMatcher("https://8b79-210-219-182-113.ngrok-free.app/**")
         );
 
         http
-                .authorizeRequests(authorizeRequests ->
+                .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new OrRequestMatcher(permitAllRequestMatchers)).permitAll()
                                 .anyRequest().permitAll()
