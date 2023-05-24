@@ -93,8 +93,9 @@ public class LoginController {
 
     @Operation(summary = "구글에서 리데이렉션 해서 보내주는 값을 받는 메서드",description = "사용자의 이메일, 이름, 사진을 받아옵니다")
     @GetMapping("/login/oauth2/code/{registrationId}")
-    public ResponseEntity<AccountInfo> login(@RequestParam String code, @PathVariable String registrationId,HttpServletResponse response) throws JsonProcessingException {
+    public ResponseEntity<AccountInfo> login(@RequestParam String code, @PathVariable String registrationId,@RequestParam String redirect_uri) throws JsonProcessingException {
         AccountInfo accountInfo = loginService.socialLogin(code, registrationId);
+        log.info("redirect_uri={}",redirect_uri);
         log.info("userInfo={}",accountInfo);
         return ResponseEntity.ok(accountInfo);
     }
