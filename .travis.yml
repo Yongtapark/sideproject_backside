@@ -7,7 +7,7 @@ branches:
     - main
 
 before_install:
-  - unset JAVA_HOME
+  - chmod +x gradlew
 
 cache:
   directories:
