@@ -1,4 +1,4 @@
-package com.backend.fitta.controller.member.gym.staff;
+package com.backend.fitta.controller.gym.staff;
 
 import com.backend.fitta.dto.team.FindStaffByIdResponse;
 import com.backend.fitta.dto.team.SaveStaffRequest;

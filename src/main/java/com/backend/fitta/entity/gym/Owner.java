@@ -1,5 +1,6 @@
 package com.backend.fitta.entity.gym;
 
+import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.entity.Auditing;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -30,12 +31,21 @@ public class Owner extends Auditing {
         BusinessRegistrationNumber = businessRegistrationNumber;
     }
 
-    public void changeOwnerInfo(String name, String phone, String address, String businessRegistrationNumber){
-        this.name = name;
-        this.phoneNumber = phone;
-        this.address = address;
-        this.BusinessRegistrationNumber = businessRegistrationNumber;
+    public void changeOwnerInfo(Owner owner){
+        this.name = owner.getName();
+        this.phoneNumber = owner.getPhoneNumber();
+        this.address = owner.getAddress();
+        this.BusinessRegistrationNumber = owner.getBusinessRegistrationNumber();
     }
+
+   /* public void changeOwnerInfo(BasicOwnerInfo basicOwnerInfo){
+        this.name = basicOwnerInfo.getName();
+        this.phoneNumber = basicOwnerInfo.getPhoneNumber();
+        this.address = basicOwnerInfo.getAddress();
+        this.BusinessRegistrationNumber = basicOwnerInfo.getBusinessRegistrationNumber();
+    }*/
+
+
 
 
 }
