@@ -12,7 +12,7 @@ public interface OwnerService {
     Long save(Owner owner);
     Owner findById(Long id);
     List<Owner> findAll();
-    Long update(Long id, Owner owner);
+    Owner update(Long id, Owner owner);
     void delete(Long id);
 
 
