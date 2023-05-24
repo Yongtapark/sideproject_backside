@@ -1,0 +1,22 @@
+language: java
+jdk:
+  - corretto-17
+
+branches:
+  only:
+    - main
+
+
+#Travis CI ??? Home
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+script: "./gradlew clean build"
+
+#CI ?? ?? ? ??? ??
+notifications:
+  email:
+    recipients:
+      - bjjtachan@gmail.com
