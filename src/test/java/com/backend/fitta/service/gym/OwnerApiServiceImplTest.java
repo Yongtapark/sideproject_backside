@@ -74,6 +74,7 @@ class OwnerApiServiceImplTest {
         // 사장 정보를 저장
         Long saved1 = ownerApiService.save(new BasicOwnerInfo(ownerA));
         Long saved2 = ownerApiService.save(new BasicOwnerInfo(ownerB));
+        BasicOwnerInfo update = ownerApiService.update(saved2, new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
 
 
 
@@ -82,9 +83,8 @@ class OwnerApiServiceImplTest {
         Owner savedOwner2 = ownerService.findById(saved2);
 
         //사장2의 정보를 수정
-        BasicOwnerInfo update = ownerApiService.update(savedOwner2.getId(), new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
         log.info("update={}",update);
-        ownerService.update(savedOwner2.getId(), new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호"));
+        //ownerService.update(savedOwner2.getId(), new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호"));
 
 
         // 저장된 사장1의 정보로 헬스장을 생성
