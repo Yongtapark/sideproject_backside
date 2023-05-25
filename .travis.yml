@@ -18,7 +18,7 @@ script: "./gradlew clean build"
 before_deploy:
   - zip -r sideproject_backside *
   - mkdir -p deploy
-  - mv sideproejct_backside.zip deploy/sideproejct_backside.zip
+  - mv sideproject_backside.zip deploy/sideproejct_backside.zip
 
 # Travis CI에서 Build한 Jar 파일을 S3에 올리는 과정
 # Travis는 디렉토리 단위로만 업로드 가능하다
