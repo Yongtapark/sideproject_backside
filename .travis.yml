@@ -18,7 +18,7 @@ script: "./gradlew clean build"
 before_deploy:
   - zip -r sideproject_backside *
   - mkdir -p deploy
-  - mv sideproject_backside.zip deploy/sideproejct_backside.zip
+  - mv sideproject_backside.zip deploy/sideproject_backside.zip
 
 deploy:
   - provider: s3
