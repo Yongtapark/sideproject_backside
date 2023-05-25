@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Owner extends Auditing {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +30,7 @@ public class Owner extends Auditing {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        BusinessRegistrationNumber = businessRegistrationNumber;
+        this.BusinessRegistrationNumber = businessRegistrationNumber;
     }
 
     public void changeOwnerInfo(Owner owner){
@@ -37,6 +39,12 @@ public class Owner extends Auditing {
         this.address = owner.getAddress();
         this.BusinessRegistrationNumber = owner.getBusinessRegistrationNumber();
     }
+//    public void changeOwnerInfo(String name, String phoneNumber, String address, String businessRegistrationNumber){
+//        this.name = name;
+//        this.phoneNumber = phoneNumber;
+//        this.address = address;
+//        this.BusinessRegistrationNumber = businessRegistrationNumber;
+//    }
 
    /* public void changeOwnerInfo(BasicOwnerInfo basicOwnerInfo){
         this.name = basicOwnerInfo.getName();
