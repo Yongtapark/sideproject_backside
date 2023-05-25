@@ -7,14 +7,18 @@ import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -27,11 +31,14 @@ class MemberServiceTest {
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
 
+    private Member testMember;
+
     @BeforeEach
     public void beforeEach() {
         SignUpRequest signUpRequest = new SignUpRequest("firstMail@naver.com", "1234", "1234", "초기멤버",
                 "서울", Gender.MALE, "01012341234", LocalDate.of(1999, 5, 10), "학생");
-        memberService.save(signUpRequest);
+        Long memberId = memberService.save(signUpRequest);
+        testMember = memberRepository.findById(memberId).orElseThrow();
     }
 
     @Test
@@ -58,8 +65,10 @@ class MemberServiceTest {
     @Test
     void update() {
         Member findMember = memberRepository.findByEmail("firstMail@naver.com").orElseThrow();
+        log.info("finMember={}",memberService.findById(findMember.getId()).get().getId());
         UpdateMemberRequest updateMemberRequest = new UpdateMemberRequest("changeMail", "1234", "1234", 20L, "부산", Gender.MALE, 175L, 70L, "학생", null, "01012341234", LocalDate.of(1999, 3, 12));
-        memberService.update(findMember.getId(), updateMemberRequest);
+        Long update = memberService.update(findMember.getId(), updateMemberRequest);
+        log.info("update={}",memberService.findById(update).get().getId());
         assertThat(findMember.getEmail()).isEqualTo(updateMemberRequest.getEmail());
         assertThat(findMember.getPassword()).isEqualTo(updateMemberRequest.getPassword());
         assertThat(findMember.getName()).isEqualTo(updateMemberRequest.getName());
@@ -72,7 +81,10 @@ class MemberServiceTest {
 
     @Test
     void findMember() {
-        FindByEmailResponse findMember = memberService.findMember(1L);
+        List<Member> all = memberRepository.findAll();
+        log.info("allMembers={}",all.stream().map(member -> member.getId()).collect(Collectors.toList()));
+        Member findMember = memberService.findById(testMember.getId()).orElseThrow(()->new RuntimeException("no member"));
+        log.info("findMember={}",findMember);
         assertThat(findMember.getEmail()).isEqualTo("firstMail@naver.com");
         assertThat(findMember.getPassword()).isEqualTo("1234");
         assertThat(findMember.getName()).isEqualTo("초기멤버");
