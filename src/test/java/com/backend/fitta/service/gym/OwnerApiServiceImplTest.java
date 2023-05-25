@@ -52,13 +52,13 @@ class OwnerApiServiceImplTest {
         assertThatThrownBy(()->ownerService.findById(11L)).isInstanceOf(OwnerNotFoundException.class);
         //FindAll
         assertThat(ownerService.findAll()).size().isEqualTo(2);
+        log.info("ownerService.findAll",ownerService.findAll());
         //delete
         ownerService.delete(findOwner.getId());
         assertThatThrownBy(()->ownerService.findById(findOwner.getId())).isInstanceOf(OwnerNotFoundException.class);
     }
 
     @Test
-    @Rollback(false)
     void apiTest() throws Exception{
         //given
         // 사장 정보를 생성
@@ -82,7 +82,7 @@ class OwnerApiServiceImplTest {
         // 저장된 사장1의 정보로 헬스장을 생성
         Gym gym = new Gym("testGym", savedOwner1, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
         // 헬스장 정보 저장
-        gymApiService.save(gym);
+//        gymApiService.save(gym);
 
         // 헬스장 정보를 저장한 후 다시 사장 정보를 조회
         savedOwner1=ownerService.findById(saved1);
@@ -99,7 +99,7 @@ class OwnerApiServiceImplTest {
 
         assertThat(findOwner2.getName()).isEqualTo("수정된사장");
 //        //존재하지 않는 사장 정보를 조회하려 할 때 예외가 발생하는지 확인
-//        assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
+       assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
 //        //사장1의 gymList 에 체육관 정보가 존재하는지 확인
         assertThat(findOwner1.getGymList()).contains(new BasicGymInfo(gym));
         //사장들의 리스트를 확인

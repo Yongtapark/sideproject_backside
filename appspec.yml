@@ -1,0 +1,19 @@
+version: 0.0 #프로젝트 버전이 아니므로 0.0외 다른 버전 사용 시 오류
+os: linux
+files:
+  - source: / #codedeploy에서 전달해준 파일중 destination 으로 이동시킬 대상 설정. 현재는 전부.
+    destination: /home/ec2-user/app/step2/zip/ #jar로 실행하는 프로그램 등은 destination 에서 옮긴 파일로 진행
+    overwrite: yes
+    on:
+      branch: main
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+
+hooks:
+  ApplicationStart:
+    - location: deploy.sh
+      timeout: 60
+      runas: ec2-user
