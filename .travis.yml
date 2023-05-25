@@ -20,28 +20,6 @@ before_deploy:
   - mkdir -p deploy
   - mv sideproject_backside.zip deploy/sideproejct_backside.zip
 
-# Travis CI에서 Build한 Jar 파일을 S3에 올리는 과정
-# Travis는 디렉토리 단위로만 업로드 가능하다
-#before_deploy:
- # - mkdir -p before-deploy # 디렉토리 생성
- # - cp build/libs/*.jar before-deploy/ # 배포에 필요한 파일만 꼽아서 복사 (executable jar) cp=copy
- # - ls
- # - cd before-deploy && zip -r sideproject_backside * # 위치 이동 후 내부 파일 전체 압축
- # - ls
- # - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동 후 deploy 디렉토리 생성
- # - ls
- # - mv before-deploy/sideproject_backside.zip deploy/sideproject_backside.zip # 파일 위치 옮기기
-
-#before_deploy:
- # - ls
- # - zip -r sideproject_backside * # 위치 이동 후 내부 파일 전체 압축
- # - ls
- # - mkdir -p deploy # 상위 디렉토리로 이동 후 deploy 디렉토리 생성
- # - ls
- # - mv sideproject_backside.zip deploy/sideproject_backside.zip # 파일 위치 옮기기
- # #그럼 여기서 어디로?
-
-
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
@@ -54,6 +32,21 @@ deploy:
     wait-until-deployed: true
     on:
       branch: main
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: fittas3
+    key: sideproejct_backside.zip
+
+    bundle_type: zip
+    application: fitta2 # 웹콘솔에서 작성한 codedeploy 애플리케이션 이름
+
+    deployment_group: fitta # 배포 그룹 이름
+
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 
 notifications:
   email:
