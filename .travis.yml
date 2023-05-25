@@ -22,13 +22,23 @@ script: "./gradlew clean build"
 
 # Travis CI에서 Build한 Jar 파일을 S3에 올리는 과정
 # Travis는 디렉토리 단위로만 업로드 가능하다
+#before_deploy:
+ # - mkdir -p before-deploy # 디렉토리 생성
+ # - cp build/libs/*.jar before-deploy/ # 배포에 필요한 파일만 꼽아서 복사 (executable jar) cp=copy
+ # - ls
+ # - cd before-deploy && zip -r sideproject_backside * # 위치 이동 후 내부 파일 전체 압축
+ # - ls
+ # - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동 후 deploy 디렉토리 생성
+ # - ls
+ # - mv before-deploy/sideproject_backside.zip deploy/sideproject_backside.zip # 파일 위치 옮기기
+
 before_deploy:
-  - mkdir -p before-deploy # 디렉토리 생성
-  - cp build/libs/*.jar before-deploy/ # 배포에 필요한 파일만 꼽아서 복사 (executable jar) cp=copy
+  #- mkdir -p before-deploy # 디렉토리 생성
+  #- cp build/libs/*.jar before-deploy/ # 배포에 필요한 파일만 꼽아서 복사 (executable jar) cp=copy
   - ls
-  - cd before-deploy && zip -r sideproject_backside * # 위치 이동 후 내부 파일 전체 압축
+  - zip -r sideproject_backside * # 위치 이동 후 내부 파일 전체 압축
   - ls
-  - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동 후 deploy 디렉토리 생성
+  - cd mkdir -p deploy # 상위 디렉토리로 이동 후 deploy 디렉토리 생성
   - ls
   - mv before-deploy/sideproject_backside.zip deploy/sideproject_backside.zip # 파일 위치 옮기기
 
