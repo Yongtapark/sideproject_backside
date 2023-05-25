@@ -21,15 +21,15 @@ before_deploy:
   - mv sideproejct_backside.zip deploy/sideproejct_backside.zip
 
 deploy:
-  provider: s3
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
-  bucket: fittas3
-  region: ap-northeast-2
-  skip_cleanup: true
-  acl: private # zip 파일접근을 private로
-  local_dir: deploy # before_deploy에서 생성한 디렉토리
-  wait-until-deployed: true
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: fittas3
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일접근을 private로
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
+    wait-until-deployed: true
 
 notifications:
   email:
