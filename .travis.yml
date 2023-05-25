@@ -39,7 +39,7 @@ deploy:
 
     bucket: fittas3
     key: sideproject_backside.zip
-
+  #
     bundle_type: zip
     application: fitta2 # 웹콘솔에서 작성한 codedeploy 애플리케이션 이름
 
