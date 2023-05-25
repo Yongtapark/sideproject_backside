@@ -29,15 +29,6 @@ public class TeamController {
     }
 
 
-//    //스태프 컨트롤러
-//    @Operation(summary = "팀 인원 등록", description = "팀 인원 등록 메서드입니다.")
-//    @PostMapping("/{teamId}")
-//    public ResponseEntity<Void> saveTeamStaff(@PathVariable long teamId, @Valid @RequestBody SaveTeamMemberRequest request) {
-//        return ResponseEntity.noContent().build();
-//    }
-
-
-
     @Operation(summary = "팀 조회 메서드", description = "팀 id로 팀 정보를 조회 할 수 있습니다.")
     @GetMapping("/{teamId}")
     public ResponseEntity<FindTeamByIdResponse> findTeam(@PathVariable long teamId) {

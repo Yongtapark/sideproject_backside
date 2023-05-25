@@ -4,19 +4,25 @@ import com.backend.fitta.dto.team.FindStaffByIdResponse;
 import com.backend.fitta.dto.team.SaveStaffRequest;
 import com.backend.fitta.dto.team.UpdateStaffRequest;
 import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.StaffNotFoundException;
+import com.backend.fitta.exception.TeamNotFoundException;
 import com.backend.fitta.repository.StaffRepository;
+import com.backend.fitta.repository.TeamRepository;
 import com.backend.fitta.service.apiService.interfaces.StaffApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Transactional
 @Service
 public class StaffApiServiceImpl implements StaffApiService {
     private final StaffRepository staffRepository;
+    private final TeamRepository teamRepository;
 
     @Override
     public Long save(SaveStaffRequest request) {
@@ -46,5 +52,12 @@ public class StaffApiServiceImpl implements StaffApiService {
     public void delete(Long id) {
         Staff findStaff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
         staffRepository.delete(findStaff);
+    }
+
+    @Override
+    public void saveTeamStaff(long staffId, long teamId) {
+        Staff findStaff = staffRepository.findById(staffId).orElseThrow(() -> new StaffNotFoundException());
+        Team team = teamRepository.findById(teamId).orElseThrow(() -> new TeamNotFoundException());
+        findStaff.changeTeam(team);
     }
 }

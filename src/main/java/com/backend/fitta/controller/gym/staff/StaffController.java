@@ -47,6 +47,12 @@ public class StaffController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "스태프 팀 등록", description = "스태프를 팀에 등록시키는 메서드입니다.")
+    @PostMapping("/{staffId}/{teamId}")
+    public ResponseEntity<Void> saveTeamStaff(@PathVariable long staffId, @PathVariable long teamId) {
+        staffApiService.saveTeamStaff(staffId, teamId);
+        return ResponseEntity.noContent().build();
+    }
 }
 
 
