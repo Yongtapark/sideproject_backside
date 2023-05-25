@@ -21,7 +21,7 @@ before_deploy:
   - mv sideproejct_backside.zip deploy/sideproejct_backside.zip
 
 deploy:
-  -provider: s3
+  provider: s3
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
   bucket: fittas3
