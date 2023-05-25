@@ -76,6 +76,7 @@ class OwnerApiServiceImplTest {
         // 사장 정보를 저장
         Long saved1 = ownerApiService.save(new BasicOwnerInfo(ownerA));
         Long saved2 = ownerApiService.save(new BasicOwnerInfo(ownerB));
+        BasicOwnerInfo update = ownerApiService.update(saved2, new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
 
 
         // DB에서 저장된 사장 정보를 조회
@@ -83,7 +84,6 @@ class OwnerApiServiceImplTest {
         Owner savedOwner2 = ownerService.findById(saved2);
 
         //사장2의 정보를 수정
-        BasicOwnerInfo update = ownerApiService.update(savedOwner2.getId(), new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
         log.info("update={}",update);
 
         // 저장된 사장1의 정보로 헬스장을 생성
@@ -103,7 +103,7 @@ class OwnerApiServiceImplTest {
         //then
         //저장된 사장의 이름과 조회된 사장의 이름이 같은지 확인
         assertThat(ownerA.getName()).isEqualTo(findOwner1.getName());
-//        assertThat(ownerB.getName()).isEqualTo(findOwner2.getName());
+
         assertThat(findOwner2.getName()).isEqualTo("수정된사장");
 //        //존재하지 않는 사장 정보를 조회하려 할 때 예외가 발생하는지 확인
 //        assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
