@@ -38,8 +38,6 @@ public class LoginService {
 
 
     private String getAccessToken(String authorizationCode, String registrationId) {
-        log.info("authorizationCode={}",authorizationCode);
-        log.info("registrationId={}",registrationId);
         String clientId = environment.getProperty("spring.security.oauth2.client.registration." + registrationId + ".client-id");
         String clientSecret = environment.getProperty("spring.security.oauth2.client.registration." + registrationId + ".client-secret");
         String redirectUri = environment.getProperty("spring.security.oauth2.client.registration." + registrationId + ".redirect-uri");

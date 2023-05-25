@@ -15,15 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Transactional
 @Service
 public class StaffApiServiceImpl implements StaffApiService {
     private final StaffRepository staffRepository;
     private final TeamRepository teamRepository;
-
     @Override
     public Long save(SaveStaffRequest request) {
         Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(),request.getGrade(),request.getGym(), request.getTeam());
