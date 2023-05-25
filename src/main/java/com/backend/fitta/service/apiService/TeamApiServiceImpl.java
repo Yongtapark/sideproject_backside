@@ -26,8 +26,8 @@ public class TeamApiServiceImpl implements TeamApiService {
 
     @Override
     public FindTeamByIdResponse findById(Long id) {
-        List<MemberTeamResponse> memberList = memberRepository.searchMemberList(id);
-        List<StaffTeamResponse> staffList = memberRepository.searchStaffList(id);
+        List<MemberTeamResponse> memberList = memberRepository.searchTeamMemberList(id);
+        List<StaffTeamResponse> staffList = memberRepository.searchTeamStaffList(id);
         Team team = teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException());
         return new FindTeamByIdResponse(team.getName(), memberList, staffList);
     }

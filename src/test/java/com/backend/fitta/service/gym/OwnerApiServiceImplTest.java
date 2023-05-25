@@ -8,22 +8,15 @@ import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
-import com.backend.fitta.service.interfaces.GymService;
+import com.backend.fitta.service.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
-import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -37,7 +30,7 @@ class OwnerApiServiceImplTest {
     @Autowired
     OwnerApiService ownerApiService;
     @Autowired
-    GymService gymService;
+    GymApiService gymApiService;
 
     @Test
     void test(){
@@ -89,7 +82,7 @@ class OwnerApiServiceImplTest {
         // 저장된 사장1의 정보로 헬스장을 생성
         Gym gym = new Gym("testGym", savedOwner1, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
         // 헬스장 정보 저장
-        gymService.save(gym);
+        gymApiService.save(gym);
 
         // 헬스장 정보를 저장한 후 다시 사장 정보를 조회
         savedOwner1=ownerService.findById(saved1);
