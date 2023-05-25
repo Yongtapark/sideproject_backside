@@ -68,6 +68,12 @@ public class MemberController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "회원 팀 등록", description = "회원 id로 회원을 찾아 팀을 추가해줍니다.")
+    @PostMapping("/{memberId}/{teamId}")
+    public ResponseEntity<Void> saveTeamMember(@PathVariable long memberId, @PathVariable long teamId) {
+        memberService.saveTeamMember(memberId,teamId);
+        return ResponseEntity.noContent().build();
+    }
 
     private void validateExistMember(Long memberId) {
         memberService.findById(memberId).orElseThrow(() -> new MemberNotFoundException());

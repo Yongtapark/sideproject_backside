@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TeamServiceImpl implements TeamApiService {
+public class TeamApiServiceImpl implements TeamApiService {
     private final TeamRepository teamRepository;
     private final MemberRepository memberRepository;
     @Override

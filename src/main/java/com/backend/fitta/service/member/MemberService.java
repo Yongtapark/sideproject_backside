@@ -5,10 +5,14 @@ import com.backend.fitta.config.jwt.TokenInfo;
 import com.backend.fitta.dto.member.FindByEmailResponse;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.AlreadyExistMemberException;
+import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.exception.PWNotCorrespondException;
+import com.backend.fitta.exception.TeamNotFoundException;
 import com.backend.fitta.repository.MemberRepository;
+import com.backend.fitta.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +30,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final TeamRepository teamRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -69,6 +74,12 @@ public class MemberService {
         Member member = memberRepository.findById(memberId).orElseThrow();
         return new FindByEmailResponse(member.getId(),member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
         ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
+    }
+
+    public void saveTeamMember(long memberId, long teamId) {
+        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
+        Team team = teamRepository.findById(teamId).orElseThrow(() -> new TeamNotFoundException());
+        findMember.changeTeam(team);
     }
 
 

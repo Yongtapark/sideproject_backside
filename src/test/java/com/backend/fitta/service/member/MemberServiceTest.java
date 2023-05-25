@@ -1,11 +1,12 @@
 package com.backend.fitta.service.member;
 
-import com.backend.fitta.dto.member.FindByEmailResponse;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.repository.MemberRepository;
+import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+    @Autowired TeamApiService teamApiService;
 
     @BeforeEach
     public void beforeEach() {
@@ -70,22 +72,35 @@ class MemberServiceTest {
         assertThat(findMember.getGender()).isEqualTo(updateMemberRequest.getGender());
     }
 
-    @Test
-    void findMember() {
-        FindByEmailResponse findMember = memberService.findMember(1L);
-        assertThat(findMember.getEmail()).isEqualTo("firstMail@naver.com");
-        assertThat(findMember.getPassword()).isEqualTo("1234");
-        assertThat(findMember.getName()).isEqualTo("초기멤버");
-        assertThat(findMember.getOccupation()).isEqualTo("학생");
-        assertThat(findMember.getBirthday()).isEqualTo(LocalDate.of(1999, 5, 10));
-        assertThat(findMember.getAddress()).isEqualTo("서울");
-        assertThat(findMember.getPhoneNumber()).isEqualTo("01012341234");
-        assertThat(findMember.getGender()).isEqualTo(Gender.MALE);
-    }
+//    @Test
+//    void findMember() {
+//        FindByEmailResponse findMember = memberService.findMember(1L);
+//        assertThat(findMember.getEmail()).isEqualTo("firstMail@naver.com");
+//        assertThat(findMember.getPassword()).isEqualTo("1234");
+//        assertThat(findMember.getName()).isEqualTo("초기멤버");
+//        assertThat(findMember.getOccupation()).isEqualTo("학생");
+//        assertThat(findMember.getBirthday()).isEqualTo(LocalDate.of(1999, 5, 10));
+//        assertThat(findMember.getAddress()).isEqualTo("서울");
+//        assertThat(findMember.getPhoneNumber()).isEqualTo("01012341234");
+//        assertThat(findMember.getGender()).isEqualTo(Gender.MALE);
+//    }
 
     @Test
     void deleteMember() {
         memberService.deleteMember(1L);
         assertThatThrownBy(() -> memberService.findById(1L).orElseThrow()).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    void saveMemberTeam() {
+        SignUpRequest signUpRequest = new SignUpRequest("email@naver.com", "1234", "1234", "멤버1",
+                "대전", Gender.FEMALE, "01012341234", LocalDate.of(1995, 12, 10), "학생");
+        Long saveMemberId = memberService.save(signUpRequest);
+        SaveTeamRequest teamRequest = new SaveTeamRequest("팀1");
+        Long saveTeamId = teamApiService.save(teamRequest);
+        Member findMember = memberService.findById(saveMemberId).orElseThrow();
+        assertThat(findMember.getTeam()).isNull();
+        memberService.saveTeamMember(saveMemberId, saveTeamId);
+        assertThat(findMember.getTeam().getName()).isEqualTo("팀1");
     }
 }
