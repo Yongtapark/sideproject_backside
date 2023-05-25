@@ -46,30 +46,30 @@ public class MemberController {
     }
 
 
-    @Operation(summary = "회원 조회 메서드", description = "회원 email로 회원을 조회 할 수 있습니다.")
-    @GetMapping("/{memberEmail}")
-    public ResponseEntity<FindByEmailResponse> findMember(@PathVariable String memberEmail) {
-        validateExistMember(memberEmail);
-        return ResponseEntity.ok(memberService.findMember(memberEmail));
+    @Operation(summary = "회원 조회 메서드", description = "회원 id로 회원을 조회 할 수 있습니다.")
+    @GetMapping("/{memberId}")
+    public ResponseEntity<FindByEmailResponse> findMember(@PathVariable Long memberId) {
+        validateExistMember(memberId);
+        return ResponseEntity.ok(memberService.findMember(memberId));
     }
 
-    @Operation(summary = "회원 정보 수정 메서드", description = "회원 email로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
-    @PutMapping("/{memberEmail}")
-    public ResponseEntity<Long> updateMember(@PathVariable String memberEmail, @Valid @RequestBody UpdateMemberRequest request) {
-        validateExistMember(memberEmail);
-        return ResponseEntity.ok(memberService.update(memberEmail, request));
+    @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
+    @PutMapping("/{memberId}")
+    public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestBody UpdateMemberRequest request) {
+        validateExistMember(memberId);
+        return ResponseEntity.ok(memberService.update(memberId, request));
     }
 
-    @Operation(summary = "회원 삭제 메서드", description = "회원 email로 회원을 삭제할 수 있습니다.")
-    @DeleteMapping("/{memberEmail}")
-    public ResponseEntity<Void> deleteMember(@PathVariable String memberEmail) {
-        validateExistMember(memberEmail);
-        memberService.deleteMember(memberEmail);
+    @Operation(summary = "회원 삭제 메서드", description = "회원 id로 회원을 삭제할 수 있습니다.")
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<Void> deleteMember(@PathVariable Long memberId) {
+        validateExistMember(memberId);
+        memberService.deleteMember(memberId);
         return ResponseEntity.noContent().build();
     }
 
 
-    private void validateExistMember(String memberEmail) {
-        memberService.findByEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException());
+    private void validateExistMember(Long memberId) {
+        memberService.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
     }
 }

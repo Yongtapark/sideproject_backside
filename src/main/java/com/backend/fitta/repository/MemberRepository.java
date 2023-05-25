@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom, StaffRepositoryCustom {
     Optional<Member> findByEmail(String email);
-    void deleteByEmail(String memberEmail);
 }

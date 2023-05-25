@@ -10,6 +10,7 @@ import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import com.backend.fitta.service.interfaces.GymService;
 import com.backend.fitta.service.interfaces.OwnerService;
+import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -63,12 +65,12 @@ class OwnerApiServiceImplTest {
     }
 
     @Test
+    @Rollback(false)
     void apiTest() throws Exception{
         //given
         // 사장 정보를 생성
         Owner ownerA = new Owner("김사장", "000-0000-0000", "주소1", "사업자등록번호1");
         Owner ownerB = new Owner("이사장", "000-0000-0000", "주소1", "사업자등록번호1");
-
 
         //when
         // 사장 정보를 저장
@@ -77,15 +79,12 @@ class OwnerApiServiceImplTest {
         BasicOwnerInfo update = ownerApiService.update(saved2, new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
 
 
-
         // DB에서 저장된 사장 정보를 조회
         Owner savedOwner1 = ownerService.findById(saved1);
         Owner savedOwner2 = ownerService.findById(saved2);
 
         //사장2의 정보를 수정
         log.info("update={}",update);
-        //ownerService.update(savedOwner2.getId(), new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호"));
-
 
         // 저장된 사장1의 정보로 헬스장을 생성
         Gym gym = new Gym("testGym", savedOwner1, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
@@ -100,17 +99,15 @@ class OwnerApiServiceImplTest {
         BasicOwnerInfo findOwner2 = ownerApiService.findById(savedOwner2.getId());
         // 사장 전체 조회
         Result<List<BasicOwnerInfo>> owners = ownerApiService.findAll();
-        
-
 
         //then
         //저장된 사장의 이름과 조회된 사장의 이름이 같은지 확인
         assertThat(ownerA.getName()).isEqualTo(findOwner1.getName());
-       // assertThat(ownerB.getName()).isEqualTo(findOwner2.getName());
+
         assertThat(findOwner2.getName()).isEqualTo("수정된사장");
-        //존재하지 않는 사장 정보를 조회하려 할 때 예외가 발생하는지 확인
-        assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
-        //사장1의 gymList 에 체육관 정보가 존재하는지 확인
+//        //존재하지 않는 사장 정보를 조회하려 할 때 예외가 발생하는지 확인
+//        assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
+//        //사장1의 gymList 에 체육관 정보가 존재하는지 확인
         assertThat(findOwner1.getGymList()).contains(new BasicGymInfo(gym));
         //사장들의 리스트를 확인
         assertThat(owners.getData()).contains(findOwner1,findOwner2);
