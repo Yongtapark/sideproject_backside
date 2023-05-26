@@ -11,7 +11,6 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public interface TeamService {
     Long save(SaveTeamRequest request);
     Optional<FindTeamByIdResponse> findById(Long id);

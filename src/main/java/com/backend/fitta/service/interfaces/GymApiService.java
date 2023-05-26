@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface GymApiService {
     Long save(SaveGymRequest request);
     FindGymByIdResponse findById(Long id);

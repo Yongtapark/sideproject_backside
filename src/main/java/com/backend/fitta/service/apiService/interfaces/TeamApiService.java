@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
-@Service
+
 public interface TeamApiService {
     Long save(SaveTeamRequest request);
     FindTeamByIdResponse findById(Long id);

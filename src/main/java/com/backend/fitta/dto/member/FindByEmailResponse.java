@@ -14,23 +14,27 @@ import java.time.LocalDate;
 public class FindByEmailResponse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String email;
     private String password;
     private String name;
     private LocalDate birthday;
     private String phoneNumber;
     private String address;
-    @Enumerated(EnumType.STRING)
     private Gender gender;
     private Long height;
     private Long weight;
     private String occupation;
     private String note;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
     private Team team;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
     private Gym gym;
+
+    ///private String name;
+    //    private List<MemberTeamResponse> members;
+    //    private List<StaffTeamResponse> staffs;
+    //
+    //    public FindTeamByIdResponse(String name, List<MemberTeamResponse> members, List<StaffTeamResponse> staffs) {
+    //        this.name = name;
+    //        this.members = members;
+    //        this.staffs = staffs;
+    //    }
 }
