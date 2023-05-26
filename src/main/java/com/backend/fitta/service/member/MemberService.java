@@ -5,12 +5,11 @@ import com.backend.fitta.config.jwt.TokenInfo;
 import com.backend.fitta.dto.member.FindByEmailResponse;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
-import com.backend.fitta.exception.AlreadyExistMemberException;
-import com.backend.fitta.exception.MemberNotFoundException;
-import com.backend.fitta.exception.PWNotCorrespondException;
-import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.exception.*;
+import com.backend.fitta.repository.GymRepository;
 import com.backend.fitta.repository.MemberRepository;
 import com.backend.fitta.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +30,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final TeamRepository teamRepository;
+    private final GymRepository gymRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -102,5 +102,11 @@ public class MemberService {
 
     public Optional<Member> findById(Long memberId) {
         return memberRepository.findById(memberId);
+    }
+
+    public void saveGymMember(long memberId, long gymId) {
+        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
+        Gym gym = gymRepository.findById(gymId).orElseThrow(() -> new GymNotFoundException());
+        findMember.changeGym(gym);
     }
 }

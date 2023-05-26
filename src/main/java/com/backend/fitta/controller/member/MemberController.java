@@ -69,9 +69,15 @@ public class MemberController {
     }
 
     @Operation(summary = "회원 팀 등록", description = "회원 id로 회원을 찾아 팀을 추가해줍니다.")
-    @PostMapping("/{memberId}/{teamId}")
+    @PostMapping("team/{memberId}/{teamId}")
     public ResponseEntity<Void> saveTeamMember(@PathVariable long memberId, @PathVariable long teamId) {
         memberService.saveTeamMember(memberId,teamId);
+        return ResponseEntity.noContent().build();
+    }
+    @Operation(summary = "회원 헬스장 등록", description = "회원 id로 회원을 찾아 헬스장을 추가해줍니다.")
+    @PostMapping("gym/{memberId}/{gymId}")
+    public ResponseEntity<Void> saveGymMember(@PathVariable long memberId, @PathVariable long gymId) {
+        memberService.saveGymMember(memberId,gymId);
         return ResponseEntity.noContent().build();
     }
 
