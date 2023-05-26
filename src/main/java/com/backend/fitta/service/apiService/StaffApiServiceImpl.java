@@ -3,10 +3,13 @@ package com.backend.fitta.service.apiService;
 import com.backend.fitta.dto.team.FindStaffByIdResponse;
 import com.backend.fitta.dto.team.SaveStaffRequest;
 import com.backend.fitta.dto.team.UpdateStaffRequest;
+import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.repository.GymRepository;
 import com.backend.fitta.repository.StaffRepository;
 import com.backend.fitta.repository.TeamRepository;
 import com.backend.fitta.service.apiService.interfaces.StaffApiService;
@@ -21,6 +24,8 @@ import java.util.List;
 public class StaffApiServiceImpl implements StaffApiService {
     private final StaffRepository staffRepository;
     private final TeamRepository teamRepository;
+    private final GymRepository gymRepository;
+
     @Override
     public Long save(SaveStaffRequest request) {
         Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(),request.getGrade(),request.getGym(), request.getTeam());
@@ -62,5 +67,12 @@ public class StaffApiServiceImpl implements StaffApiService {
         Staff findStaff = staffRepository.findById(staffId).orElseThrow(() -> new StaffNotFoundException());
         Team team = teamRepository.findById(teamId).orElseThrow(() -> new TeamNotFoundException());
         findStaff.changeTeam(team);
+    }
+
+    @Override
+    public void saveGymStaff(long staffId, long gymId) {
+        Staff findStaff = staffRepository.findById(staffId).orElseThrow(() -> new StaffNotFoundException());
+        Gym gym = gymRepository.findById(gymId).orElseThrow(() -> new GymNotFoundException());
+        findStaff.changeGym(gym);
     }
 }

@@ -15,4 +15,5 @@ public interface StaffApiService {
     void delete(Long id);
     void saveTeamStaff(long staffId, long teamId);
 
+    void saveGymStaff(long staffId, long gymId);
 }
