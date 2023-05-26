@@ -7,14 +7,12 @@ import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.OwnerNotFoundException;
-import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import com.backend.fitta.service.interfaces.GymApiService;
-import com.backend.fitta.service.interfaces.OwnerService;
+import com.backend.fitta.service.interfaces.OwnerApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,9 +24,9 @@ import static org.assertj.core.api.Assertions.*;
 @Slf4j
 class OwnerApiServiceImplTest {
     @Autowired
-    OwnerService ownerService;
-    @Autowired
     OwnerApiService ownerApiService;
+    @Autowired
+    com.backend.fitta.service.apiService.interfaces.OwnerApiService ownerApiService;
     @Autowired
     GymApiService gymApiService;
 
@@ -37,25 +35,25 @@ class OwnerApiServiceImplTest {
         Owner ownerA = new Owner("김사장", "000-0000-0000", "주소1", "사업자등록번호1");
         Owner ownerB = new Owner("이사장", "000-0000-0000", "주소1", "사업자등록번호1");
         //save
-        Long ownerAId = ownerService.save(ownerA);
-        Long ownerBId = ownerService.save(ownerB);
+        Long ownerAId = ownerApiService.save(ownerA);
+        Long ownerBId = ownerApiService.save(ownerB);
         //update
-        Owner update = ownerService.update(ownerBId, new Owner("수정사장", "수정번호", "수정주소", "수정번호"));
+        Owner update = ownerApiService.update(ownerBId, new Owner("수정사장", "수정번호", "수정주소", "수정번호"));
         log.info("confirm={}",update.getName());
         //findById
-        Owner findOwner = ownerService.findById(ownerAId);
+        Owner findOwner = ownerApiService.findById(ownerAId);
         assertThat(ownerA).isEqualTo(findOwner);
         //findByIdWithUpdate
-        assertThat(ownerService.findById(ownerBId).getName()).isEqualTo("수정사장");
+        assertThat(ownerApiService.findById(ownerBId).getName()).isEqualTo("수정사장");
 
         //findById Exception
-        assertThatThrownBy(()->ownerService.findById(11L)).isInstanceOf(OwnerNotFoundException.class);
+        assertThatThrownBy(()-> ownerApiService.findById(11L)).isInstanceOf(OwnerNotFoundException.class);
         //FindAll
-        assertThat(ownerService.findAll()).size().isEqualTo(2);
-        log.info("ownerService.findAll",ownerService.findAll());
+        assertThat(ownerApiService.findAll()).size().isEqualTo(2);
+        log.info("ownerService.findAll", ownerApiService.findAll());
         //delete
-        ownerService.delete(findOwner.getId());
-        assertThatThrownBy(()->ownerService.findById(findOwner.getId())).isInstanceOf(OwnerNotFoundException.class);
+        ownerApiService.delete(findOwner.getId());
+        assertThatThrownBy(()-> ownerApiService.findById(findOwner.getId())).isInstanceOf(OwnerNotFoundException.class);
     }
 
     @Test
@@ -73,8 +71,8 @@ class OwnerApiServiceImplTest {
 
 
         // DB에서 저장된 사장 정보를 조회
-        Owner savedOwner1 = ownerService.findById(saved1);
-        Owner savedOwner2 = ownerService.findById(saved2);
+        Owner savedOwner1 = ownerApiService.findById(saved1);
+        Owner savedOwner2 = ownerApiService.findById(saved2);
 
         //사장2의 정보를 수정
         log.info("update={}",update);
@@ -85,8 +83,8 @@ class OwnerApiServiceImplTest {
 //        gymApiService.save(gym);
 
         // 헬스장 정보를 저장한 후 다시 사장 정보를 조회
-        savedOwner1=ownerService.findById(saved1);
-        savedOwner2=ownerService.findById(saved2);
+        savedOwner1= ownerApiService.findById(saved1);
+        savedOwner2= ownerApiService.findById(saved2);
 
         BasicOwnerInfo findOwner1 = ownerApiService.findById(savedOwner1.getId());
         BasicOwnerInfo findOwner2 = ownerApiService.findById(savedOwner2.getId());

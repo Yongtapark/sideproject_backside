@@ -16,8 +16,11 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class Owner extends Auditing {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String email;
+    private String password;
     private String name;
     private String phoneNumber;
     private String address;

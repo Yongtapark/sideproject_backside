@@ -3,7 +3,7 @@ package com.backend.fitta.service;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.OwnerRepository;
-import com.backend.fitta.service.interfaces.OwnerService;
+import com.backend.fitta.service.interfaces.OwnerApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class OwnerServiceImpl implements OwnerService {
+public class OwnerApiServiceImpl implements OwnerApiService {
     private final OwnerRepository ownerRepository;
     @Override
     public Long save(Owner owner) {

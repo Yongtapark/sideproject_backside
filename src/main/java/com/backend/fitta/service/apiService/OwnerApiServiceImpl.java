@@ -3,8 +3,7 @@ package com.backend.fitta.service.apiService;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.entity.gym.Owner;
-import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
-import com.backend.fitta.service.interfaces.OwnerService;
+import com.backend.fitta.service.interfaces.OwnerApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,16 +15,16 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class OwnerApiServiceImpl implements OwnerApiService {
-    private final OwnerService ownerService;
+public class OwnerApiServiceImpl implements com.backend.fitta.service.apiService.interfaces.OwnerApiService {
+    private final OwnerApiService ownerApiService;
     @Override
     public BasicOwnerInfo findById(Long id) {
-        return new BasicOwnerInfo(ownerService.findById(id));
+        return new BasicOwnerInfo(ownerApiService.findById(id));
     }
 
     @Override
     public Result<List<BasicOwnerInfo>> findAll() {
-        List<Owner> all = ownerService.findAll();
+        List<Owner> all = ownerApiService.findAll();
         List<BasicOwnerInfo> collect = all.stream()
                 .map(o -> new BasicOwnerInfo(o))
                 .collect(Collectors.toList());
@@ -38,7 +37,7 @@ public class OwnerApiServiceImpl implements OwnerApiService {
                 basicOwnerInfo.getPhoneNumber(),
                 basicOwnerInfo.getAddress(),
                 basicOwnerInfo.getBusinessRegistrationNumber());
-        return ownerService.save(owner);
+        return ownerApiService.save(owner);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class OwnerApiServiceImpl implements OwnerApiService {
                 updatedOwnerInfo.getAddress(),
                 updatedOwnerInfo.getBusinessRegistrationNumber()
         );
-        Owner update = ownerService.update(id, updateOwner);
+        Owner update = ownerApiService.update(id, updateOwner);
         return new BasicOwnerInfo(update);
     }
 
