@@ -30,7 +30,13 @@ public class StaffApiServiceImpl implements StaffApiService {
     @Override
     public FindStaffByIdResponse findById(Long id) {
         Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
-        return new FindStaffByIdResponse(staff.getName(), staff.getBirthday(), staff.getGender(), staff.getPhoneNumber(), staff.getAddress(), staff.getGrade());
+        String gymName;
+        if (staff.getGym() == null) {
+            gymName = null;
+        }else{
+            gymName = staff.getGym().getName();
+        }
+        return new FindStaffByIdResponse(staff.getName(), staff.getBirthday(), staff.getGender(), staff.getPhoneNumber(), staff.getAddress(), staff.getGrade(),gymName);
     }
 
     @Override

@@ -9,11 +9,10 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class FindByEmailResponse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String email;
     private String password;
     private String name;
@@ -25,16 +24,8 @@ public class FindByEmailResponse {
     private Long weight;
     private String occupation;
     private String note;
-    private Team team;
-    private Gym gym;
-
-    ///private String name;
-    //    private List<MemberTeamResponse> members;
-    //    private List<StaffTeamResponse> staffs;
-    //
-    //    public FindTeamByIdResponse(String name, List<MemberTeamResponse> members, List<StaffTeamResponse> staffs) {
-    //        this.name = name;
-    //        this.members = members;
-    //        this.staffs = staffs;
-    //    }
+    private String teamName;
+    private String gymName;
+//    private Team team;
+//    private Gym gym;
 }

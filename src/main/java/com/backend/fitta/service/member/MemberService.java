@@ -72,8 +72,20 @@ public class MemberService {
 
     public FindByEmailResponse findMember(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow();
-        return new FindByEmailResponse(member.getId(),member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
-        ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),member.getTeam(),member.getGym());
+        String teamName;
+        String gymName;
+        if (member.getTeam() == null) {
+            teamName = null;
+        } else {
+            teamName = member.getTeam().getName();
+        }
+        if (member.getGym() == null) {
+            gymName = null;
+        } else {
+            gymName = member.getGym().getName();
+        }
+        return new FindByEmailResponse(member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
+        ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),teamName,gymName);
     }
 
     public void saveTeamMember(long memberId, long teamId) {

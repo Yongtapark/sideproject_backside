@@ -16,5 +16,6 @@ public class FindStaffByIdResponse {
     private String phoneNumber;
     private String address;
     private Grade grade;
+    private String GymName;
 }
 
