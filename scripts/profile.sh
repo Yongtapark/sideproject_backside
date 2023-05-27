@@ -34,10 +34,10 @@ function find_idle_profile() {
 function find_idle_port() {
     IDLE_PROFILE=$(find_idle_profile) #find_idle_profile 함수의 결과를 IDLE_PROFILE 변수에 할당
 
-    if [ ${IDLE_PROFILE} == real1 ]
+    if [ ${IDLE_PROFILE} == real ]
     then
-      echo "8082"
+      echo "8081"
     else
-      echo "8083"
+      echo "8082"
     fi
 }
