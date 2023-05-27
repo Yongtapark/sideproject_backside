@@ -22,9 +22,9 @@ do
   #curl 명령어를 통해 해당 주소에서 프로필 정보를 가져온다.
   RESPONSE=$(curl -s http://localhost:${IDLE_PORT}/profile)
   #프로필 정보에서 'real'이라는 단어가 포함된 라인의 수를 센 결과를 UP_COUNT에 할당
-  UP_COUNT=$(echo ${RESPONSE} | grep 'real' | wc -1)
+  UP_COUNT=$(echo ${RESPONSE} | grep 'real' | wc -l)
 
-  if[${UP_COUNT} -ge 1 ] #만약 UP_COUNT 값이 1보다 크거나 같다면
+  if [ ${UP_COUNT} -ge 1 ] #만약 UP_COUNT 값이 1보다 크거나 같다면
   then # $up_count >= 1 ("real" 문자열이 있는지 검증)
     echo "> Health check 성공"
     switch_proxy
@@ -34,7 +34,7 @@ do
     echo "> HEALTH check : ${RESPONSE}"
   fi
 
-  if[${RETRY_COUNT} -eq 10]
+  if [ ${RETRY_COUNT} -eq 10 ]
   then
     echo "> Health check 실패. "
     echo "> 엔진엑스에 연결하지 않고 배포를 종료합니다."
