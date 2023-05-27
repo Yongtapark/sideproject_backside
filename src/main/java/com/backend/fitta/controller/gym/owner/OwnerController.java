@@ -37,4 +37,11 @@ public class OwnerController {
         return ResponseEntity.ok(ownerApiService.update(ownerId, request));
     }
 
+    @Operation(summary = "오너 삭제 메서드", description = "오너를 삭제할 수 있습니다.")
+    @DeleteMapping("/{ownerId}")
+    public ResponseEntity<Void> deleteOwner(@PathVariable Long ownerId) {
+        ownerApiService.deleteOwner(ownerId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

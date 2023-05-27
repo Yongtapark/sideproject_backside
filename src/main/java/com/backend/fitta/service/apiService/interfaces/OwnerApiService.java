@@ -20,4 +20,5 @@ public interface OwnerApiService {
     Long update(Long id, UpdateOwnerRequest request);
 
 
+    void deleteOwner(Long id);
 }

@@ -70,4 +70,10 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         return id;
     }
 
+    @Override
+    public void deleteOwner(Long id) {
+        Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
+        ownerRepository.delete(owner);
+    }
+
 }
