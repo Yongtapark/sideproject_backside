@@ -4,7 +4,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
+@Getter
+@ToString
+@Data
 public class SignUpOwnerRequest {
 
     @Email
@@ -21,5 +27,5 @@ public class SignUpOwnerRequest {
     private String phoneNumber;
     private String address;
     @NotBlank
-    private String BusinessRegistrationNumber;
+    private String businessRegistrationNumber;
 }

@@ -2,19 +2,14 @@ package com.backend.fitta.repository;
 
 import com.backend.fitta.dto.gym.MemberGymResponse;
 import com.backend.fitta.dto.gym.QMemberGymResponse;
-import com.backend.fitta.dto.gym.QStaffGymResponse;
-import com.backend.fitta.dto.gym.StaffGymResponse;
 import com.backend.fitta.dto.team.MemberTeamResponse;
 import com.backend.fitta.dto.team.QMemberTeamResponse;
-import com.backend.fitta.dto.team.QStaffTeamResponse;
-import com.backend.fitta.dto.team.StaffTeamResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
 import static com.backend.fitta.entity.gym.QGym.gym;
-import static com.backend.fitta.entity.gym.QStaff.staff;
 import static com.backend.fitta.entity.gym.QTeam.team;
 import static com.backend.fitta.entity.member.QMember.member;
 

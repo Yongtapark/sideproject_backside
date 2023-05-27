@@ -27,7 +27,7 @@ public class OwnerController {
     @Operation(summary = "오너 등록 메서드", description = "오너 등록 메서드입니다.")
     @PostMapping
     public ResponseEntity<Long> saveOwner(@Valid @RequestBody SignUpOwnerRequest request) {
-        return null;
-//        return ResponseEntity.status(HttpStatus.CREATED).body(ownerApiService.save(request));
+        log.info("owner={}",request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ownerApiService.save(request));
     }
 }
