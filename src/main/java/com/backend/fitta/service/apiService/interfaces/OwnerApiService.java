@@ -3,6 +3,7 @@ package com.backend.fitta.service.apiService.interfaces;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
+import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface OwnerApiService {
 
     Result<List<BasicOwnerInfo>> findAll();
 
-    BasicOwnerInfo update(Long id, BasicOwnerInfo updatedOwnerInfo);
+    Long update(Long id, UpdateOwnerRequest request);
 
 
 }

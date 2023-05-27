@@ -37,11 +37,12 @@ public class Owner extends Auditing {
         this.businessRegistrationNumber = businessRegistrationNumber;
     }
 
-    public void changeOwnerInfo(Owner owner){
-        this.name = owner.getName();
-        this.phoneNumber = owner.getPhoneNumber();
-        this.address = owner.getAddress();
-        this.businessRegistrationNumber = owner.getBusinessRegistrationNumber();
+    public void changeOwnerInfo(String name, String password, String phoneNumber, String address, String businessRegistrationNumber) {
+        this.name = name;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.businessRegistrationNumber = businessRegistrationNumber;
     }
 //    public void changeOwnerInfo(String name, String phoneNumber, String address, String businessRegistrationNumber){
 //        this.name = name;
