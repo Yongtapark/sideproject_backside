@@ -1,6 +1,8 @@
 package com.backend.fitta.controller.gym.owner;
 
+import com.backend.fitta.dto.member.FindByEmailResponse;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.dto.owner.FindOwnerByIdResponse;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.exception.MemberNotFoundException;
@@ -27,8 +29,13 @@ public class OwnerController {
     @Operation(summary = "오너 등록 메서드", description = "오너 등록 메서드입니다.")
     @PostMapping
     public ResponseEntity<Long> saveOwner(@Valid @RequestBody SignUpOwnerRequest request) {
-        log.info("owner={}",request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ownerApiService.save(request));
+    }
+
+    @Operation(summary = "오너 조회 메서드", description = "오너 id로 오너를 조회 할 수 있습니다.")
+    @GetMapping("/{ownerId}")
+    public ResponseEntity<FindOwnerByIdResponse> findMember(@PathVariable Long ownerId) {
+        return ResponseEntity.ok(ownerApiService.findById(ownerId));
     }
 
     @Operation(summary = "오너 정보 수정 메서드", description = "오너의 정보를 수정 할 수 있습니다.")
