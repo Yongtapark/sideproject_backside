@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 #쉬고 있는 profile 찾기 : real1이 사용중이면 real2가 쉬고 있고, 반대면 real1이 쉬고 있음
+-set x
 
 function find_idle_profile() {
   #현재 엔진엑스가 바라보고 있는 스프링부트가 정상적으로 수행중인지 확인
