@@ -16,7 +16,7 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 echo "> 새 애플리케이션 배포"
 # ls -tr 명령어는 수정된 시간(오래된 순)으로 파일을 나열하고, tail -n 1 명령어는 그 중 가장 최신 파일을 선택한다.
 # 이 파일명을 JAR_NAME 변수에 할당
-JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
+JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n l)
 
 echo "> JAR NAME : $JAR_NAME"
 
