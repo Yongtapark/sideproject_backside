@@ -1,6 +1,7 @@
 package com.backend.fitta.controller.gym.owner;
 
-import com.backend.fitta.service.interfaces.OwnerApiService;
+import com.backend.fitta.dto.owner.SignUpOwnerRequest;
+import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/Owner")
+@RequestMapping("/owner")
 public class OwnerController {
 
     private final OwnerApiService ownerApiService;
@@ -26,6 +27,7 @@ public class OwnerController {
     @Operation(summary = "오너 등록 메서드", description = "오너 등록 메서드입니다.")
     @PostMapping
     public ResponseEntity<Long> saveOwner(@Valid @RequestBody SignUpOwnerRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ownerApiService.save(request));
+        return null;
+//        return ResponseEntity.status(HttpStatus.CREATED).body(ownerApiService.save(request));
     }
 }

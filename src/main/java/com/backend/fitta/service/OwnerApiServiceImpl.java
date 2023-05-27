@@ -1,44 +1,58 @@
 package com.backend.fitta.service;
 
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.entity.gym.Owner;
-import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.OwnerRepository;
-import com.backend.fitta.service.interfaces.OwnerApiService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+
 @Service
-@Transactional
 @RequiredArgsConstructor
-public class OwnerApiServiceImpl implements OwnerApiService {
+@Slf4j
+public class OwnerApiServiceImpl implements com.backend.fitta.service.apiService.interfaces.OwnerApiService {
     private final OwnerRepository ownerRepository;
     @Override
-    public Long save(Owner owner) {
-        return ownerRepository.save(owner).getId();
+    public BasicOwnerInfo findById(Long id) {
+        return null;
+//        return new BasicOwnerInfo(ownerRepository.findById(id));
     }
 
     @Override
-    public Owner findById(Long id) {
-        return ownerRepository.findById(id).orElseThrow(()->new OwnerNotFoundException());
+    public Result<List<BasicOwnerInfo>> findAll() {
+        List<Owner> all = ownerRepository.findAll();
+        List<BasicOwnerInfo> collect = all.stream()
+                .map(o -> new BasicOwnerInfo(o))
+                .collect(Collectors.toList());
+        return new Result(collect);
     }
 
     @Override
-    public List<Owner> findAll() {
-        return ownerRepository.findAll();
+    public Long save(BasicOwnerInfo basicOwnerInfo) {
+        Owner owner = new Owner(basicOwnerInfo.getName(),
+                basicOwnerInfo.getPhoneNumber(),
+                basicOwnerInfo.getAddress(),
+                basicOwnerInfo.getBusinessRegistrationNumber());
+//        return ownerRepository.save(owner);
+        return null;
     }
 
     @Override
-    public Owner update(Long id, Owner owner) {
-        Owner findOwner = findById(id);
-        findOwner.changeOwnerInfo(owner);
-        return findOwner;
+    public BasicOwnerInfo update(Long id, BasicOwnerInfo updatedOwnerInfo) {
+        Owner updateOwner = new Owner(
+                updatedOwnerInfo.getName(),
+                updatedOwnerInfo.getPhoneNumber(),
+                updatedOwnerInfo.getAddress(),
+                updatedOwnerInfo.getBusinessRegistrationNumber()
+        );
+//        Owner update = ownerRepository.update(id, updateOwner);
+//        return new BasicOwnerInfo(update);
+        return null;
     }
 
-    @Override
-    public void delete(Long id) {
-        Owner findOwner = findById(id);
-        ownerRepository.delete(findOwner);
-    }
 }

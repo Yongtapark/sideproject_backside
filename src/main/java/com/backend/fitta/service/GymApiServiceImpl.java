@@ -4,7 +4,7 @@ import com.backend.fitta.dto.gym.*;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.repository.GymRepository;
-import com.backend.fitta.service.interfaces.GymApiService;
+import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -4,6 +4,7 @@ import com.backend.fitta.dto.team.*;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.TeamNotFoundException;
 import com.backend.fitta.repository.MemberRepository;
+import com.backend.fitta.repository.StaffRepository;
 import com.backend.fitta.repository.TeamRepository;
 import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @Transactional
 public class TeamApiServiceImpl implements TeamApiService {
     private final TeamRepository teamRepository;
+    private final StaffRepository staffRepository;
     private final MemberRepository memberRepository;
     @Override
     public Long save(SaveTeamRequest request) {
@@ -27,7 +29,7 @@ public class TeamApiServiceImpl implements TeamApiService {
     @Override
     public FindTeamByIdResponse findById(Long id) {
         List<MemberTeamResponse> memberList = memberRepository.searchTeamMemberList(id);
-        List<StaffTeamResponse> staffList = memberRepository.searchTeamStaffList(id);
+        List<StaffTeamResponse> staffList = staffRepository.searchTeamStaffList(id);
         Team team = teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException());
         return new FindTeamByIdResponse(team.getName(), memberList, staffList);
     }

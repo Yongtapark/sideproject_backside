@@ -18,7 +18,7 @@ import static com.backend.fitta.entity.gym.QStaff.staff;
 import static com.backend.fitta.entity.gym.QTeam.team;
 import static com.backend.fitta.entity.member.QMember.member;
 
-public class MemberRepositoryImpl implements MemberRepositoryCustom, StaffRepositoryCustom {
+public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
 
@@ -58,35 +58,4 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom, StaffReposi
                 .fetch();
     }
 
-    @Override
-    public List<StaffTeamResponse> searchTeamStaffList(Long teamId) {
-        return queryFactory
-                .select(new QStaffTeamResponse(
-                        staff.name,
-                        staff.birthday,
-                        staff.gender,
-                        staff.phoneNumber,
-                        staff.address,
-                        staff.grade))
-                .from(staff)
-                .join(staff.team, team)
-                .where(staff.team.id.eq(teamId))
-                .fetch();
-    }
-
-    @Override
-    public List<StaffGymResponse> searchGymStaffList(Long gymId) {
-        return queryFactory
-                .select(new QStaffGymResponse(
-                        staff.name,
-                        staff.birthday,
-                        staff.gender,
-                        staff.phoneNumber,
-                        staff.address,
-                        staff.grade))
-                .from(staff)
-                .join(staff.gym, gym)
-                .where(staff.gym.id.eq(gymId))
-                .fetch();
-    }
 }

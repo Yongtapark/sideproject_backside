@@ -3,7 +3,7 @@ package com.backend.fitta.controller.gym.gym;
 import com.backend.fitta.dto.gym.FindGymByIdResponse;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
-import com.backend.fitta.service.interfaces.GymApiService;
+import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

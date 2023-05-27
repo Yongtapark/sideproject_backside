@@ -1,10 +1,9 @@
-package com.backend.fitta.service.interfaces;
+package com.backend.fitta.service.apiService.interfaces;
 
 import com.backend.fitta.dto.gym.FindGymByIdResponse;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.entity.gym.Gym;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
