@@ -16,7 +16,7 @@ function find_idle_profile() {
       CURRENT_PROFILE=$(curl -s http://localhost/profile) #그렇지않다면, 서버의 profile 정보를 가져와 CURRENT_PROFILE에 설정
     fi
 
-    if [ ${CURRENT_PROFILE}==real1 ] # 만약 CURRENT_PROFILE이 real1이라면
+    if [ ${CURRENT_PROFILE} == real1 ] # 만약 CURRENT_PROFILE이 real1이라면
     then
       #엔진엑스와 연결되지 않은 profile
       #스프링부트 프로젝트를 이 profile이 연결하기 위해 반환
@@ -34,7 +34,7 @@ function find_idle_profile() {
 function find_idle_port() {
     IDLE_PROFILE=$(find_idle_profile) #find_idle_profile 함수의 결과를 IDLE_PROFILE 변수에 할당
 
-    if [ ${IDLE_PROFILE}==real1 ]
+    if [ ${IDLE_PROFILE} == real1 ]
     then
       echo "8081"
     else
