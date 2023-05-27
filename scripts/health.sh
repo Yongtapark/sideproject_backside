@@ -22,6 +22,7 @@ do
   #curl 명령어를 통해 해당 주소에서 프로필 정보를 가져온다.
   RESPONSE=$(curl -s http://localhost:${IDLE_PORT}/profile)
   #프로필 정보에서 'real'이라는 단어가 포함된 라인의 수를 센 결과를 UP_COUNT에 할당
+echo "> response= $RESPONSE"
   UP_COUNT=$(echo ${RESPONSE} | grep 'real' | wc -l)
 
   if [ ${UP_COUNT} -ge 1 ] #만약 UP_COUNT 값이 1보다 크거나 같다면
