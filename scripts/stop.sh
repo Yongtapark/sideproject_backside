@@ -3,10 +3,10 @@
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH) #현재 stop.sh가 속해있는 경로를 찾습니다. 하단의 코드와 같이 profile.sh의 경로를 찾기 위해 사용됩니다.
 source ${ABSDIR}/profile.sh
-echo ">test"
+echo ">test1"
 
 IDLE_PORT=$(find_idle_port)
-
+echo "> test2"
 echo "> $IDLE_PORT 에서 구동 중인 애플리케이션 pid 확인"
 IDLE_PID=$(lsof -ti tcp:${IDLE_PORT})
 
