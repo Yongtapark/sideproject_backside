@@ -16,7 +16,7 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 echo "> 새 애플리케이션 배포"
 # ls -tr 명령어는 수정된 시간(오래된 순)으로 파일을 나열하고, tail -n 1 명령어는 그 중 가장 최신 파일을 선택한다.
 # 이 파일명을 JAR_NAME 변수에 할당
-JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n l)
+JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
 
 echo "> JAR NAME : $JAR_NAME"
 
@@ -33,4 +33,4 @@ echo ">$JAR_NAME를 profile=$IDLE_PROFILE 로 실행합니다. "
 #실행 결과는 nohup.out 파일에 기록된다.
 nohup java -jar \
 -Dspring.config.location=classpath:/application.properties,classpath:/application-$IDLE_PROFILE.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
--Dspring.profiles.active=$IDLE_PROFILE \ $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+-Dspring.profiles.active=$IDLE_PROFILE $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
