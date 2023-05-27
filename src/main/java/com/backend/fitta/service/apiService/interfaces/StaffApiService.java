@@ -13,5 +13,7 @@ public interface StaffApiService {
     List<Staff> findAll();
     Long update(Long id, UpdateStaffRequest request);
     void delete(Long id);
+    void saveTeamStaff(long staffId, long teamId);
 
+    void saveGymStaff(long staffId, long gymId);
 }

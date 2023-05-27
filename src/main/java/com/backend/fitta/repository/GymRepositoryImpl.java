@@ -18,13 +18,13 @@ import static com.backend.fitta.entity.gym.QStaff.staff;
 import static com.backend.fitta.entity.gym.QTeam.team;
 import static com.backend.fitta.entity.member.QMember.member;
 
-public class MemberRepositoryImpl implements MemberRepositoryCustom, StaffRepositoryCustom {
-
+public class GymRepositoryImpl implements MemberRepositoryCustom, StaffRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    public MemberRepositoryImpl(EntityManager em) {
+    public GymRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
+
 
     @Override
     public List<MemberTeamResponse> searchTeamMemberList(Long teamId) {

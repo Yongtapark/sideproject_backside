@@ -50,7 +50,7 @@ public class SecurityConfig{
                 new AntPathRequestMatcher("https://fitta-git-dev-yiminwook.vercel.app/**"),
                 new AntPathRequestMatcher("http://localhost:3000/**"),
                 //HostingDomain
-                new AntPathRequestMatcher("https://fitta.link/**")
+                new AntPathRequestMatcher("https://8b79-210-219-182-113.ngrok-free.app/**")
         );
 
         http

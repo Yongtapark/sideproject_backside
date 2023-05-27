@@ -22,11 +22,12 @@ public class TeamController {
 
     private final TeamApiService teamApiService;
 
-    @Operation(summary = "팀 등록 메서드", description = "팀 등록 메서드입니다.")
+    @Operation(summary = "팀 추가 메서드", description = "팀 추가 메서드입니다.")
     @PostMapping
     public ResponseEntity<Long> saveTeam(@Valid @RequestBody SaveTeamRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(teamApiService.save(request));
     }
+
 
     @Operation(summary = "팀 조회 메서드", description = "팀 id로 팀 정보를 조회 할 수 있습니다.")
     @GetMapping("/{teamId}")

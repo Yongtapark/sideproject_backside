@@ -9,28 +9,23 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class FindByEmailResponse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
     private String email;
     private String password;
     private String name;
     private LocalDate birthday;
     private String phoneNumber;
     private String address;
-    @Enumerated(EnumType.STRING)
     private Gender gender;
     private Long height;
     private Long weight;
     private String occupation;
     private String note;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
-    private Team team;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
+    private String teamName;
+    private String gymName;
+//    private Team team;
+//    private Gym gym;
 }

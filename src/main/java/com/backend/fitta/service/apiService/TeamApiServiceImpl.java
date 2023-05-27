@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TeamServiceImpl implements TeamApiService {
+public class TeamApiServiceImpl implements TeamApiService {
     private final TeamRepository teamRepository;
     private final MemberRepository memberRepository;
     @Override
@@ -27,8 +26,8 @@ public class TeamServiceImpl implements TeamApiService {
 
     @Override
     public FindTeamByIdResponse findById(Long id) {
-        List<MemberTeamResponse> memberList = memberRepository.searchMemberList(id);
-        List<StaffTeamResponse> staffList = memberRepository.searchStaffList(id);
+        List<MemberTeamResponse> memberList = memberRepository.searchTeamMemberList(id);
+        List<StaffTeamResponse> staffList = memberRepository.searchTeamStaffList(id);
         Team team = teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException());
         return new FindTeamByIdResponse(team.getName(), memberList, staffList);
     }

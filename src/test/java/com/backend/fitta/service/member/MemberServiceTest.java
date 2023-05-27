@@ -1,11 +1,12 @@
 package com.backend.fitta.service.member;
 
-import com.backend.fitta.dto.member.FindByEmailResponse;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.repository.MemberRepository;
+import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,7 @@ class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+    @Autowired TeamApiService teamApiService;
 
     private Member testMember;
 
@@ -99,5 +101,18 @@ class MemberServiceTest {
     void deleteMember() {
         memberService.deleteMember(1L);
         assertThatThrownBy(() -> memberService.findById(1L).orElseThrow()).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    void saveMemberTeam() {
+        SignUpRequest signUpRequest = new SignUpRequest("email@naver.com", "1234", "1234", "멤버1",
+                "대전", Gender.FEMALE, "01012341234", LocalDate.of(1995, 12, 10), "학생");
+        Long saveMemberId = memberService.save(signUpRequest);
+        SaveTeamRequest teamRequest = new SaveTeamRequest("팀1");
+        Long saveTeamId = teamApiService.save(teamRequest);
+        Member findMember = memberService.findById(saveMemberId).orElseThrow();
+        assertThat(findMember.getTeam()).isNull();
+        memberService.saveTeamMember(saveMemberId, saveTeamId);
+        assertThat(findMember.getTeam().getName()).isEqualTo("팀1");
     }
 }

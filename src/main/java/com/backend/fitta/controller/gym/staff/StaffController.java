@@ -47,6 +47,20 @@ public class StaffController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "스태프 팀 등록", description = "스태프를 팀에 등록시키는 메서드입니다.")
+    @PostMapping("team/{staffId}/{teamId}")
+    public ResponseEntity<Void> saveTeamStaff(@PathVariable long staffId, @PathVariable long teamId) {
+        staffApiService.saveTeamStaff(staffId, teamId);
+        return ResponseEntity.noContent().build();
+    }
+    @Operation(summary = "스태프 헬스장 등록", description = "스태프를 헬스장에 등록시키는 메서드입니다.")
+    @PostMapping("gym/{staffId}/{gymId}")
+    public ResponseEntity<Void> saveGymStaff(@PathVariable long staffId, @PathVariable long gymId) {
+        staffApiService.saveGymStaff(staffId, gymId);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
 
 

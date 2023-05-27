@@ -25,6 +25,7 @@ public class Gym extends Auditing {
     private String name;
     private String phoneNumber;
     private String address;
+    @Enumerated(EnumType.STRING)
     private GenderDivision genderDivision;
     @OneToMany(mappedBy = "gym")
     private List<Staff> staff =new ArrayList<>();
