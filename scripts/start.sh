@@ -32,5 +32,5 @@ echo ">$JAR_NAME를 profile=$IDLE_PROFILE 로 실행합니다. "
 #nohup 명령어를 통해 백그라운드에서 JAR 파일을 실행한다. 이 때, java -jar 명령어와 함께 스프링 부트의 프로필과 함께 설정 파일 위치를 지정한다.
 #실행 결과는 nohup.out 파일에 기록된다.
 nohup java -jar \
--Dspring.config.location=classpath:/application.properties,classpath:/application-$IDLE_PROFILE.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
+-Dspring.config.location=classpath:/application.properties,classpath:/application-$IDLE_PROFILE.properties,/home/ec2-user/app/application-oauth.properties\
 -Dspring.profiles.active=$IDLE_PROFILE $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
