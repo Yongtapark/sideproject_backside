@@ -46,7 +46,7 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     @Override
     public FindOwnerByIdResponse findById(Long id) {
         Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
-        List<GymOwnerResponse> gymList = null;
+        List<GymOwnerResponse> gymList = ownerRepository.searchOwnerGymList(id);
         return new FindOwnerByIdResponse(
                 owner.getEmail(),
                 owner.getName(),

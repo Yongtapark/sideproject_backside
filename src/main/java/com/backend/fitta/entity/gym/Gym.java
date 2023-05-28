@@ -16,11 +16,12 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Gym extends Auditing {
+    @Column(name = "gym_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
+    @JoinColumn(name = "owner_id")
     private Owner owner;
     private String name;
     private String phoneNumber;
@@ -28,9 +29,9 @@ public class Gym extends Auditing {
     @Enumerated(EnumType.STRING)
     private GenderDivision genderDivision;
     @OneToMany(mappedBy = "gym")
-    private List<Staff> staff =new ArrayList<>();
+    private List<Staff> staff = new ArrayList<>();
     @OneToMany(mappedBy = "gym")
-    private List<Member> member =new ArrayList<>();
+    private List<Member> member = new ArrayList<>();
 
     public Gym(String name, Owner owner, String phoneNumber, String address, GenderDivision genderDivision) {
         this.name = name;
@@ -49,8 +50,8 @@ public class Gym extends Auditing {
         this.genderDivision = genderDivision;
     }
 
-    public void changeOwner(Owner owner){
-        this.owner=owner;
+    public void changeOwner(Owner owner) {
+        this.owner = owner;
         owner.getGym().add(this);
     }
 }

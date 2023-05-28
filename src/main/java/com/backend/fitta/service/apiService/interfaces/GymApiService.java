@@ -13,4 +13,6 @@ public interface GymApiService {
     List<Gym> findAll();
     Long update(Long id, UpdateGymRequest request);
     void delete(Long id);
+
+    void saveOwnerGym(long gymId, long ownerId);
 }

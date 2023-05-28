@@ -2,7 +2,9 @@ package com.backend.fitta.dto.owner;
 
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Getter;
 
+@Getter
 public class GymOwnerResponse {
     private String name;
     private String phoneNumber;

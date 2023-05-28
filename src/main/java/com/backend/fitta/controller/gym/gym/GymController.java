@@ -47,4 +47,11 @@ public class GymController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "헬스장 오너 등록", description = "헬스장 id로 헬스장을 찾아 오너를 추가해줍니다.")
+    @PostMapping("owner/{gymId}/{ownerId}")
+    public ResponseEntity<Void> saveOwnerGym(@PathVariable long gymId, @PathVariable long ownerId) {
+        gymApiService.saveOwnerGym(gymId, ownerId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
