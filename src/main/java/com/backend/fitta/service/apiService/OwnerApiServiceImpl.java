@@ -1,4 +1,4 @@
-package com.backend.fitta.service;
+package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.owner.*;
@@ -68,12 +68,7 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     @Override
     public Long update(Long id, UpdateOwnerRequest request) {
         Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
-        owner.changeOwnerInfo(
-                request.getName(),
-                request.getPassword(),
-                request.getPhoneNumber(),
-                request.getAddress(),
-                request.getBusinessRegistrationNumber());
+        owner.changeOwnerInfo(owner);
         return id;
     }
 

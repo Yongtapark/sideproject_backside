@@ -1,4 +1,4 @@
-package com.backend.fitta.service;
+package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.gym.*;
 import com.backend.fitta.entity.gym.Gym;
