@@ -1,11 +1,12 @@
 package com.backend.fitta.service.apiService;
 
-import com.backend.fitta.dto.team.*;
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.team.BasicTeamInfo;
+import com.backend.fitta.dto.team.SaveTeamRequest;
+import com.backend.fitta.dto.team.UpdateTeamRequest;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.TeamNotFoundException;
-import com.backend.fitta.repository.MemberRepository;
-import com.backend.fitta.repository.StaffRepository;
-import com.backend.fitta.repository.TeamRepository;
+import com.backend.fitta.repository.team.TeamRepository;
 import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,14 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
 public class TeamApiServiceImpl implements TeamApiService {
     private final TeamRepository teamRepository;
-    private final StaffRepository staffRepository;
-    private final MemberRepository memberRepository;
     @Override
     public Long save(SaveTeamRequest request) {
         log.info("request.getName()={}",request.getName());
@@ -30,16 +31,18 @@ public class TeamApiServiceImpl implements TeamApiService {
 
 
     @Override
-    public FindTeamByIdResponse findById(Long id) {
+    public BasicTeamInfo findById(Long id) {
         Team team = teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException());
-        List<MemberTeamResponse> memberList = memberRepository.searchTeamMemberList(id);
-        List<StaffTeamResponse> staffList = staffRepository.searchTeamStaffList(id);
-        return new FindTeamByIdResponse(team.getName(), memberList, staffList);
+        return new BasicTeamInfo(team);
     }
 
     @Override
-    public List<Team> findAll() {
-        return teamRepository.findAll();
+    public Result<List<BasicTeamInfo>> findAll() {
+        List<Team> all = teamRepository.findAll();
+        List<BasicTeamInfo> collect = all.stream()
+                .map(T -> new BasicTeamInfo(T))
+                .collect(Collectors.toList());
+        return new Result(collect);
     }
 
     @Override

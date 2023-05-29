@@ -1,6 +1,7 @@
 package com.backend.fitta.controller.gym.gym;
 
-import com.backend.fitta.dto.gym.FindGymByIdResponse;
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "헬스장", description = "헬스장 관련 api 입니다.")
 @RestController
@@ -30,8 +33,14 @@ public class GymController {
 
     @Operation(summary = "헬스장 조회 메서드", description = "헬스장 id로 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping("/{gymId}")
-    public ResponseEntity<FindGymByIdResponse> findGym(@PathVariable long gymId) {
+    public ResponseEntity<BasicGymInfo> findGym(@PathVariable long gymId) {
         return ResponseEntity.ok(gymApiService.findById(gymId));
+    }
+
+    @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
+    @GetMapping
+    public ResponseEntity<Result<List<BasicGymInfo>>> findAll() {
+        return ResponseEntity.ok(gymApiService.findAll());
     }
 
     @Operation(summary = "헬스장 정보 수정 메서드", description = "헬스장 id로 헬스장 정보를 찾아 헬스장 정보를 수정 할 수 있습니다.")

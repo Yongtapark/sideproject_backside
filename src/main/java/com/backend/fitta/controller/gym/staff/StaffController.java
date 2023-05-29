@@ -1,6 +1,7 @@
 package com.backend.fitta.controller.gym.staff;
 
-import com.backend.fitta.dto.team.FindStaffByIdResponse;
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.team.BasicStaffInfo;
 import com.backend.fitta.dto.team.SaveStaffRequest;
 import com.backend.fitta.dto.team.UpdateStaffRequest;
 import com.backend.fitta.service.apiService.interfaces.StaffApiService;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "스태프", description = "스태프 관련 api 입니다.")
 @RestController
@@ -30,8 +33,14 @@ public class StaffController {
 
     @Operation(summary = "스태프 조회 메서드", description = "스태프 id로 스태프를 조회 할 수 있습니다.")
     @GetMapping("/{staffId}")
-    public ResponseEntity<FindStaffByIdResponse> findStaff(@PathVariable long staffId) {
+    public ResponseEntity<BasicStaffInfo> findStaff(@PathVariable long staffId) {
         return ResponseEntity.ok(staffApiService.findById(staffId));
+    }
+
+    @Operation(summary = "전체 스태프 조회 메서드", description = "전체 스태프를 조회 할 수 있습니다.")
+    @GetMapping
+    public ResponseEntity<Result<List<BasicStaffInfo>>> findAll() {
+        return ResponseEntity.ok(staffApiService.findAll());
     }
 
     @Operation(summary = "스태프 정보 수정 메서드", description = "스태프 id로 스태프를 찾아 스태프의 정보를 수정 할 수 있습니다.")

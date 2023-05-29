@@ -5,15 +5,13 @@ import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.member.Member;
-import com.backend.fitta.repository.MemberRepository;
+import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;

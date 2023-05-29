@@ -12,6 +12,7 @@ import java.util.List;
 
 @Getter
 @ToString
+
 public class SaveTeamRequest {
     @NotBlank
     private String name;

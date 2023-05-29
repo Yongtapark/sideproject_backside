@@ -1,18 +1,21 @@
 package com.backend.fitta.service.apiService;
 
+import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.*;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
-import com.backend.fitta.repository.GymRepository;
-import com.backend.fitta.repository.OwnerRepository;
+import com.backend.fitta.repository.gym.GymRepository;
+import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -21,21 +24,23 @@ public class GymApiServiceImpl implements GymApiService {
     private final OwnerRepository ownerRepository;
     @Override
     public Long save(SaveGymRequest request) {
-        Gym gym = new Gym(request.getName(), null, request.getAddress(), request.getPhoneNumber(), request.getGenderDivision());
+        Gym gym = new Gym(request.getName(), null, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision());
         return gymRepository.save(gym).getId();
     }
 
     @Override
-    public FindGymByIdResponse findById(Long id) {
+    public BasicGymInfo findById(Long id) {
         Gym gym = gymRepository.findById(id).orElseThrow(() -> new GymNotFoundException());
-        List<MemberGymResponse> memberList = gymRepository.searchGymMemberList(id);
-        List<StaffGymResponse> staffList = gymRepository.searchGymStaffList(id);
-        return new FindGymByIdResponse(gym.getName(), gym.getPhoneNumber(), gym.getAddress(), gym.getGenderDivision(), memberList, staffList);
+        return new BasicGymInfo(gym);
     }
 
     @Override
-    public List<Gym> findAll() {
-        return gymRepository.findAll();
+    public Result<List<BasicGymInfo>> findAll() {
+        List<Gym> all = gymRepository.findAll();
+        List<BasicGymInfo> collect = all.stream()
+                .map(G -> new BasicGymInfo(G))
+                .collect(Collectors.toList());
+        return new Result(collect);
     }
 
     @Override
