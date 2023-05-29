@@ -38,7 +38,7 @@ class OwnerApiServiceImplTest {
         Long ownerAId = ownerService.save(ownerA);
         Long ownerBId = ownerService.save(ownerB);
         //update
-        Owner update = ownerService.update(ownerBId, new Owner("수정사장", "수정번호", "수정주소", "수정번호"));
+        Owner update = ownerService.update(ownerBId, new Owner("email","pwd" ,"수정사장", "수정번호", "수정주소", "수정번호"));
         log.info("confirm={}",update.getName());
         //findById
         Owner findOwner = ownerService.findById(ownerAId);
@@ -60,14 +60,14 @@ class OwnerApiServiceImplTest {
     void apiTest() throws Exception{
         //given
         // 사장 정보를 생성
-        Owner ownerA = new Owner("김사장", "000-0000-0000", "주소1", "사업자등록번호1");
-        Owner ownerB = new Owner("이사장", "000-0000-0000", "주소1", "사업자등록번호1");
+        Owner ownerA = new Owner("email","pwd" ,"김사장", "000-0000-0000", "주소1", "사업자등록번호1");
+        Owner ownerB = new Owner("email","pwd" ,"이사장", "000-0000-0000", "주소1", "사업자등록번호1");
 
         //when
         // 사장 정보를 저장
-        Long saved1 = ownerService.save(new BasicOwnerInfo(ownerA));
-        Long saved2 = ownerService.save(new BasicOwnerInfo(ownerB));
-        BasicOwnerInfo update = ownerService.update(saved2, new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
+        Long saved1 = ownerService.save(ownerA);
+        Long saved2 = ownerService.save(ownerB);
+        Owner update = ownerService.update(saved2, new Owner("email", "pwd", "수정된사장", "수정된번호", "수정된주소", "수정된사업자번호"));
 
 
         // DB에서 저장된 사장 정보를 조회
@@ -86,10 +86,10 @@ class OwnerApiServiceImplTest {
         savedOwner1= ownerService.findById(saved1);
         savedOwner2= ownerService.findById(saved2);
 
-        BasicOwnerInfo findOwner1 = ownerService.findById(savedOwner1.getId());
-        BasicOwnerInfo findOwner2 = ownerService.findById(savedOwner2.getId());
+        Owner findOwner1 = ownerService.findById(savedOwner1.getId());
+        Owner findOwner2 = ownerService.findById(savedOwner2.getId());
         // 사장 전체 조회
-        Result<List<BasicOwnerInfo>> owners = ownerService.findAll();
+        List<Owner> owners = ownerService.findAll();
 
         //then
         //저장된 사장의 이름과 조회된 사장의 이름이 같은지 확인
@@ -99,9 +99,9 @@ class OwnerApiServiceImplTest {
 //        //존재하지 않는 사장 정보를 조회하려 할 때 예외가 발생하는지 확인
        assertThatThrownBy(()-> ownerService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
 //        //사장1의 gymList 에 체육관 정보가 존재하는지 확인
-        assertThat(findOwner1.getGymList()).contains(new BasicGymInfo(gym));
+        assertThat(findOwner1.getGym()).contains(gym);
         //사장들의 리스트를 확인
-        assertThat(owners.getData()).contains(findOwner1,findOwner2);
+        assertThat(owners).contains(findOwner1,findOwner2);
 
 
 
