@@ -21,7 +21,9 @@ public class BasicGymInfo {
 
     public BasicGymInfo(Gym gym) {
         this.name = gym.getName();
-        this.ownerName = gym.getOwner().getName();
+        if (gym.getOwner() != null) {
+            this.ownerName = gym.getOwner().getName();
+        }
         this.phoneNumber = gym.getPhoneNumber();
         this.address = gym.getAddress();
         this.genderDivision = gym.getGenderDivision();
