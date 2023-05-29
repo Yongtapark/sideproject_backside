@@ -3,6 +3,8 @@ package com.backend.fitta.repository;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
+import com.backend.fitta.repository.member.MemberRepository;
+import com.backend.fitta.repository.team.TeamRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

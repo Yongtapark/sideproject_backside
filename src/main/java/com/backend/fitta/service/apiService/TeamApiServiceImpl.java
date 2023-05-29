@@ -6,7 +6,7 @@ import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.dto.team.UpdateTeamRequest;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.TeamNotFoundException;
-import com.backend.fitta.repository.TeamRepository;
+import com.backend.fitta.repository.team.TeamRepository;
 import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

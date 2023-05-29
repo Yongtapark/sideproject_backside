@@ -8,7 +8,7 @@ import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.AlreadyExistOwnerException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.exception.PWNotCorrespondException;
-import com.backend.fitta.repository.OwnerRepository;
+import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

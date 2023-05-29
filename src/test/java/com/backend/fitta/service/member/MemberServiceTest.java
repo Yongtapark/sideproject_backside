@@ -5,7 +5,7 @@ import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.member.Member;
-import com.backend.fitta.repository.MemberRepository;
+import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;

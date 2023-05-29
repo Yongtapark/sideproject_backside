@@ -6,7 +6,7 @@ import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.exception.GymNotFoundException;
-import com.backend.fitta.repository.GymRepository;
+import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import jakarta.persistence.EntityManager;

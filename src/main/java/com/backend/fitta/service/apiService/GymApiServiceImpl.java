@@ -2,16 +2,14 @@ package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.*;
-import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
-import com.backend.fitta.repository.GymRepository;
-import com.backend.fitta.repository.OwnerRepository;
+import com.backend.fitta.repository.gym.GymRepository;
+import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

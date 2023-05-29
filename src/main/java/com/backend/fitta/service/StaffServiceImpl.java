@@ -2,7 +2,7 @@ package com.backend.fitta.service;
 
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.exception.StaffNotFoundException;
-import com.backend.fitta.repository.StaffRepository;
+import com.backend.fitta.repository.staff.StaffRepository;
 import com.backend.fitta.service.interfaces.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

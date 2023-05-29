@@ -1,8 +1,7 @@
 package com.backend.fitta.service.member;
 
 import com.backend.fitta.entity.member.Member;
-import com.backend.fitta.entity.user.Role;
-import com.backend.fitta.repository.MemberRepository;
+import com.backend.fitta.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
