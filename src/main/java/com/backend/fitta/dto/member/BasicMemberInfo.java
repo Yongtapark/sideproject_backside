@@ -1,13 +1,15 @@
 package com.backend.fitta.dto.member;
 
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.entity.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
-@AllArgsConstructor
 public class BasicMemberInfo {
 
     private String email;
@@ -23,6 +25,20 @@ public class BasicMemberInfo {
     private String note;
     private String teamName;
     private String gymName;
-//    private Team team;
-//    private Gym gym;
+
+    public BasicMemberInfo(Member member) {
+        this.email = member.getEmail();
+        this.password = member.getPassword();
+        this.name = member.getName();
+        this.birthday = member.getBirthday();
+        this.phoneNumber = member.getPhoneNumber();
+        this.address = member.getAddress();
+        this.gender = member.getGender();
+        this.height = member.getHeight();
+        this.weight = member.getWeight();
+        this.occupation = member.getOccupation();
+        this.note = member.getNote();
+        this.teamName = member.getTeam().getName();
+        this.gymName = member.getGym().getName();
+    }
 }
