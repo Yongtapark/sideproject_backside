@@ -89,7 +89,7 @@ public class MemberController {
         memberService.saveGymMember(memberId,gymId);
         return ResponseEntity.noContent().build();
     }
-
+//
     private void validateExistMember(Long memberId) {
         memberService.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
     }
