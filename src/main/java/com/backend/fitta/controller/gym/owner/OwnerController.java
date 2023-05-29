@@ -2,7 +2,6 @@ package com.backend.fitta.controller.gym.owner;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
-import com.backend.fitta.dto.owner.FindOwnerByIdResponse;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
@@ -35,7 +34,7 @@ public class OwnerController {
 
     @Operation(summary = "오너 조회 메서드", description = "오너 id로 오너를 조회 할 수 있습니다.")
     @GetMapping("/{ownerId}")
-    public ResponseEntity<FindOwnerByIdResponse> findMember(@PathVariable Long ownerId) {
+    public ResponseEntity<BasicOwnerInfo> findMember(@PathVariable Long ownerId) {
         return ResponseEntity.ok(ownerApiService.findById(ownerId));
     }
 

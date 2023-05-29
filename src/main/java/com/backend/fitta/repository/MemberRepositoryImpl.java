@@ -23,18 +23,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
     @Override
     public List<MemberTeamResponse> searchTeamMemberList(Long teamId) {
-        return queryFactory
-                .select(new QMemberTeamResponse(
-                        member.email,
-                        member.name,
-                        member.birthday,
-                        member.phoneNumber,
-                        member.address,
-                        member.gender))
-                .from(member)
-                .join(member.team, team)
-                .where(member.team.id.eq(teamId))
-                .fetch();
+        return null;
     }
 
     @Override
@@ -48,7 +37,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         member.address,
                         member.gender))
                 .from(member)
-                .join(member.gym, gym)
+                .join(member.gym, gym).fetchJoin()
                 .where(member.gym.id.eq(gymId))
                 .fetch();
     }

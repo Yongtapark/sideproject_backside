@@ -1,7 +1,6 @@
 package com.backend.fitta.dto.gym;
 
 import com.backend.fitta.entity.enums.GenderDivision;
-import com.backend.fitta.entity.gym.Owner;
 import lombok.Getter;
 
 import java.util.List;

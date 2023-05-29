@@ -4,13 +4,17 @@ import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class BasicGymInfo {
-    String name;
-    String ownerName;
-    String phoneNumber;
-    String address;
-    GenderDivision genderDivision;
+    private String name;
+    private String ownerName;
+    private String phoneNumber;
+    private String address;
+    private GenderDivision genderDivision;
+    private List<MemberGymResponse> members;
+    private List<StaffGymResponse> staffs;
 
     public BasicGymInfo(Gym gym) {
         this.name = gym.getName();

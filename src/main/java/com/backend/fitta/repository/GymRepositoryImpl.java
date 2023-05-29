@@ -28,18 +28,7 @@ public class GymRepositoryImpl implements MemberRepositoryCustom, StaffRepositor
 
     @Override
     public List<MemberTeamResponse> searchTeamMemberList(Long teamId) {
-        return queryFactory
-                .select(new QMemberTeamResponse(
-                        member.email,
-                        member.name,
-                        member.birthday,
-                        member.phoneNumber,
-                        member.address,
-                        member.gender))
-                .from(member)
-                .join(member.team, team)
-                .where(member.team.id.eq(teamId))
-                .fetch();
+        return null;
     }
 
     @Override
