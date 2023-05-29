@@ -1,9 +1,6 @@
 package com.backend.fitta.dto.member;
 
 import com.backend.fitta.entity.enums.Gender;
-import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Team;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class FindByEmailResponse {
+public class BasicMemberInfo {
 
     private String email;
     private String password;

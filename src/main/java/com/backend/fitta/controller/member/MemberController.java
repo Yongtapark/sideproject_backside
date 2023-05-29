@@ -1,7 +1,8 @@
 package com.backend.fitta.controller.member;
 
 import com.backend.fitta.config.jwt.TokenInfo;
-import com.backend.fitta.dto.member.FindByEmailResponse;
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.member.MemberLoginRequestDto;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
@@ -15,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "회원", description = "회원 관련 api 입니다.")
 @RestController
@@ -48,9 +51,15 @@ public class MemberController {
 
     @Operation(summary = "회원 조회 메서드", description = "회원 id로 회원을 조회 할 수 있습니다.")
     @GetMapping("/{memberId}")
-    public ResponseEntity<FindByEmailResponse> findMember(@PathVariable Long memberId) {
+    public ResponseEntity<BasicMemberInfo> findMember(@PathVariable Long memberId) {
         validateExistMember(memberId);
         return ResponseEntity.ok(memberService.findMember(memberId));
+    }
+
+    @Operation(summary = "전체 회원 조회 메서드", description = "전체 회원을 조회 할 수 있습니다.")
+    @GetMapping
+    public ResponseEntity<Result<List<BasicMemberInfo>>> findAll() {
+        return ResponseEntity.ok(memberService.findAll());
     }
 
     @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")

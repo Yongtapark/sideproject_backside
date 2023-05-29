@@ -36,6 +36,12 @@ public class TeamController {
         return ResponseEntity.ok(teamApiService.findById(teamId));
     }
 
+//    @Operation(summary = "전체 팀 조회 메서드", description = "전체 팀 정보를 조회 할 수 있습니다.")
+//    @GetMapping
+//    public ResponseEntity<FindTeamByIdResponse> findTeam(@PathVariable long teamId) {
+//        return ResponseEntity.ok(teamApiService.findById(teamId));
+//    }
+
     @Operation(summary = "팀 정보 수정 메서드", description = "팀 id로 팀 정보를 찾아 팀의 정보를 수정 할 수 있습니다.")
     @PutMapping("/{teamId}")
     public ResponseEntity<Long> updateTeam(@PathVariable Long teamId, @Valid @RequestBody UpdateTeamRequest request) {

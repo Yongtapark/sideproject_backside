@@ -2,7 +2,7 @@ package com.backend.fitta.service.member;
 
 import com.backend.fitta.config.jwt.JwtTokenProvider;
 import com.backend.fitta.config.jwt.TokenInfo;
-import com.backend.fitta.dto.member.FindByEmailResponse;
+import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.entity.gym.Gym;
@@ -70,7 +70,7 @@ public class MemberService {
     }
 
 
-    public FindByEmailResponse findMember(Long memberId) {
+    public BasicMemberInfo findMember(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow();
         String teamName;
         String gymName;
@@ -84,7 +84,7 @@ public class MemberService {
         } else {
             gymName = member.getGym().getName();
         }
-        return new FindByEmailResponse(member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
+        return new BasicMemberInfo(member.getEmail(),member.getPassword(),member.getName(),member.getBirthday(),member.getPhoneNumber(),member.getAddress(),member.getGender()
         ,member.getHeight(),member.getWeight(),member.getOccupation(),member.getNote(),teamName,gymName);
     }
 

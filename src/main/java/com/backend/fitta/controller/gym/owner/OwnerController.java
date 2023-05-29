@@ -1,11 +1,10 @@
 package com.backend.fitta.controller.gym.owner;
 
-import com.backend.fitta.dto.member.FindByEmailResponse;
-import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.FindOwnerByIdResponse;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
-import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Tag(name = "오너", description = "오너 관련 api 입니다.")
@@ -36,6 +37,12 @@ public class OwnerController {
     @GetMapping("/{ownerId}")
     public ResponseEntity<FindOwnerByIdResponse> findMember(@PathVariable Long ownerId) {
         return ResponseEntity.ok(ownerApiService.findById(ownerId));
+    }
+
+    @Operation(summary = "전체 오너 조회 메서드", description = "오너 id로 오너를 조회 할 수 있습니다.")
+    @GetMapping
+    public ResponseEntity<Result<List<BasicOwnerInfo>>> findAll() {
+        return ResponseEntity.ok(ownerApiService.findAll());
     }
 
     @Operation(summary = "오너 정보 수정 메서드", description = "오너의 정보를 수정 할 수 있습니다.")
