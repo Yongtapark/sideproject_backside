@@ -6,7 +6,7 @@ import com.backend.fitta.entity.gym.Owner;
 import java.util.List;
 
 public interface OwnerService {
-    Long save(SignUpOwnerRequest request);
+    Long save(Owner owner);
     Owner findById(Long id);
     List<Owner> findAll();
     Owner update(Long id, Owner owner);

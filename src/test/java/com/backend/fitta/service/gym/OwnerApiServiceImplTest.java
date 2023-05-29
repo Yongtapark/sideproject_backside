@@ -32,8 +32,8 @@ class OwnerApiServiceImplTest {
 
     @Test
     void test(){
-        Owner ownerA = new Owner("김사장", "000-0000-0000", "주소1", "사업자등록번호1");
-        Owner ownerB = new Owner("이사장", "000-0000-0000", "주소1", "사업자등록번호1");
+        Owner ownerA = new Owner("email","pwd" ,"김사장", "000-0000-0000", "주소1", "사업자등록번호1");
+        Owner ownerB = new Owner("email","pwd","이사장", "000-0000-0000", "주소1", "사업자등록번호1");
         //save
         Long ownerAId = ownerService.save(ownerA);
         Long ownerBId = ownerService.save(ownerB);
