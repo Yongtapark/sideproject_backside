@@ -1,10 +1,7 @@
 package com.backend.fitta.dto.member;
 
 import com.backend.fitta.entity.enums.Gender;
-import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -38,7 +35,11 @@ public class BasicMemberInfo {
         this.weight = member.getWeight();
         this.occupation = member.getOccupation();
         this.note = member.getNote();
-        this.teamName = member.getTeam().getName();
-        this.gymName = member.getGym().getName();
+        if (member.getTeam() != null) {
+            this.teamName = member.getTeam().getName();
+        }
+        if (member.getGym() != null) {
+            this.gymName = member.getGym().getName();
+        }
     }
 }
