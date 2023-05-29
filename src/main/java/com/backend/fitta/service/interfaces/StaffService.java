@@ -1,8 +1,6 @@
 package com.backend.fitta.service.interfaces;
 
-import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.gym.Staff;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 

@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 public class FindGymByIdResponse {
 
-    private Owner owner;
     private String name;
     private String phoneNumber;
     private String address;
@@ -17,8 +16,7 @@ public class FindGymByIdResponse {
     private List<MemberGymResponse> members;
     private List<StaffGymResponse> staffs;
 
-    public FindGymByIdResponse(Owner owner, String name, String phoneNumber, String address, GenderDivision genderDivision, List<MemberGymResponse> members, List<StaffGymResponse> staffs) {
-        this.owner = owner;
+    public FindGymByIdResponse(String name, String phoneNumber, String address, GenderDivision genderDivision, List<MemberGymResponse> members, List<StaffGymResponse> staffs) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;

@@ -7,14 +7,12 @@ import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.OwnerNotFoundException;
-import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
-import com.backend.fitta.service.interfaces.GymApiService;
+import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,7 +26,7 @@ class OwnerApiServiceImplTest {
     @Autowired
     OwnerService ownerService;
     @Autowired
-    OwnerApiService ownerApiService;
+    com.backend.fitta.service.apiService.interfaces.OwnerApiService ownerApiService;
     @Autowired
     GymApiService gymApiService;
 
@@ -49,13 +47,13 @@ class OwnerApiServiceImplTest {
         assertThat(ownerService.findById(ownerBId).getName()).isEqualTo("수정사장");
 
         //findById Exception
-        assertThatThrownBy(()->ownerService.findById(11L)).isInstanceOf(OwnerNotFoundException.class);
+        assertThatThrownBy(()-> ownerService.findById(11L)).isInstanceOf(OwnerNotFoundException.class);
         //FindAll
         assertThat(ownerService.findAll()).size().isEqualTo(2);
-        log.info("ownerService.findAll",ownerService.findAll());
+        log.info("ownerService.findAll", ownerService.findAll());
         //delete
         ownerService.delete(findOwner.getId());
-        assertThatThrownBy(()->ownerService.findById(findOwner.getId())).isInstanceOf(OwnerNotFoundException.class);
+        assertThatThrownBy(()-> ownerService.findById(findOwner.getId())).isInstanceOf(OwnerNotFoundException.class);
     }
 
     @Test
@@ -67,9 +65,9 @@ class OwnerApiServiceImplTest {
 
         //when
         // 사장 정보를 저장
-        Long saved1 = ownerApiService.save(new BasicOwnerInfo(ownerA));
-        Long saved2 = ownerApiService.save(new BasicOwnerInfo(ownerB));
-        BasicOwnerInfo update = ownerApiService.update(saved2, new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
+        Long saved1 = ownerService.save(new BasicOwnerInfo(ownerA));
+        Long saved2 = ownerService.save(new BasicOwnerInfo(ownerB));
+        BasicOwnerInfo update = ownerService.update(saved2, new BasicOwnerInfo(new Owner("수정된사장", "수정된번호", "수정된주소", "수정된사업자번호")));
 
 
         // DB에서 저장된 사장 정보를 조회
@@ -85,13 +83,13 @@ class OwnerApiServiceImplTest {
 //        gymApiService.save(gym);
 
         // 헬스장 정보를 저장한 후 다시 사장 정보를 조회
-        savedOwner1=ownerService.findById(saved1);
-        savedOwner2=ownerService.findById(saved2);
+        savedOwner1= ownerService.findById(saved1);
+        savedOwner2= ownerService.findById(saved2);
 
-        BasicOwnerInfo findOwner1 = ownerApiService.findById(savedOwner1.getId());
-        BasicOwnerInfo findOwner2 = ownerApiService.findById(savedOwner2.getId());
+        BasicOwnerInfo findOwner1 = ownerService.findById(savedOwner1.getId());
+        BasicOwnerInfo findOwner2 = ownerService.findById(savedOwner2.getId());
         // 사장 전체 조회
-        Result<List<BasicOwnerInfo>> owners = ownerApiService.findAll();
+        Result<List<BasicOwnerInfo>> owners = ownerService.findAll();
 
         //then
         //저장된 사장의 이름과 조회된 사장의 이름이 같은지 확인
@@ -99,7 +97,7 @@ class OwnerApiServiceImplTest {
 
         assertThat(findOwner2.getName()).isEqualTo("수정된사장");
 //        //존재하지 않는 사장 정보를 조회하려 할 때 예외가 발생하는지 확인
-       assertThatThrownBy(()->ownerApiService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
+       assertThatThrownBy(()-> ownerService.findById(245L)).isInstanceOf(OwnerNotFoundException.class);
 //        //사장1의 gymList 에 체육관 정보가 존재하는지 확인
         assertThat(findOwner1.getGymList()).contains(new BasicGymInfo(gym));
         //사장들의 리스트를 확인
