@@ -12,6 +12,7 @@ import java.util.List;
 
 @Getter
 @ToString
+
 public class SaveTeamRequest {
     @NotBlank
     private String name;
@@ -22,6 +23,7 @@ public class SaveTeamRequest {
     @OneToMany(mappedBy = "team")
     private List<Staff> staffs =new ArrayList<>();
 
-
-
+    public SaveTeamRequest(String name) {
+        this.name = name;
+    }
 }

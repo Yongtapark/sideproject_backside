@@ -21,7 +21,7 @@ public class GymApiServiceImpl implements GymApiService {
     private final OwnerRepository ownerRepository;
     @Override
     public Long save(SaveGymRequest request) {
-        Gym gym = new Gym(request.getName(), null, request.getAddress(), request.getPhoneNumber(), request.getGenderDivision());
+        Gym gym = new Gym(request.getName(), null, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision());
         return gymRepository.save(gym).getId();
     }
 

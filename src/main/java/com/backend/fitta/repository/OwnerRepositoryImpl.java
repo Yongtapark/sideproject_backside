@@ -2,13 +2,14 @@ package com.backend.fitta.repository;
 
 import com.backend.fitta.dto.owner.GymOwnerResponse;
 import com.backend.fitta.dto.owner.QGymOwnerResponse;
+import com.backend.fitta.entity.gym.QOwner;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
 import static com.backend.fitta.entity.gym.QGym.gym;
-import static com.backend.fitta.entity.gym.QOwner.owner;
+import static com.backend.fitta.entity.gym.QOwner.*;
 
 public class OwnerRepositoryImpl implements OwnerRepositoryCustom{
     private final JPAQueryFactory queryFactory;

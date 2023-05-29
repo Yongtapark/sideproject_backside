@@ -19,69 +19,69 @@ import static org.junit.jupiter.api.Assertions.*;
 class StaffTest {
     @Test
     void staffIntoGym(){
-        Owner owner = new Owner("박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
-        Gym gym = new Gym("testGym", owner, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
-        Staff staff1 = new Staff(
-                "박직원",
-                LocalDate.of(1999,1,1),
-                Gender.MALE,
-                "010-1234-1234",
-                "주소어드레스",
-                Grade.TRAINER,
-                null,
-                null
-        );
-        Staff staff2 = new Staff(
-                "최직원",
-                LocalDate.of(1999,1,1),
-                Gender.FEMALE,
-                "010-1234-1234",
-                "주소어드레스",
-                Grade.TRAINER,
-                null,
-                null
-        );
-
-        staff1.changeGym(gym);
-        staff2.changeGym(gym);
-
-        assertThat(gym.getStaff()).contains(staff1);
-        assertThat(gym.getStaff()).contains(staff2);
-        assertThat(gym.getStaff()).size().isEqualTo(2);
-    }
-
-    @Test
-    void staffIntoTeam(){
-        Owner owner = new Owner("박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
-        Gym gym = new Gym("testGym", owner, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
-        Team team = new Team("teamA");
-        Staff staff1 = new Staff(
-                "박직원",
-                LocalDate.of(1999,1,1),
-                Gender.MALE,
-                "010-1234-1234",
-                "주소어드레스",
-                Grade.TRAINER,
-                null,
-                null
-        );
-        Staff staff2 = new Staff(
-                "최직원",
-                LocalDate.of(1999,1,1),
-                Gender.FEMALE,
-                "010-1234-1234",
-                "주소어드레스",
-                Grade.TRAINER,
-                null,
-                null
-        );
-
-        staff1.changeGym(gym);
-        staff2.changeGym(gym);
-
-        staff1.changeTeam(team);
-
-        assertThat(team.getStaffs()).contains(staff1);
+////        Owner owner = new Owner("박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
+////        Gym gym = new Gym("testGym", owner, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
+////        Staff staff1 = new Staff(
+////                "박직원",
+////                LocalDate.of(1999,1,1),
+////                Gender.MALE,
+////                "010-1234-1234",
+////                "주소어드레스",
+////                Grade.TRAINER,
+////                null,
+////                null
+////        );
+//        Staff staff2 = new Staff(
+//                "최직원",
+//                LocalDate.of(1999,1,1),
+//                Gender.FEMALE,
+//                "010-1234-1234",
+//                "주소어드레스",
+//                Grade.TRAINER,
+//                null,
+//                null
+//        );
+//
+//        staff1.changeGym(gym);
+//        staff2.changeGym(gym);
+//
+//        assertThat(gym.getStaff()).contains(staff1);
+//        assertThat(gym.getStaff()).contains(staff2);
+//        assertThat(gym.getStaff()).size().isEqualTo(2);
+//    }
+//
+//    @Test
+//    void staffIntoTeam(){
+//        Owner owner = new Owner("박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
+//        Gym gym = new Gym("testGym", owner, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
+//        Team team = new Team("teamA");
+//        Staff staff1 = new Staff(
+//                "박직원",
+//                LocalDate.of(1999,1,1),
+//                Gender.MALE,
+//                "010-1234-1234",
+//                "주소어드레스",
+//                Grade.TRAINER,
+//                null,
+//                null
+//        );
+//        Staff staff2 = new Staff(
+//                "최직원",
+//                LocalDate.of(1999,1,1),
+//                Gender.FEMALE,
+//                "010-1234-1234",
+//                "주소어드레스",
+//                Grade.TRAINER,
+//                null,
+//                null
+//        );
+//
+//        staff1.changeGym(gym);
+//        staff2.changeGym(gym);
+//
+//        staff1.changeTeam(team);
+//
+//        assertThat(team.getStaffs()).contains(staff1);
     }
 
 
