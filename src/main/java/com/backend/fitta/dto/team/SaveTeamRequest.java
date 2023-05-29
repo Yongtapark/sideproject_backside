@@ -22,6 +22,7 @@ public class SaveTeamRequest {
     @OneToMany(mappedBy = "team")
     private List<Staff> staffs =new ArrayList<>();
 
-
-
+    public SaveTeamRequest(String name) {
+        this.name = name;
+    }
 }

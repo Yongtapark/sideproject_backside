@@ -108,11 +108,11 @@ class MemberServiceTest {
         SignUpRequest signUpRequest = new SignUpRequest("email@naver.com", "1234", "1234", "멤버1",
                 "대전", Gender.FEMALE, "01012341234", LocalDate.of(1995, 12, 10), "학생");
         Long saveMemberId = memberService.save(signUpRequest);
-//        SaveTeamRequest teamRequest = new SaveTeamRequest("팀1");
-//        Long saveTeamId = teamApiService.save(teamRequest);
+        SaveTeamRequest teamRequest = new SaveTeamRequest("팀1");
+        Long saveTeamId = teamApiService.save(teamRequest);
         Member findMember = memberService.findById(saveMemberId).orElseThrow();
         assertThat(findMember.getTeam()).isNull();
-//        memberService.saveTeamMember(saveMemberId, saveTeamId);
+        memberService.saveTeamMember(saveMemberId, saveTeamId);
         assertThat(findMember.getTeam().getName()).isEqualTo("팀1");
     }
 }
