@@ -2,15 +2,13 @@ package com.backend.fitta.repository;
 
 import com.backend.fitta.dto.gym.MemberGymResponse;
 import com.backend.fitta.dto.gym.QMemberGymResponse;
-import com.backend.fitta.dto.team.MemberTeamResponse;
-import com.backend.fitta.dto.team.QMemberTeamResponse;
+import com.backend.fitta.dto.team.SimpleMemberInfo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
 import static com.backend.fitta.entity.gym.QGym.gym;
-import static com.backend.fitta.entity.gym.QTeam.team;
 import static com.backend.fitta.entity.member.QMember.member;
 
 public class MemberRepositoryImpl implements MemberRepositoryCustom{
@@ -22,7 +20,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     }
 
     @Override
-    public List<MemberTeamResponse> searchTeamMemberList(Long teamId) {
+    public List<SimpleMemberInfo> searchTeamMemberList(Long teamId) {
         return null;
     }
 

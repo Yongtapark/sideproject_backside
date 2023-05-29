@@ -4,8 +4,7 @@ import com.backend.fitta.dto.gym.MemberGymResponse;
 import com.backend.fitta.dto.gym.QMemberGymResponse;
 import com.backend.fitta.dto.gym.QStaffGymResponse;
 import com.backend.fitta.dto.gym.StaffGymResponse;
-import com.backend.fitta.dto.team.MemberTeamResponse;
-import com.backend.fitta.dto.team.QMemberTeamResponse;
+import com.backend.fitta.dto.team.SimpleMemberInfo;
 import com.backend.fitta.dto.team.QStaffTeamResponse;
 import com.backend.fitta.dto.team.StaffTeamResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -27,7 +26,7 @@ public class GymRepositoryImpl implements MemberRepositoryCustom, StaffRepositor
 
 
     @Override
-    public List<MemberTeamResponse> searchTeamMemberList(Long teamId) {
+    public List<SimpleMemberInfo> searchTeamMemberList(Long teamId) {
         return null;
     }
 

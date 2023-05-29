@@ -38,7 +38,7 @@ public class OwnerController {
         return ResponseEntity.ok(ownerApiService.findById(ownerId));
     }
 
-    @Operation(summary = "전체 오너 조회 메서드", description = "오너 id로 오너를 조회 할 수 있습니다.")
+    @Operation(summary = "전체 오너 조회 메서드", description = "전체 오너를 조회 할 수 있습니다.")
     @GetMapping
     public ResponseEntity<Result<List<BasicOwnerInfo>>> findAll() {
         return ResponseEntity.ok(ownerApiService.findAll());

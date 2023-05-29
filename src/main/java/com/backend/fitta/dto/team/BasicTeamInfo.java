@@ -11,15 +11,18 @@ import java.util.stream.Collectors;
 public class BasicTeamInfo {
 
     private String name;
-    private List<MemberTeamResponse> members;
-    private List<StaffTeamResponse> staffs;
+    private List<SimpleMemberInfo> members;
+    private List<BasicStaffInfo> staffs;
 
     public BasicTeamInfo(Team team) {
         this.name = team.getName();
         this.members = team.getMembers().stream()
-                .map(member -> new MemberTeamResponse(member))
+                .map(member -> new SimpleMemberInfo(member))
                 .collect(Collectors.toList());
 
-        this.staffs = staffs;
+        this.staffs = team.getStaffs().stream()
+                .map(staff -> new BasicStaffInfo(staff))
+                .collect(Collectors.toList());
+
     }
 }

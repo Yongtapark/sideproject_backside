@@ -1,9 +1,12 @@
 package com.backend.fitta.service.apiService;
 
-import com.backend.fitta.dto.team.FindStaffByIdResponse;
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.owner.BasicOwnerInfo;
+import com.backend.fitta.dto.team.BasicStaffInfo;
 import com.backend.fitta.dto.team.SaveStaffRequest;
 import com.backend.fitta.dto.team.UpdateStaffRequest;
 import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.GymNotFoundException;
@@ -18,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Transactional
 @Service
@@ -33,20 +38,18 @@ public class StaffApiServiceImpl implements StaffApiService {
     }
 
     @Override
-    public FindStaffByIdResponse findById(Long id) {
+    public BasicStaffInfo findById(Long id) {
         Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
-        String gymName;
-        if (staff.getGym() == null) {
-            gymName = null;
-        }else{
-            gymName = staff.getGym().getName();
-        }
-        return new FindStaffByIdResponse(staff.getName(), staff.getBirthday(), staff.getGender(), staff.getPhoneNumber(), staff.getAddress(), staff.getGrade(),gymName);
+        return new BasicStaffInfo(staff);
     }
 
     @Override
-    public List<Staff> findAll() {
-        return staffRepository.findAll();
+    public Result<List<BasicStaffInfo>> findAll() {
+        List<Staff> all = staffRepository.findAll();
+        List<BasicStaffInfo> collect = all.stream()
+                .map(s -> new BasicStaffInfo(s))
+                .collect(Collectors.toList());
+        return new Result(collect);
     }
 
     @Override
