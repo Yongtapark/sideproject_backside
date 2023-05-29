@@ -17,4 +17,8 @@ public class UpdateTeamRequest {
     private List<Member> members = new ArrayList<>();
     @OneToMany(mappedBy = "team")
     private List<Staff> staffs =new ArrayList<>();
+
+    public UpdateTeamRequest(String name) {
+        this.name = name;
+    }
 }
