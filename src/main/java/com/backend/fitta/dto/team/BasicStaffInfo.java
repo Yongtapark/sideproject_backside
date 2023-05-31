@@ -24,7 +24,10 @@ public class BasicStaffInfo {
         this.phoneNumber = staff.getPhoneNumber();
         this.address = staff.getAddress();
         this.grade = staff.getGrade();
-        this.gymName = staff.getGym().getName();
+        if (staff.getGym() != null) {
+            this.gymName = staff.getGym().getName();
+        }
+
     }
 }
 

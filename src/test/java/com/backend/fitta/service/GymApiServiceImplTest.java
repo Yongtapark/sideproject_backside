@@ -1,5 +1,7 @@
 package com.backend.fitta.service;
 
+import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
@@ -15,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -37,15 +41,22 @@ class GymApiServiceImplTest {
     @Test
     void saveAndFindById() {
         Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX));
-        Gym gym = gymRepository.findById(savedGymId).orElseThrow();
-        assertThat(gym.getName()).isEqualTo("헬스장1");
-        assertThat(gym.getPhoneNumber()).isEqualTo("01012341234");
-        assertThat(gym.getAddress()).isEqualTo("대전");
-        assertThat(gym.getGenderDivision()).isEqualTo(GenderDivision.UNISEX);
+        BasicGymInfo gymInfo = gymApiService.findById(savedGymId);
+        assertThat(gymInfo.getName()).isEqualTo("헬스장1");
+        assertThat(gymInfo.getPhoneNumber()).isEqualTo("01012341234");
+        assertThat(gymInfo.getAddress()).isEqualTo("대전");
+        assertThat(gymInfo.getGenderDivision()).isEqualTo(GenderDivision.UNISEX);
     }
 
     @Test
     void findAll() {
+        gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX));
+        gymApiService.save(new SaveGymRequest("헬스장2", "01012341234", "대전", GenderDivision.UNISEX));
+        Result<List<BasicGymInfo>> all = gymApiService.findAll();
+        assertThat(all.getData().size()).isEqualTo(2);
+        assertThat(all.getData().get(0).getName()).isEqualTo("헬스장1");
+        assertThat(all.getData().get(1).getName()).isEqualTo("헬스장2");
+
     }
 
     @Test

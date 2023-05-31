@@ -3,12 +3,14 @@ package com.backend.fitta.dto.team;
 import com.backend.fitta.entity.enums.Grade;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 
 @Data
+@AllArgsConstructor
 public class UpdateStaffRequest {
     @NotBlank
     private String name;
