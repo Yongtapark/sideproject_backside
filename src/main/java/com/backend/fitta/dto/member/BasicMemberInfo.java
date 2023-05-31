@@ -23,8 +23,8 @@ public class BasicMemberInfo {
     private Long weight;
     private String occupation;
     private String note;
-    private String teamName;
-    private String gymName;
+    private Team team;
+    private Gym gym;
 
     public BasicMemberInfo(Member member) {
         this.email = member.getEmail();
@@ -38,7 +38,7 @@ public class BasicMemberInfo {
         this.weight = member.getWeight();
         this.occupation = member.getOccupation();
         this.note = member.getNote();
-        this.teamName = member.getTeam().getName();
-        this.gymName = member.getGym().getName();
+        this.team = member.getTeam();
+        this.gym = member.getGym();
     }
 }
