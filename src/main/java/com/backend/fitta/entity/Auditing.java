@@ -26,7 +26,7 @@ public class Auditing {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-    @CreatedBy
+    /*@CreatedBy
     @Column(updatable = false)
-    private String createdBy;
+    private String createdBy;*/
 }
