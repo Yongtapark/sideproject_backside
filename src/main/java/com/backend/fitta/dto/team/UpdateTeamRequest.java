@@ -5,6 +5,7 @@ import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,5 +21,8 @@ public class UpdateTeamRequest {
 
     public UpdateTeamRequest(String name) {
         this.name = name;
+    }
+
+    public UpdateTeamRequest() {
     }
 }

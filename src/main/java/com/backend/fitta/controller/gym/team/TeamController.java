@@ -28,7 +28,6 @@ public class TeamController {
     @Operation(summary = "팀 추가 메서드", description = "팀 추가 메서드입니다.")
     @PostMapping
     public ResponseEntity<Long> saveTeam(@Valid @RequestBody SaveTeamRequest request) {
-        log.info("team={}",request);
         return ResponseEntity.status(HttpStatus.CREATED).body(teamApiService.save(request));
     }
 

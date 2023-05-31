@@ -4,10 +4,14 @@ package com.backend.fitta.entity.member;
 import com.backend.fitta.entity.Auditing;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Schedule;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.user.Role;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +46,9 @@ public class Member extends Auditing implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
     private Gym gym;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
     private Role roles;
 
     public Member(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
