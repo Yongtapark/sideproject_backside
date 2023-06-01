@@ -27,9 +27,6 @@ public class QGym extends EntityPathBase<Gym> {
     public final StringPath address = createString("address");
 
     //inherited
-    public final StringPath createdBy = _super.createdBy;
-
-    //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final EnumPath<com.backend.fitta.entity.enums.GenderDivision> genderDivision = createEnum("genderDivision", com.backend.fitta.entity.enums.GenderDivision.class);

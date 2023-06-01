@@ -5,7 +5,7 @@ import com.backend.fitta.entity.Auditing;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
-import com.backend.fitta.entity.user.Role;
+import com.backend.fitta.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

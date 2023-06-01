@@ -27,9 +27,6 @@ public class QOwner extends EntityPathBase<Owner> {
     public final StringPath businessRegistrationNumber = createString("businessRegistrationNumber");
 
     //inherited
-    public final StringPath createdBy = _super.createdBy;
-
-    //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final StringPath email = createString("email");
