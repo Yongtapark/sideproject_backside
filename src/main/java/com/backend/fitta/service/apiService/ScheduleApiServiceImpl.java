@@ -44,7 +44,9 @@ public class ScheduleApiServiceImpl implements ScheduleApiService {
 
     @Override
     public Long updateSchedule(Long id, UpdateScheduleRequest request) {
-        return null;
+        Schedule findSchedule = scheduleRepository.findById(id).orElseThrow(() -> new ScheduleNotFoundException());
+        findSchedule.changeScheduleInfo(request.getStartTime(), request.getEndTime(), request.getDate(), request.getStaff());
+        return findSchedule.getId();
     }
 
     @Override

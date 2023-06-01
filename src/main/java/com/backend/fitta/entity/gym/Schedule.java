@@ -36,4 +36,11 @@ public class Schedule {
         this.date = date;
         this.staff = staff;
     }
+
+    public void changeScheduleInfo(String startTime, String endTime, LocalDate date,Staff staff) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+        this.staff = staff;
+    }
 }
