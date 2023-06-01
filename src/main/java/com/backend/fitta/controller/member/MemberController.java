@@ -82,9 +82,11 @@ public class MemberController {
         String password = memberLoginRequestDto.getPassword();
         TokenInfo tokenInfo = memberService.login(email, password);
         /*Authorization 으로 값을 보내면 새로고침 시 access token 이 사라진다. 대신 cookie 로 값을 전송한다. */
-
-        //SameSite 속성은 자바의 coockie API에서 직접 지원하지 않음.
-        response.setHeader("Set-Cookie","accessToken="+tokenInfo.getAccessToken()+"; Secure; HttpOnly; SameSite=None; Path=/");
+        Cookie cookie = new Cookie("accessToken", tokenInfo.getAccessToken());
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        response.addCookie(cookie);
 
         return ResponseEntity.ok(tokenInfo);
     }
