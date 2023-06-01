@@ -25,14 +25,20 @@ class MemberControllerTest {
 
     @BeforeEach
     void save(){
-        SignUpRequest signUpRequest = new SignUpRequest("email", "password", "password", "name", "address", Gender.FEMALE, "010-1111-1111", LocalDate.of(1995, Month.MAY, 3), "sas", Role.GUEST);
+        SignUpRequest signUpRequest = SignUpRequest
+                .builder()
+                .email("email123")
+                .password("password")
+                .passwordConfirm("password")
+                .role(Role.USER)
+                .build();
         memberController.saveMember(signUpRequest);
     }
 
     @Test
     void loginTest(){
         MemberLoginRequestDto memberLoginRequestDto = new MemberLoginRequestDto();
-        memberLoginRequestDto.setEmail("email");
+        memberLoginRequestDto.setEmail("email123");
         memberLoginRequestDto.setPassword("password");
         TokenInfo login = memberController.login(memberLoginRequestDto);
         log.info("login={}",login);
