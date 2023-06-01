@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +41,11 @@ public class ScheduleApiServiceImpl implements ScheduleApiService {
 
     @Override
     public Result<List<BasicScheduleInfo>> findAll() {
-        return null;
+        List<Schedule> all = scheduleRepository.findAll();
+        List<BasicScheduleInfo> collect = all.stream()
+                .map(S -> new BasicScheduleInfo(S))
+                .collect(Collectors.toList());
+        return new Result<>(collect);
     }
 
     @Override

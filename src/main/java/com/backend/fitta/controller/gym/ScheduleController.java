@@ -1,5 +1,6 @@
 package com.backend.fitta.controller.gym;
 
+import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.schedule.BasicScheduleInfo;
 import com.backend.fitta.dto.schedule.SaveScheduleRequest;
 import com.backend.fitta.dto.schedule.UpdateScheduleRequest;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "스케줄", description = "스케줄 관련 api 입니다.")
 @RestController
@@ -33,6 +36,12 @@ public class ScheduleController {
     @GetMapping("/{scheduleId}")
     public ResponseEntity<BasicScheduleInfo> findSchedule(@PathVariable long scheduleId) {
         return ResponseEntity.ok(scheduleApiService.findById(scheduleId));
+    }
+
+    @Operation(summary = "전체 스케줄 조회 메서드", description = "전체 스케줄 정보를 조회 할 수 있습니다.")
+    @GetMapping
+    public ResponseEntity<Result<List<BasicScheduleInfo>>> findAll() {
+        return ResponseEntity.ok(scheduleApiService.findAll());
     }
 
     @Operation(summary = "스케줄 수정 메서드", description = "스케줄의 정보를 수정 할 수 있습니다.")
