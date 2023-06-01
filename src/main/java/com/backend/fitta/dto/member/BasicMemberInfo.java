@@ -22,8 +22,8 @@ public class BasicMemberInfo {
     private Long weight;
     private String occupation;
     private String note;
-    private BasicTeamInfo team;
-    private BasicGymInfo gym;
+    private String teamName;
+    private String gymName;
 
     public BasicMemberInfo(Member member) {
         this.email = member.getEmail();
