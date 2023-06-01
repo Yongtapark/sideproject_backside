@@ -1,5 +1,6 @@
 package com.backend.fitta.config.jwt;
 
+import com.backend.fitta.entity.member.Member;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -29,6 +30,8 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
+   // public String createToken()
+
     // 유저 정보를 가지고 AccessToken, RefreshToken 을 생성하는 메서드
     public TokenInfo generateToken(Authentication authentication){
         //권한가져오기
@@ -39,12 +42,16 @@ public class JwtTokenProvider {
         long now = (new Date()).getTime();
         // Access Token 생성
         Date accessTokenExpiresIn = new Date(now + 86400000);
+        log.info("authentication={}",authentication);
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
+                //.claim("id",((Member) authentication.getPrincipal()).getId()) //id값을 jwt에 추가
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+
+        log.info("accessTokenOutput={}",accessToken);
 
         //Refresh Token 생성
         String refreshToken = Jwts.builder()
@@ -96,7 +103,9 @@ public class JwtTokenProvider {
     }
     private Claims parseClaims(String accessToken){
         try{
-            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+            Claims claimsOutPut = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+            log.info("claimsOutPut={}",claimsOutPut);
+            return claimsOutPut;
         }catch (ExpiredJwtException e){
             return e.getClaims();
         }

@@ -5,7 +5,7 @@ import com.backend.fitta.entity.Auditing;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
-import com.backend.fitta.entity.user.Role;
+import com.backend.fitta.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,7 +42,7 @@ public class Member extends Auditing implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
     private Gym gym;
-    private Role roles;
+    private Role role;
 
     public Member(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
         this.email = email;
@@ -88,7 +88,7 @@ public class Member extends Auditing implements UserDetails {
         this.note = note;
         this.team = team;
         this.gym = gym;
-        this.roles = roles;
+        this.role = roles;
     }
     public void changeMemberInfo(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
         this.email = email;
@@ -105,7 +105,7 @@ public class Member extends Auditing implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(roles.getKey()));
+        return Arrays.asList(new SimpleGrantedAuthority(role.getKey()));
     }
 
     @Override

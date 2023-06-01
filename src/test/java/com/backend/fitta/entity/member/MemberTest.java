@@ -1,5 +1,6 @@
 package com.backend.fitta.entity.member;
 
+import com.backend.fitta.controller.member.MemberController;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Team;
 import jakarta.persistence.EntityManager;
@@ -19,6 +20,10 @@ public class MemberTest {
 
     @Autowired
     EntityManager em;
+
+    @Autowired
+    MemberController memberController;
+
 
     @Test
     public void testEntity() {
@@ -54,4 +59,6 @@ public class MemberTest {
             System.out.println("-> member.team" + member.getTeam());
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.backend.fitta.controller.gym.owner;
+package com.backend.fitta.controller.owner;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;

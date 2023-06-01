@@ -41,14 +41,55 @@ public class MemberService {
         //1. Login ID/PW 를 기반으로 Authentication 객체 생성
         // 이 때, authentication 은 인증 여부를 확인하는 authenticated 값이 false
         UsernamePasswordAuthenticationToken authenticationToken  = new UsernamePasswordAuthenticationToken(email,password);
+        log.info("authenticationToken={}",authenticationToken);
+        /*
+        ex : authenticationToken=
+        UsernamePasswordAuthenticationToken
+        [
+        Principal=email@email.com,
+        Credentials=[PROTECTED],
+        Authenticated=false,
+        Details=null,
+        Granted Authorities=[]
+        ]
+        */
 
         //2. 실제 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
         //authenticate 메서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        log.info("authentication={}",authentication);
+        /*ex : authentication=
+        UsernamePasswordAuthenticationToken [
+        Principal=
+        org.springframework.security.core.userdetails.User
+        [
+        Username=
+        email@email.com,
+        Password=[PROTECTED],
+        Enabled=true,
+        AccountNonExpired=true,
+        credentialsNonExpired=true,
+        AccountNonLocked=true,
+        Granted Authorities=[ROLE_USER]
+        ],
+        Credentials=[PROTECTED],
+        Authenticated=true,
+        Details=null,
+        Granted Authorities=[ROLE_USER]
+        ]
+        */
 
         //3. 인증 정보를 기반으로 JWT 토큰 생성
         TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
+        log.info("tokenInfo={}",tokenInfo);
         return tokenInfo;
+        /*
+        ex : tokenInfo=TokenInfo(
+        grantType=Bearer,
+        accessToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWFpbEBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg1NjkwMTk0fQ._rU-PWMo2HF-aisInq95C7DIwEsvtyrWq3olckGW7aY,
+        refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODU2OTAxOTR9.CevfTfOuDWooA_LrllBhk8vQPxa-lP2QHANLEMP9FMY
+        )
+        */
     }
 
     public Long save(SignUpRequest rq) {
@@ -106,5 +147,15 @@ public class MemberService {
         Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
         Gym gym = gymRepository.findById(gymId).orElseThrow(() -> new GymNotFoundException());
         findMember.changeGym(gym);
+    }
+
+    /**
+     * 임시 추가분, 추후 정리 필요
+     */
+    /*로그인 후 */
+    public BasicMemberInfo findByEmail(String email){
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new MemberNotFoundException());
+        BasicMemberInfo basicMemberInfo = new BasicMemberInfo(member);
+        return basicMemberInfo;
     }
 }

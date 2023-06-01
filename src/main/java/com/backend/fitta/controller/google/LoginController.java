@@ -13,11 +13,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
@@ -65,29 +67,14 @@ public class LoginController {
      * @param registrationId
      * @return
      */
+
     @Operation(summary = "구글에서 리데이렉션 해서 보내주는 값을 받는 메서드",description = "사용자의 이메일, 이름, 사진을 받아옵니다")
+    @Cacheable(value = "accountInfo",key = "#code")
     @GetMapping("/login/oauth2/code/{registrationId}")
-    public ResponseEntity<AccountInfo> login(@RequestParam String code, @PathVariable String registrationId,HttpServletResponse response) throws JsonProcessingException {
+    @Scheduled(fixedRateString = "6000")
+    public ResponseEntity<AccountInfo> login(@RequestParam String code, @PathVariable String registrationId) throws JsonProcessingException {
         AccountInfo accountInfo = loginService.socialLogin(code, registrationId);
         log.info("userInfo={}",accountInfo);
-        String redirectionUrl="https://fitta-git-dev-yiminwook.vercel.app/signup";
-        ObjectMapper mapper = new ObjectMapper();
-        String accountInfoJson = mapper.writeValueAsString(accountInfo);
-
-        //URL로 인코딩
-        String encode = URLEncoder.encode(accountInfoJson);
-
-        //쿠키설정
-        ResponseCookie cookie = ResponseCookie.from("accountInfo", encode)
-                .httpOnly(true)
-                .domain("fitta-git-dev-yiminwook.vercel.app")
-                .path("/")
-                .sameSite("none")
-                .secure(true)
-                .build();
-        response.addHeader("Set-Cookie",cookie.toString());
-
-
-        return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT).location(URI.create(redirectionUrl)).build();
+        return ResponseEntity.ok(accountInfo);
     }
 }

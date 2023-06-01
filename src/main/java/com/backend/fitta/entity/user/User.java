@@ -1,5 +1,6 @@
 package com.backend.fitta.entity.user;
 
+import com.backend.fitta.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
