@@ -41,12 +41,11 @@ public class JwtTokenProvider {
 
         long now = (new Date()).getTime();
         // Access Token 생성
-        Date accessTokenExpiresIn = new Date(now + 86400000);
+        Date accessTokenExpiresIn = new Date(now + 1800000);
         log.info("authentication={}",authentication);
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
-                //.claim("id",((Member) authentication.getPrincipal()).getId()) //id값을 jwt에 추가
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
@@ -55,7 +54,7 @@ public class JwtTokenProvider {
 
         //Refresh Token 생성
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date(now + 86400000))
+                .setExpiration(new Date(now + 1800000000))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
         return TokenInfo.builder()
