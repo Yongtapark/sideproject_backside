@@ -17,6 +17,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +31,18 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @GetMapping("/userdata")
+    public ResponseEntity<BasicMemberInfo> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails){
+        String username = userDetails.getUsername();
+        Object[] objects = userDetails.getAuthorities().toArray();
+        log.info("objects={}",objects);
+        BasicMemberInfo member = memberService.findByEmail(username);
+
+        return ResponseEntity.ok(member);
+    }
+
+
 
     @PostMapping("/test")
     public String test() {
@@ -79,20 +93,27 @@ public class MemberController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/email/{memberEmail}")
+    public ResponseEntity<BasicMemberInfo> findByEmail(@PathVariable String memberEmail){
+        return ResponseEntity.ok(memberService.findByEmail(memberEmail));
+    }
+
+
+
+    private void validateExistMember(Long memberId) {
+        memberService.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
+    }
     @Operation(summary = "회원 팀 등록", description = "회원 id로 회원을 찾아 팀을 추가해줍니다.")
     @PostMapping("team/{memberId}/{teamId}")
     public ResponseEntity<Void> saveTeamMember(@PathVariable long memberId, @PathVariable long teamId) {
         memberService.saveTeamMember(memberId,teamId);
         return ResponseEntity.noContent().build();
     }
+
     @Operation(summary = "회원 헬스장 등록", description = "회원 id로 회원을 찾아 헬스장을 추가해줍니다.")
     @PostMapping("gym/{memberId}/{gymId}")
     public ResponseEntity<Void> saveGymMember(@PathVariable long memberId, @PathVariable long gymId) {
         memberService.saveGymMember(memberId,gymId);
         return ResponseEntity.noContent().build();
-    }
-//
-    private void validateExistMember(Long memberId) {
-        memberService.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
     }
 }

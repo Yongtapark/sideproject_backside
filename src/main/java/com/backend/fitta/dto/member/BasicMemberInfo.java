@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 public class BasicMemberInfo {
+    private Long id;
 
     private String email;
     private String password;
@@ -24,6 +25,7 @@ public class BasicMemberInfo {
     private String gymName;
 
     public BasicMemberInfo(Member member) {
+        this.id=member.getId();
         this.email = member.getEmail();
         this.password = member.getPassword();
         this.name = member.getName();

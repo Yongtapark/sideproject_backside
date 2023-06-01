@@ -1,4 +1,4 @@
-package com.backend.fitta.controller.gym.gym;
+package com.backend.fitta.controller.gym;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
