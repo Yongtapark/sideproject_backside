@@ -15,11 +15,11 @@ public class UpdateScheduleRequest {
     private String endTime;
     @NotNull
     private LocalDate date;
-    private Staff staff;
-    public UpdateScheduleRequest(String startTime, String endTime, LocalDate date,Staff staff) {
+    private Long staffId;
+    public UpdateScheduleRequest(String startTime, String endTime, LocalDate date,Long staffId) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
-        this.staff = staff;
+        this.staffId = staffId;
     }
 }

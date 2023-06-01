@@ -6,6 +6,7 @@ import com.backend.fitta.dto.schedule.SaveScheduleRequest;
 import com.backend.fitta.dto.schedule.UpdateScheduleRequest;
 import com.backend.fitta.entity.gym.Schedule;
 import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.exception.ScheduleNotFoundException;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.repository.schedule.ScheduleRepository;
@@ -51,7 +52,8 @@ public class ScheduleApiServiceImpl implements ScheduleApiService {
     @Override
     public Long updateSchedule(Long id, UpdateScheduleRequest request) {
         Schedule findSchedule = scheduleRepository.findById(id).orElseThrow(() -> new ScheduleNotFoundException());
-        findSchedule.changeScheduleInfo(request.getStartTime(), request.getEndTime(), request.getDate(), request.getStaff());
+        Staff staff = staffRepository.findById(request.getStaffId()).orElseThrow(() -> new StaffNotFoundException());
+        findSchedule.changeScheduleInfo(request.getStartTime(), request.getEndTime(), request.getDate(), staff);
         return findSchedule.getId();
     }
 
