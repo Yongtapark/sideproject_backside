@@ -34,7 +34,8 @@ public class ScheduleApiServiceImpl implements ScheduleApiService {
 
     @Override
     public BasicScheduleInfo findById(Long id) {
-        return null;
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
+        return new BasicScheduleInfo(schedule);
     }
 
     @Override
