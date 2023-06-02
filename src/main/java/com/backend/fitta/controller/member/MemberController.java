@@ -87,6 +87,7 @@ public class MemberController {
                 .httpOnly(true)
                 .secure(true)
                 .path("/")
+                .maxAge(60L)
                 .sameSite("none")
                 .build();
         //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
