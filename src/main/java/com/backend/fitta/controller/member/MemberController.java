@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -82,12 +83,13 @@ public class MemberController {
         String password = memberLoginRequestDto.getPassword();
         TokenInfo tokenInfo = memberService.login(email, password);
         /*Authorization 으로 값을 보내면 새로고침 시 access token 이 사라진다. 대신 cookie 로 값을 전송한다. */
-        Cookie cookie = new Cookie("accessToken", tokenInfo.getAccessToken());
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        cookie.setSecure(true);
-        response.addCookie(cookie);
-
+        ResponseCookie.from("accessToken",tokenInfo.getAccessToken())
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .sameSite("none")
+                .build();
+        //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
         return ResponseEntity.ok(tokenInfo);
     }
 
