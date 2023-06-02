@@ -88,7 +88,7 @@ public class MemberController {
                 .httpOnly(true)
                 .secure(true)
                 .path("/")
-                .maxAge(60L)
+                //.maxAge(60L)
                 .sameSite("none")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
