@@ -31,7 +31,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
+    @Tag(name = "회원정보 반환 api",description = "클라이언트에서 보내주는 accessToken 을 이용하여 회원 정보를 반환합니다.")
     @GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails){
         String username = userDetails.getUsername();
@@ -49,7 +49,7 @@ public class MemberController {
         return "success";
     }
 
-
+    @Tag(name = "로그인 api")
     @PostMapping("/login")
     public TokenInfo login(@RequestBody MemberLoginRequestDto memberLoginRequestDto){
         String email = memberLoginRequestDto.getEmail();
