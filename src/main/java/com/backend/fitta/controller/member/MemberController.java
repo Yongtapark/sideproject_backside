@@ -85,12 +85,12 @@ public class MemberController {
         TokenInfo tokenInfo = memberService.login(email, password);
         /*Authorization 으로 값을 보내면 새로고침 시 access token 이 사라진다. 대신 cookie 로 값을 전송한다. */
         ResponseCookie cookie = ResponseCookie.from("accessToken", tokenInfo.getAccessToken())
-                .httpOnly(false)
-                .secure(true)
+                //.httpOnly(false)
+                //.secure(true)
                 .path("/")
                 //.maxAge(60L)
-                .domain(".fitta-git-dev-yiminwook.vercel.app")
-                .sameSite("none")
+                //.domain(".fitta-git-dev-yiminwook.vercel.app")
+               // .sameSite("none")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
