@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("members")
+@RequestMapping("api/members")
 public class MemberController {
 
     private final MemberService memberService;
