@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 public class Gym extends Auditing {
     @Column(name = "gym_id")
     @Id
