@@ -85,7 +85,7 @@ public class MemberController {
         TokenInfo tokenInfo = memberService.login(email, password);
         /*Authorization 으로 값을 보내면 새로고침 시 access token 이 사라진다. 대신 cookie 로 값을 전송한다. */
         ResponseCookie cookie = ResponseCookie.from("accessToken", tokenInfo.getAccessToken())
-                .httpOnly(true)
+                .httpOnly(false)
                 .secure(true)
                 .path("/")
                 //.maxAge(60L)
