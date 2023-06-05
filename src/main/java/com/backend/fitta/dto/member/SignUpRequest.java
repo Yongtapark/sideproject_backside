@@ -3,6 +3,7 @@ package com.backend.fitta.dto.member;
 import com.backend.fitta.entity.enums.Role;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import com.backend.fitta.entity.enums.Gender;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class SignUpRequest {
 
     @Email

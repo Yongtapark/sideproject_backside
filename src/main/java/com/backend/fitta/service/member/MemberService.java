@@ -6,6 +6,7 @@ import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
@@ -101,7 +102,7 @@ public class MemberService {
             throw new PWNotCorrespondException();
         }
         Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress()
-                , rq.getGender(), null, null, rq.getOccupation(), null, null, null);
+                , rq.getGender(), null, null, rq.getOccupation(), null, null, null, Role.USER);
         memberRepository.save(member);
         return member.getId();
     }

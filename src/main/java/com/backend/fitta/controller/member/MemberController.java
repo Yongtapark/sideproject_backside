@@ -1,5 +1,6 @@
 package com.backend.fitta.controller.member;
 
+import com.backend.fitta.config.jwt.JwtTokenProvider;
 import com.backend.fitta.config.jwt.TokenInfo;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.member.BasicMemberInfo;
@@ -10,13 +11,17 @@ import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.service.member.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -31,17 +36,40 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    @Tag(name = "회원정보 반환 api",description = "클라이언트에서 보내주는 accessToken 을 이용하여 회원 정보를 반환합니다.")
-    @GetMapping("/userdata")
+    private final JwtTokenProvider jwtTokenProvider;
+
+    /*@GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails){
         String username = userDetails.getUsername();
         Object[] objects = userDetails.getAuthorities().toArray();
         log.info("objects={}",objects);
         BasicMemberInfo member = memberService.findByEmail(username);
-
         return ResponseEntity.ok(member);
+    }*/
+
+    @GetMapping("/userdata")
+    public ResponseEntity<BasicMemberInfo> getMemberInfo(HttpServletRequest request){
+        String accessToken = getAccessTokenFromCookies(request);
+        if(accessToken!=null&&jwtTokenProvider.validateToken(accessToken)){
+            Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+            String username = authentication.getName();
+            BasicMemberInfo member = memberService.findByEmail(username);
+            return ResponseEntity.ok(member);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    private String getAccessTokenFromCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null){
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("accessToken")){
+                   return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
 
 
     @PostMapping("/test")
@@ -49,13 +77,24 @@ public class MemberController {
         return "success";
     }
 
-    @Tag(name = "로그인 api")
-    @PostMapping("/login")
-    public TokenInfo login(@RequestBody MemberLoginRequestDto memberLoginRequestDto){
+
+    @PostMapping("/signin")
+    public ResponseEntity<TokenInfo> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto,HttpServletResponse response){
         String email = memberLoginRequestDto.getEmail();
         String password = memberLoginRequestDto.getPassword();
         TokenInfo tokenInfo = memberService.login(email, password);
-        return tokenInfo;
+        /*Authorization 으로 값을 보내면 새로고침 시 access token 이 사라진다. 대신 cookie 로 값을 전송한다. */
+        ResponseCookie cookie = ResponseCookie.from("accessToken", tokenInfo.getAccessToken())
+                //.httpOnly(false)
+                //.secure(true)
+                .path("/")
+                //.maxAge(60L)
+                //.domain(".fitta-git-dev-yiminwook.vercel.app")
+               // .sameSite("none")
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
+        return ResponseEntity.ok(tokenInfo);
     }
 
     @Operation(summary = "회원 등록 메서드", description = "회원 등록 메서드입니다.")
