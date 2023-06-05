@@ -89,7 +89,7 @@ public class MemberController {
                 .secure(true)
                 .path("/")
                 //.maxAge(60L)
-                .domain("https://fitta-git-dev-yiminwook.vercel.app")
+                .domain("fitta-git-dev-yiminwook.vercel.app")
                 .sameSite("none")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());

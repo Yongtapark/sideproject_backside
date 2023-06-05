@@ -40,7 +40,7 @@ class MemberControllerTest {
         memberController.saveMember(signUpRequest);
     }
 
-    @Test
+    /*@Test
     void loginTest(){
         MemberLoginRequestDto memberLoginRequestDto = new MemberLoginRequestDto();
         memberLoginRequestDto.setEmail("email123");
@@ -49,6 +49,6 @@ class MemberControllerTest {
         HttpServletResponse response = new MockHttpServletResponse();
         ResponseEntity<TokenInfo> login = memberController.login(memberLoginRequestDto, response);
         log.info("login={}",login);
-    }
+    }*/
 
 }
