@@ -1,4 +1,4 @@
-package com.backend.fitta.test;
+package com.backend.fitta.init;
 
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.enums.Role;
