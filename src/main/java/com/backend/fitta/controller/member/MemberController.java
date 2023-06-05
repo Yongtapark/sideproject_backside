@@ -78,7 +78,7 @@ public class MemberController {
     }
 
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<TokenInfo> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto,HttpServletResponse response){
         String email = memberLoginRequestDto.getEmail();
         String password = memberLoginRequestDto.getPassword();
@@ -89,6 +89,7 @@ public class MemberController {
                 .secure(true)
                 .path("/")
                 //.maxAge(60L)
+                .domain("https://fitta-git-dev-yiminwook.vercel.app")
                 .sameSite("none")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
