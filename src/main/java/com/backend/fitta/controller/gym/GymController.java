@@ -66,7 +66,7 @@ public class GymController {
     /***
      * 오너 마이페이지
      */
-
+//
     /*@Operation(summary = "오너 마이페이지 헬스장 현황")
     @GetMapping("/owner/{ownerId}/gym/{gymId}")
     public ResponseEntity<Void> gymInfoByOwnerId(@PathVariable Long gymId, @PathVariable Long ownerId){
