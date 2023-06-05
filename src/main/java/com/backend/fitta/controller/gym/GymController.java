@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/gym")
+@RequestMapping("api/gyms")
 public class GymController {
     private final GymApiService gymApiService;
 

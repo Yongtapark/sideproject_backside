@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/members")
+@RequestMapping("api/members")
 public class MemberController {
 
     private final MemberService memberService;
@@ -78,7 +78,7 @@ public class MemberController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping("/signin")
     public ResponseEntity<TokenInfo> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto,HttpServletResponse response){
         String email = memberLoginRequestDto.getEmail();
         String password = memberLoginRequestDto.getPassword();
