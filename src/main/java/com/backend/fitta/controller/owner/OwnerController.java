@@ -1,12 +1,14 @@
-package com.backend.fitta.controller.gym.owner;
+package com.backend.fitta.controller.owner;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +23,18 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/owner")
+@RequestMapping("/owners")
 public class OwnerController {
 
     private final OwnerApiService ownerApiService;
+    //
+    @Operation(summary = "테스트 userdata")
+    @GetMapping("/testuserdata")
+    public ResponseEntity<BasicOwnerInfo> getTestMemberInfo(HttpServletRequest request){
+        BasicOwnerInfo byId1 = ownerApiService.findById(1L);
+        return ResponseEntity.ok(byId1);
+    }
+
 
     @Operation(summary = "오너 등록 메서드", description = "오너 등록 메서드입니다.")
     @PostMapping

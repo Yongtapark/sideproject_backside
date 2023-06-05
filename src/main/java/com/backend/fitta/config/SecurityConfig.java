@@ -1,9 +1,9 @@
-package com.backend.fitta.config.oauth;
+package com.backend.fitta.config;
 
 
 import com.backend.fitta.config.jwt.JwtAuthenticationFilter;
 import com.backend.fitta.config.jwt.JwtTokenProvider;
-import com.backend.fitta.entity.user.Role;
+import com.backend.fitta.config.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,8 +1,9 @@
 package com.backend.fitta.dto.member;
 
-import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.entity.enums.Role;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import com.backend.fitta.entity.enums.Gender;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class SignUpRequest {
 
     @Email
@@ -34,5 +36,6 @@ public class SignUpRequest {
     @NotBlank
     @Pattern(regexp = "^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$", message = "직업에 공백 혹은 특수 문자가 포함되어 있습니다.")
     private String occupation;
+    private Role role;
 
 }

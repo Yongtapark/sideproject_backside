@@ -1,4 +1,4 @@
-package com.backend.fitta.entity.user;
+package com.backend.fitta.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Role {
-    GUEST("ROLE_GUEST","손님"),
-    USER("ROLE_USER","사용자");
+    OWNER("ROLE_OWNER","사장"),
+    MEMBER("ROLE_MEMBER","사용자");
 
     private final String key;
     private final String title;

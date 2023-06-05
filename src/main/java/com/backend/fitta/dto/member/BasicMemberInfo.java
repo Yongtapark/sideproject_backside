@@ -1,7 +1,5 @@
 package com.backend.fitta.dto.member;
 
-import com.backend.fitta.dto.gym.BasicGymInfo;
-import com.backend.fitta.dto.team.BasicTeamInfo;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.member.Member;
 import lombok.Getter;
@@ -10,6 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 public class BasicMemberInfo {
+    private Long id;
 
     private String email;
     private String password;
@@ -26,6 +25,7 @@ public class BasicMemberInfo {
     private String gymName;
 
     public BasicMemberInfo(Member member) {
+        this.id=member.getId();
         this.email = member.getEmail();
         this.password = member.getPassword();
         this.name = member.getName();

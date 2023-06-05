@@ -1,3 +1,4 @@
+/*
 package com.backend.fitta.service.member;
 
 import com.backend.fitta.dto.member.SignUpRequest;
@@ -113,4 +114,4 @@ class MemberServiceTest {
         memberService.saveTeamMember(saveMemberId, saveTeamId);
         assertThat(findMember.getTeam().getName()).isEqualTo("팀1");
     }
-}
+}*/

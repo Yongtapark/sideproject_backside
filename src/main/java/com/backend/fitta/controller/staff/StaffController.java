@@ -1,4 +1,4 @@
-package com.backend.fitta.controller.gym.staff;
+package com.backend.fitta.controller.staff;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.team.BasicStaffInfo;
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/staff")
+@RequestMapping("/staffs")
 public class StaffController {
 
     private final StaffApiService staffApiService;
