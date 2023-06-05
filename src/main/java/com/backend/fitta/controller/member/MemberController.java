@@ -53,9 +53,14 @@ public class MemberController {
     @Operation(summary = "테스트 userdata")
     @GetMapping("/testuserdata")
     public ResponseEntity<BasicMemberInfo> getTestMemberInfo(HttpServletRequest request){
-        Member member = new Member("testEmail","testPwd","testName", LocalDate.of(0000, Month.JANUARY,3),"000-0000-0000","testAddress", Gender.FEMALE,111L,111L,null,null,null,null);
-        BasicMemberInfo basicMemberInfo = new BasicMemberInfo(member);
-        return ResponseEntity.ok(basicMemberInfo);
+        String accessToken = getAccessTokenFromCookies(request);
+        if(accessToken!=null&&jwtTokenProvider.validateToken(accessToken)){
+            Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+            String username = authentication.getName();
+            BasicMemberInfo member = memberService.findByEmail(username);
+            return ResponseEntity.ok(member);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     @GetMapping("/userdata")
