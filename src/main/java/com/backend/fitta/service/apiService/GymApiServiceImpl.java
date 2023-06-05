@@ -62,4 +62,9 @@ public class GymApiServiceImpl implements GymApiService {
         Owner owner = ownerRepository.findById(ownerId).orElseThrow(() -> new OwnerNotFoundException());
         gym.changeOwner(owner);
     }
+
+    @Override
+    public void findAllByOwnerId(Long gymId, Long ownerId) {
+
+    }
 }

@@ -16,4 +16,6 @@ public interface GymApiService {
     void delete(Long id);
 
     void saveOwnerGym(long gymId, long ownerId);
+
+    void findAllByOwnerId(Long gymId, Long ownerId);
 }
