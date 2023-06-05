@@ -7,6 +7,8 @@ import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.member.MemberLoginRequestDto;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.service.member.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +28,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 @Tag(name = "회원", description = "회원 관련 api 입니다.")
@@ -46,6 +50,13 @@ public class MemberController {
         BasicMemberInfo member = memberService.findByEmail(username);
         return ResponseEntity.ok(member);
     }*/
+    @Operation(summary = "테스트 userdata")
+    @GetMapping("/testuserdata")
+    public ResponseEntity<BasicMemberInfo> getTestMemberInfo(HttpServletRequest request){
+        Member member = new Member("testEmail","testPwd","testName", LocalDate.of(0000, Month.JANUARY,3),"000-0000-0000","testAddress", Gender.FEMALE,111L,111L,null,null,null,null);
+        BasicMemberInfo basicMemberInfo = new BasicMemberInfo(member);
+        return ResponseEntity.ok(basicMemberInfo);
+    }
 
     @GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(HttpServletRequest request){
@@ -58,6 +69,7 @@ public class MemberController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+
 
     private String getAccessTokenFromCookies(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
