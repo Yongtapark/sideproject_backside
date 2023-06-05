@@ -43,25 +43,25 @@ public class initDb {
         private final OwnerController ownerController;
 
 
-
+        //테스트용 맴버 생성
         public void dbInit(){
             Member member = Member
                     .builder()
                     .email("email@email.com")
                     .password("password")
                     .roles(Role.MEMBER)
+                    .name("testMember")
                     .build();
             memberRepository.save(member);
 
         }
 
+        //테스트용 오너와 짐 생성
+
         public void dbInitGym(){
-            Owner owner = new Owner("owner@emai.com", "password", "owner", "010-0100-0000", "address", "123123123");
+            Owner owner = new Owner("owner@emai.com", "password", "testOwner", "010-0100-0000", "address", "123123123");
             Owner save = ownerRepository.save(owner);
 
-            /*SignUpOwnerRequest signUpOwnerRequest = new SignUpOwnerRequest("owner@emai.com", "password", "password", "owner", "010-0100-0000", "address", "123123123");
-            Long save = ownerApiService.save(signUpOwnerRequest);
-            Owner owner1 = ownerRepository.findById(save).get();*/
 
 
             Gym gym1 = new Gym("gym1", save, "01-0000-0000", "gymAddress1", GenderDivision.MALE_ONLY);

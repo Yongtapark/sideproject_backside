@@ -44,7 +44,7 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
 
-  /*  @GetMapping("/userdata")
+    /*@GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails){
         String username = userDetails.getUsername();
         Object[] objects = userDetails.getAuthorities().toArray();
@@ -52,7 +52,12 @@ public class MemberController {
         BasicMemberInfo member = memberService.findByEmail(username);
         return ResponseEntity.ok(member);
     }*/
-
+    @Operation(summary = "테스트 userdata")
+    @GetMapping("/testuserdata")
+    public ResponseEntity<BasicMemberInfo> getTestMemberInfo(HttpServletRequest request){
+        BasicMemberInfo member1 = memberService.findMember(1L);
+        return ResponseEntity.ok(member1);
+    }
 
     @GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(HttpServletRequest request){

@@ -27,7 +27,7 @@ import java.util.List;
 public class OwnerController {
 
     private final OwnerApiService ownerApiService;
-
+    //
     @Operation(summary = "테스트 userdata")
     @GetMapping("/testuserdata")
     public ResponseEntity<BasicOwnerInfo> getTestMemberInfo(HttpServletRequest request){

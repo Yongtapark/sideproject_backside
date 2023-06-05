@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Data
 public class BasicOwnerInfo {
+    private Long id;
     private String email;
     String name;
     String phoneNumber;
@@ -17,6 +18,7 @@ public class BasicOwnerInfo {
     List<BasicGymInfo> gymList;
 
     public BasicOwnerInfo(Owner owner) {
+        this.id=owner.getId();
         this.email = owner.getEmail();
         this.name = owner.getName();
         this.phoneNumber = owner.getPhoneNumber();
