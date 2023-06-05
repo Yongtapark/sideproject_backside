@@ -8,6 +8,7 @@ import com.backend.fitta.dto.member.MemberLoginRequestDto;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.service.member.MemberService;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "회원", description = "회원 관련 api 입니다.")
 @RestController
@@ -42,7 +44,7 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    /*@GetMapping("/userdata")
+  /*  @GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails){
         String username = userDetails.getUsername();
         Object[] objects = userDetails.getAuthorities().toArray();
@@ -50,18 +52,7 @@ public class MemberController {
         BasicMemberInfo member = memberService.findByEmail(username);
         return ResponseEntity.ok(member);
     }*/
-    @Operation(summary = "테스트 userdata")
-    @GetMapping("/testuserdata")
-    public ResponseEntity<BasicMemberInfo> getTestMemberInfo(HttpServletRequest request){
-        String accessToken = getAccessTokenFromCookies(request);
-        if(accessToken!=null&&jwtTokenProvider.validateToken(accessToken)){
-            Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
-            String username = authentication.getName();
-            BasicMemberInfo member = memberService.findByEmail(username);
-            return ResponseEntity.ok(member);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-    }
+
 
     @GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(HttpServletRequest request){

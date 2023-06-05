@@ -102,7 +102,7 @@ public class MemberService {
             throw new PWNotCorrespondException();
         }
         Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress()
-                , rq.getGender(), null, null, rq.getOccupation(), null, null, null, Role.USER);
+                , rq.getGender(), null, null, rq.getOccupation(), null, null, null, Role.MEMBER);
         memberRepository.save(member);
         return member.getId();
     }

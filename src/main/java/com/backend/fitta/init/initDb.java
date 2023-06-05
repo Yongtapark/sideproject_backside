@@ -1,5 +1,8 @@
-package com.backend.fitta.test;
+package com.backend.fitta.init;
 
+import com.backend.fitta.controller.owner.OwnerController;
+import com.backend.fitta.dto.owner.BasicOwnerInfo;
+import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.gym.Gym;
@@ -8,8 +11,10 @@ import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
+import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +39,9 @@ public class initDb {
         private final OwnerRepository ownerRepository;
         private final GymRepository gymRepository;
 
+        private final OwnerApiService ownerApiService;
+        private final OwnerController ownerController;
+
 
 
         public void dbInit(){
@@ -41,7 +49,7 @@ public class initDb {
                     .builder()
                     .email("email@email.com")
                     .password("password")
-                    .roles(Role.USER)
+                    .roles(Role.MEMBER)
                     .build();
             memberRepository.save(member);
 
@@ -50,6 +58,10 @@ public class initDb {
         public void dbInitGym(){
             Owner owner = new Owner("owner@emai.com", "password", "owner", "010-0100-0000", "address", "123123123");
             Owner save = ownerRepository.save(owner);
+
+            /*SignUpOwnerRequest signUpOwnerRequest = new SignUpOwnerRequest("owner@emai.com", "password", "password", "owner", "010-0100-0000", "address", "123123123");
+            Long save = ownerApiService.save(signUpOwnerRequest);
+            Owner owner1 = ownerRepository.findById(save).get();*/
 
 
             Gym gym1 = new Gym("gym1", save, "01-0000-0000", "gymAddress1", GenderDivision.MALE_ONLY);
