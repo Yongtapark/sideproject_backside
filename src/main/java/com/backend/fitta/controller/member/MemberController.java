@@ -78,7 +78,7 @@ public class MemberController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping("/signin")
     public ResponseEntity<TokenInfo> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto,HttpServletResponse response){
         String email = memberLoginRequestDto.getEmail();
         String password = memberLoginRequestDto.getPassword();
