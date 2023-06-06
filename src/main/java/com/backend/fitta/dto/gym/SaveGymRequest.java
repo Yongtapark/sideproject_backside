@@ -5,10 +5,13 @@ import com.backend.fitta.entity.gym.Owner;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@Getter
+@Data
+@NoArgsConstructor
 public class SaveGymRequest {
 
     @NotBlank

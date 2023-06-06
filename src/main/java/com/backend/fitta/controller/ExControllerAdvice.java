@@ -4,6 +4,7 @@ import com.backend.fitta.exception.AlreadyExistMemberException;
 import com.backend.fitta.exception.ErrorResult;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.exception.PWNotCorrespondException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Slf4j
 public class ExControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -23,6 +25,7 @@ public class ExControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler
     public ErrorResult exHandle(Exception e) {
+    log.info("Error={}",e);
         return new ErrorResult(e.getMessage());
     }
 
