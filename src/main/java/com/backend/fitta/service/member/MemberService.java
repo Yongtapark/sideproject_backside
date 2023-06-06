@@ -101,7 +101,7 @@ public class MemberService {
         if (!rq.getPassword().equals(rq.getPasswordConfirm())) {
             throw new PWNotCorrespondException();
         }
-        Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress()
+        Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress()
                 , rq.getGender(), null, null, rq.getOccupation(), null, null, null, Role.MEMBER);
         memberRepository.save(member);
         return member.getId();
