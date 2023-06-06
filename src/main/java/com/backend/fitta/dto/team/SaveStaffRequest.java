@@ -4,6 +4,7 @@ import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.Grade;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,10 @@ public class SaveStaffRequest {
     private String address;
     @NotNull
     private Grade grade;
-    private Team team;
-    private Gym gym;
+    @Nullable
+    private Long teamId;
+    @Nullable
+    private Long gymId;
 }
 
 

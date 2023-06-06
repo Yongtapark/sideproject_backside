@@ -31,7 +31,9 @@ public class StaffApiServiceImpl implements StaffApiService {
 
     @Override
     public Long save(SaveStaffRequest request) {
-        Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(),request.getGrade(),request.getGym(), request.getTeam());
+        Team team = teamRepository.findById(request.getTeamId()).orElseThrow(() -> new TeamNotFoundException());
+        Gym gym = gymRepository.findById(request.getGymId()).orElseThrow(() -> new GymNotFoundException());
+        Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(),request.getGrade(), gym, team);
         return staffRepository.save(staff).getId();
     }
 
