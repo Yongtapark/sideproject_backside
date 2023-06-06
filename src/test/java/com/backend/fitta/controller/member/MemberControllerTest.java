@@ -35,7 +35,7 @@ class MemberControllerTest {
                 .email("email123")
                 .password("password")
                 .passwordConfirm("password")
-                .role(Role.USER)
+                .role(Role.MEMBER)
                 .build();
         memberController.saveMember(signUpRequest);
     }

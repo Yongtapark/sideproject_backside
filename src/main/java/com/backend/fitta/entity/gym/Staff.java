@@ -32,6 +32,11 @@ public class Staff extends Auditing {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
+    @OneToOne(mappedBy = "staff")
+    private Schedule schedule;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "schedule_id")
+//    private Schedule schedule;
     public Staff(String name, LocalDate birthday, Gender gender, String phoneNumber, String address, Grade grade, Gym gym, Team team) {
         this.name = name;
         this.birthday = birthday;

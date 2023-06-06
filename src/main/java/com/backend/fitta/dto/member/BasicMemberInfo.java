@@ -37,11 +37,13 @@ public class BasicMemberInfo {
         this.weight = member.getWeight();
         this.occupation = member.getOccupation();
         this.note = member.getNote();
+
         if (member.getTeam() != null) {
             this.teamName = member.getTeam().getName();
         }
         if (member.getGym() != null) {
             this.gymName = member.getGym().getName();
         }
+
     }
 }

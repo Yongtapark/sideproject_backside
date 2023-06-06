@@ -24,7 +24,6 @@ public class TeamApiServiceImpl implements TeamApiService {
     private final TeamRepository teamRepository;
     @Override
     public Long save(SaveTeamRequest request) {
-        log.info("request.getName()={}",request.getName());
         Team team = new Team(request.getName());
         return teamRepository.save(team).getId();
     }
