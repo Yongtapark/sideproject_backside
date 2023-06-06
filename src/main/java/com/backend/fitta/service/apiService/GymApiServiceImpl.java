@@ -9,6 +9,7 @@ import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
+import com.backend.fitta.service.interfaces.OwnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,11 @@ import java.util.stream.Collectors;
 public class GymApiServiceImpl implements GymApiService {
     private final GymRepository gymRepository;
     private final OwnerRepository ownerRepository;
+    private final OwnerService ownerService;
     @Override
     public Long save(SaveGymRequest request) {
-        Gym gym = new Gym(request.getName(), null, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision());
+        Owner owner = ownerService.findById(request.getOwnerId());
+        Gym gym = new Gym(request.getName(),owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision());
         return gymRepository.save(gym).getId();
     }
 

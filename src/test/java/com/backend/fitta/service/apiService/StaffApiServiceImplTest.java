@@ -9,12 +9,14 @@ import com.backend.fitta.dto.team.UpdateStaffRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.enums.Grade;
+import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.repository.staff.StaffRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.apiService.interfaces.StaffApiService;
 import com.backend.fitta.service.apiService.interfaces.TeamApiService;
+import com.backend.fitta.service.interfaces.OwnerService;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -43,6 +45,8 @@ class StaffApiServiceImplTest {
     GymApiService gymApiService;
     @Autowired
     TeamApiService teamApiService;
+    @Autowired
+    OwnerService ownerService;
 
     @Test
     void saveAndFindById() {
@@ -95,8 +99,11 @@ class StaffApiServiceImplTest {
 
     @Test
     void saveGymStaff() {
+        Owner owner = new Owner("email", "pass", "name", "123", "ad", "12312312");
+        Long savedOwner = ownerService.save(owner);
+
         Long savedStaffId = staffApiService.save(new SaveStaffRequest("스태프1", LocalDate.of(1999, 05, 04), Gender.FEMALE, "01012345678", "서울", Grade.TRAINER, null, null));
-        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012345678", "안산", GenderDivision.UNISEX));
+        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012345678", "안산", GenderDivision.UNISEX,savedOwner));
         staffApiService.saveGymStaff(savedStaffId, savedGymId);
         Staff staff = staffRepository.findById(savedStaffId).orElseThrow();
         assertThat(staff.getGym().getName()).isEqualTo("헬스장1");
