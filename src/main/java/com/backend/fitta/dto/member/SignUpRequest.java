@@ -34,10 +34,9 @@ public class SignUpRequest {
     @Size(min = 11,max = 11,message = "전화번호를 다시 입력해 주세요.")
     private String phoneNumber;
     @NotNull
-    private LocalDate birthday;
+    private LocalDate birthdate;
     @NotBlank
     @Pattern(regexp = "^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$", message = "직업에 공백 혹은 특수 문자가 포함되어 있습니다.")
     private String occupation;
-    private Role role;
 
 }
