@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class SignUpRequest {
-
+//
     @Email
     private String email;
     @NotBlank
