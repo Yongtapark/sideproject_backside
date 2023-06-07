@@ -87,7 +87,7 @@ public class OwnerController {
     public ResponseEntity<MemberRate> memberGenderLate(@PathVariable Long ownerId){
         return ResponseEntity.ok(ownerApiService.genderLate(ownerId));
     }*/
-    @Operation(summary = "체육관, 회원, 직원, 성비, 나이대 표시" , description = "memberRate=총 인원 비율, todayMemberRate = 금일 가입 인원 비율, AllGymCount = 체육관,직원,회원 수, memberAgeRate = 총 나이 비율, memberAgeRate = 전체 나이대별 비율")
+    @Operation(summary = "체육관, 회원, 직원, 성비, 나이대 표시" , description = "memberRate=총 인원 비율, todayMemberRate = 금일 가입 인원 비율, AllGymCount = 체육관,직원,회원 수, memberAgeRate = 총 나이 비율")
     @GetMapping("/{ownerId}/all-view")
     public ResponseEntity<OwnerAllView> ownerAllView(@PathVariable Long ownerId){
         return ResponseEntity.ok(ownerApiService.ownerAllView(ownerId));
