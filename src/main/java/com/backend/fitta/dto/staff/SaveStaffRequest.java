@@ -7,17 +7,18 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class SaveStaffRequest {
     @NotBlank
     private String name;
     @NotNull
-    private LocalDate birthday;
+    private LocalDate birthdate;
     @NotNull
     private Gender gender;
     @NotBlank

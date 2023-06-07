@@ -77,7 +77,7 @@ class StaffApiServiceImplTest {
         Long savedStaffId = staffApiService.save(new SaveStaffRequest("스태프1", LocalDate.of(1999, 05, 04), Gender.FEMALE, "01012345678", "서울", null, savedGym.getId()));
         BasicStaffInfo staffInfo = staffApiService.findById(savedStaffId);
         assertThat(staffInfo.getName()).isEqualTo("스태프1");
-        assertThat(staffInfo.getBirthday()).isEqualTo(LocalDate.of(1999, 05, 04));
+        assertThat(staffInfo.getBirthdate()).isEqualTo(LocalDate.of(1999, 05, 04));
         assertThat(staffInfo.getGender()).isEqualTo( Gender.FEMALE);
         assertThat(staffInfo.getPhoneNumber()).isEqualTo("01012345678");
         assertThat(staffInfo.getAddress()).isEqualTo("서울");

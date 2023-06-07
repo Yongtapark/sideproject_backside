@@ -37,7 +37,7 @@ public class StaffApiServiceImpl implements StaffApiService {
             team = teamRepository.findById(request.getTeamId()).orElseThrow(() -> new TeamNotFoundException());
         }
         Gym gym = gymRepository.findById(request.getGymId()).orElseThrow(() -> new GymNotFoundException());
-        Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(), gym, team);
+        Staff staff = new Staff(request.getName(),request.getBirthdate(),request.getGender(),request.getPhoneNumber(),request.getAddress(), gym, team);
         return staffRepository.save(staff).getId();
     }
 

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class BasicStaffInfo {
     private Long id;
     private String name;
-    private LocalDate birthday;
+    private LocalDate birthdate;
     private Gender gender;
     private String phoneNumber;
     private String address;
@@ -20,7 +20,7 @@ public class BasicStaffInfo {
     public BasicStaffInfo(Staff staff) {
         this.id= staff.getId();
         this.name = staff.getName();
-        this.birthday = staff.getBirthday();
+        this.birthdate = staff.getBirthday();
         this.gender = staff.getGender();
         this.phoneNumber = staff.getPhoneNumber();
         this.address = staff.getAddress();

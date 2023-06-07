@@ -1,6 +1,7 @@
 package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
@@ -8,6 +9,7 @@ import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.AlreadyExistOwnerException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.exception.PWNotCorrespondException;
+import com.backend.fitta.repository.owner.OwnerQueryRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OwnerApiServiceImpl implements OwnerApiService {
     private final OwnerRepository ownerRepository;
+    private final OwnerQueryRepository ownerQueryRepository;
     @Override
     public Long save(SignUpOwnerRequest request) {
 
@@ -70,5 +73,11 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
         ownerRepository.delete(owner);
     }
+
+    @Override
+    public OwnerAllGymInfoResponse ownerAllGymInfo(Long OwnerId) {
+        return null;
+    }
+
 
 }

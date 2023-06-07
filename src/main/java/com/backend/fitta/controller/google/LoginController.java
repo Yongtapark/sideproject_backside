@@ -32,7 +32,7 @@ import java.net.URLEncoder;
 @RequestMapping(produces = "application/json")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "인증",description ="OAuth2.0을 이용한 google 로그인 로직입니다" )
+@Tag(name = "인증",description ="OAuth2.0을 이용한 google 로그인 로직입니다(미구현)" )
 public class LoginController {
     private final LoginService loginService;
     @Value("${spring.security.oauth2.client.registration.google.client-id}")

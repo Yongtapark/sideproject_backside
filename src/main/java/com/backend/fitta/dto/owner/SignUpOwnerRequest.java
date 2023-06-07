@@ -1,15 +1,13 @@
 package com.backend.fitta.dto.owner;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class SignUpOwnerRequest {
 
     @Email
