@@ -29,6 +29,7 @@ public interface OwnerApiService {
      */
 
     OwnerAllGymInfoResponse ownerAllGymInfo(Long OwnerId);
+    Long calculateSignupToday(Long ownerId);
 
 
 }

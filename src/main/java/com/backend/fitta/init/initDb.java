@@ -35,7 +35,8 @@ public class initDb {
     @PostConstruct
     public void init(){
         initService.dbInit();
-        initService.dbInitGym();
+        initService.dbInitGym1();
+        initService.dbInitGym2();
     }
 
 //
@@ -47,6 +48,7 @@ public class initDb {
         private final OwnerRepository ownerRepository;
         private final GymRepository gymRepository;
         private final StaffRepository staffRepository;
+
 
         //테스트용 맴버 생성
         public void dbInit(){
@@ -63,7 +65,7 @@ public class initDb {
 
         //테스트용 오너와 짐 생성
 
-        public void dbInitGym(){
+        public void dbInitGym1(){
             Owner owner = new Owner("owner@emai.com", "password", "testOwner", "010-0100-0000", "address", "123123123");
             Owner save = ownerRepository.save(owner);
 
@@ -102,9 +104,96 @@ public class initDb {
             staffRepository.save(staff8);
             staffRepository.save(staff9);
 
+            //맴버 가입
+            Member member1 = Member
+                    .builder()
+                    .email("email1@email.com")
+                    .password("password")
+                    .name("testMember1")
+                    .gym(gym1)
+                    .build();
+
+
+            Member member2 = Member
+                    .builder()
+                    .email("email2@email.com")
+                    .password("password")
+                    .name("testMember2")
+                    .gym(gym1)
+                    .build();
+
+            Member member3 = Member
+                    .builder()
+                    .email("email3@email.com")
+                    .password("password")
+                    .name("testMember3")
+                    .gym(gym1)
+                    .build();
+
+            memberRepository.save(member1);
+            memberRepository.save(member2);
+            memberRepository.save(member3);
+
+
+
+
+
 
 
         }
+
+    public void dbInitGym2(){
+        Owner owner = new Owner("owne2r@emai.com", "password", "testOwner", "010-0100-0000", "address", "123123123");
+        Owner save = ownerRepository.save(owner);
+
+
+
+        Gym gym1 = new Gym("gym1", save, "01-0000-0000", "gymAddress1", GenderDivision.MALE_ONLY,"asdasd");
+        Gym gym2 = new Gym("gym2", save, "02-0000-0000", "gymAddress2", GenderDivision.FEMALE_ONLY,"asdasdad");
+        Gym gym3 = new Gym("gym3", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym4 = new Gym("gym4", save, "03-0000-0000", "gymAddress4", GenderDivision.UNISEX,"asdasdsad");
+
+        gymRepository.save(gym1);
+        gymRepository.save(gym2);
+        gymRepository.save(gym3);
+        gymRepository.save(gym4);
+
+        //staff 생성
+        Staff staff1 = new Staff("staff1", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym1, null);
+        Staff staff2 = new Staff("staff2", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym1, null);
+        Staff staff3 = new Staff("staff3", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym1, null);
+
+        staffRepository.save(staff1);
+        staffRepository.save(staff2);
+        staffRepository.save(staff3);
+
+        Staff staff4 = new Staff("staff4", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym2, null);
+        Staff staff5 = new Staff("staff5", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym2, null);
+        Staff staff6 = new Staff("staff6", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym2, null);
+
+        staffRepository.save(staff4);
+        staffRepository.save(staff5);
+        staffRepository.save(staff6);
+
+        Staff staff7 = new Staff("staff7", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym3, null);
+        Staff staff8 = new Staff("staff8", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym3, null);
+        Staff staff9 = new Staff("staff9", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym3, null);
+
+        staffRepository.save(staff7);
+        staffRepository.save(staff8);
+        staffRepository.save(staff9);
+
+        Staff staff10 = new Staff("staff10", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym4, null);
+        Staff staff11= new Staff("staff11", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym4, null);
+        Staff staff12 = new Staff("staff12", LocalDate.of(1111, Month.MAY, 1), Gender.FEMALE, "13221312", "ad", gym4, null);
+
+        staffRepository.save(staff10);
+        staffRepository.save(staff11);
+        staffRepository.save(staff12);
+
+
+
+    }
 
 
 

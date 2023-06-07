@@ -68,9 +68,15 @@ public class OwnerController {
         return ResponseEntity.noContent().build();
     }
     @Operation(summary = "체육관, 직원, 회원 수량 반환")
-    @GetMapping("/totalcount/{ownerId}")
+    @GetMapping("{ownerId}/total-count")
     public ResponseEntity<OwnerAllGymInfoResponse> ownerAllGymInfo(@PathVariable Long ownerId){
        return ResponseEntity.ok(ownerApiService.ownerAllGymInfo(ownerId));
+    }
+
+    @Operation(summary = "오늘 가입한 회원 수 반환")
+    @GetMapping("/{ownerId}/signup-count")
+    public ResponseEntity<Long> memberTodaySignup(@PathVariable Long ownerId){
+        return ResponseEntity.ok(ownerApiService.calculateSignupToday(ownerId));
     }
 
 }

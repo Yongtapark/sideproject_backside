@@ -74,10 +74,22 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         ownerRepository.delete(owner);
     }
 
+    /**
+     * 오너 마이페이지
+     */
+    /*체육관, 직원, 회원 수 반환*/
     @Override
     public OwnerAllGymInfoResponse ownerAllGymInfo(Long ownerId) {
        return ownerQueryRepository.ownerAllGymInfoResponse(ownerId);
     }
+
+    /*오늘 가입한 회원 수 반환*/
+    @Override
+    public Long calculateSignupToday(Long ownerId) {
+        return ownerQueryRepository.calculateSignupToday(ownerId);
+    }
+
+
 
 
 }
