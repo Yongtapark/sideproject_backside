@@ -29,12 +29,12 @@ public class OwnerController {
 
     private final OwnerApiService ownerApiService;
     //
-    @Operation(summary = "테스트 userdata")
+    /*@Operation(summary = "테스트 userdata")
     @GetMapping("/testuserdata")
     public ResponseEntity<OwnerProfileInfo> getTestMemberInfo(){
         OwnerProfileInfo byId1 = ownerApiService.findProfileById(1L);
         return ResponseEntity.ok(byId1);
-    }
+    }*/
 
 
     @Operation(summary = "오너 등록 메서드", description = "오너 등록 메서드입니다.")

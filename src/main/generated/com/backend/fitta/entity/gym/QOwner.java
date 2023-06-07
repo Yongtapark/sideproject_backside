@@ -44,6 +44,8 @@ public class QOwner extends EntityPathBase<Owner> {
 
     public final StringPath phoneNumber = createString("phoneNumber");
 
+    public final StringPath profileImage = createString("profileImage");
+
     public final EnumPath<com.backend.fitta.entity.enums.Role> role = createEnum("role", com.backend.fitta.entity.enums.Role.class);
 
     public QOwner(String variable) {

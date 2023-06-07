@@ -2,6 +2,7 @@ package com.backend.fitta.controller.gym;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
+import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
@@ -10,6 +11,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +34,6 @@ public class GymController {
     public ResponseEntity<Long> saveGym(@Valid @RequestBody SaveGymRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request));
     }
-
-
     @Operation(summary = "헬스장 조회 메서드", description = "헬스장 id로 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping("/{gymId}")
     public ResponseEntity<BasicGymInfo> findGym(@PathVariable long gymId) {
@@ -57,10 +60,15 @@ public class GymController {
     }
 
     @Operation(summary = "헬스장 오너 등록", description = "헬스장 id로 헬스장을 찾아 오너를 추가해줍니다.")
-    @PostMapping("owner/{gymId}/{ownerId}")
+    @PostMapping("/owner/{gymId}/{ownerId}")
     public ResponseEntity<Void> saveOwnerGym(@PathVariable long gymId, @PathVariable long ownerId) {
         gymApiService.saveOwnerGym(gymId, ownerId);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/paged")
+    public ResponseEntity<Page<GymProfileInfo>> gymPaging(@PageableDefault(size = 6, sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
+        Page<GymProfileInfo> gymInfoPage = gymApiService.findAll(pageable);
+        return ResponseEntity.ok(gymInfoPage);
     }
 
 

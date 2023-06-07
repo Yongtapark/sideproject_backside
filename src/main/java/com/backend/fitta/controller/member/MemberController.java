@@ -49,12 +49,13 @@ public class MemberController {
         BasicMemberInfo member = memberService.findByEmail(username);
         return ResponseEntity.ok(member);
     }*/
-    @Operation(summary = "테스트 userdata")
+
+   /* @Operation(summary = "테스트 userdata")
     @GetMapping("/testuserdata")
     public ResponseEntity<MemberProfileInfo> getTestMemberInfo(){
         MemberProfileInfo member1 = memberService.findProfileMember(1L);
         return ResponseEntity.ok(member1);
-    }
+    }*/
 
     @GetMapping("/userdata")
     public ResponseEntity<BasicMemberInfo> getMemberInfo(HttpServletRequest request){

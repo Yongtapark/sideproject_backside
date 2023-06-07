@@ -59,6 +59,11 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     }
 
     @Override
+    public Owner findByID(Long id) {
+       return ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
+    }
+
+    @Override
     public Result<List<BasicOwnerInfo>> findAll() {
         List<Owner> all = ownerRepository.findAll();
         List<BasicOwnerInfo> collect = all.stream()
