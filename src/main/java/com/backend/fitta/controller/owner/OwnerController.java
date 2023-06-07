@@ -1,9 +1,7 @@
 package com.backend.fitta.controller.owner;
 
 import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.common.GenderLate;
-import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
-import com.backend.fitta.dto.member.BasicMemberInfo;
+import com.backend.fitta.dto.ownermypage.OwnerAllView;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
@@ -68,22 +66,31 @@ public class OwnerController {
         ownerApiService.deleteOwner(ownerId);
         return ResponseEntity.noContent().build();
     }
-    @Operation(summary = "체육관, 직원, 회원 수량 반환")
+
+    /**
+     * 마이페이지 오너
+     */
+    /*@Operation(summary = "전체 체육관, 직원, 회원 수량 반환")
     @GetMapping("{ownerId}/total-count")
-    public ResponseEntity<OwnerAllGymInfoResponse> ownerAllGymInfo(@PathVariable Long ownerId){
+    public ResponseEntity<AllGymCount> ownerAllGymInfo(@PathVariable Long ownerId){
        return ResponseEntity.ok(ownerApiService.ownerAllGymInfo(ownerId));
     }
 
-    @Operation(summary = "오늘 가입한 회원 수 반환")
-    @GetMapping("/{ownerId}/signup-count")
-    public ResponseEntity<Long> memberTodaySignup(@PathVariable Long ownerId){
+    @Operation(summary = "전체 오늘 가입한 회원 수 반환")
+    @GetMapping("/{ownerId}/today-rate")
+    public ResponseEntity<TodayMemberRate> memberTodaySignup(@PathVariable Long ownerId){
         return ResponseEntity.ok(ownerApiService.calculateSignupToday(ownerId));
     }
 
-    @Operation(summary = "남녀 수, 비율 반환")
+    @Operation(summary = "전체 남녀 수, 비율 반환")
     @GetMapping("/{ownerId}/gender-rate")
-    public ResponseEntity<GenderLate> memberGenderLate(@PathVariable Long ownerId){
+    public ResponseEntity<MemberRate> memberGenderLate(@PathVariable Long ownerId){
         return ResponseEntity.ok(ownerApiService.genderLate(ownerId));
+    }*/
+    @Operation(summary = "체육관, 회원, 직원, 성비, 나이대 표시" , description = "memberRate=총 인원 비율, todayMemberRate = 금일 가입 인원 비율, AllGymCount = 체육관,직원,회원 수, memberAgeRate = 총 나이 비율, memberAgeRate = 전체 나이대별 비율")
+    @GetMapping("/{ownerId}/all-view")
+    public ResponseEntity<OwnerAllView> ownerAllView(@PathVariable Long ownerId){
+        return ResponseEntity.ok(ownerApiService.ownerAllView(ownerId));
     }
 
 }

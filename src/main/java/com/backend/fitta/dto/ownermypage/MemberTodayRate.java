@@ -1,13 +1,11 @@
-package com.backend.fitta.dto.common;
+package com.backend.fitta.dto.ownermypage;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.math.BigDecimal;
-
 @Data
 @AllArgsConstructor
-public class GenderLate {
+public class MemberTodayRate {
     private Double maleRate;
     private Double femaleRate;
     private Long maleCount;

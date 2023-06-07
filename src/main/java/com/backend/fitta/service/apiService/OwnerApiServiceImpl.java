@@ -1,9 +1,8 @@
 package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
+import com.backend.fitta.dto.ownermypage.*;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
-import com.backend.fitta.dto.common.GenderLate;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.entity.gym.Owner;
@@ -79,20 +78,30 @@ public class OwnerApiServiceImpl implements OwnerApiService {
      */
     /*체육관, 직원, 회원 수 반환*/
     @Override
-    public OwnerAllGymInfoResponse ownerAllGymInfo(Long ownerId) {
+    public AllGymCount ownerAllGymInfo(Long ownerId) {
        return ownerQueryRepository.ownerAllGymInfoResponse(ownerId);
     }
 
     /*오늘 가입한 회원 수 반환*/
     @Override
-    public Long calculateSignupToday(Long ownerId) {
+    public MemberTodayRate calculateSignupToday(Long ownerId) {
         return ownerQueryRepository.calculateSignupToday(ownerId);
     }
 
     /*남녀 수, 비율 반환*/
     @Override
-    public GenderLate genderLate(Long ownerId) {
+    public MemberRate genderLate(Long ownerId) {
         return ownerQueryRepository.calculateGenderRate(ownerId);
+    }
+    /*체육관,회원,직원, 성비 표시*/
+    @Override
+    public OwnerAllView ownerAllView(Long ownerId) {
+        return ownerQueryRepository.ownerAllView(ownerId);
+    }
+
+    @Override
+    public MemberAgeRate memberAgeRate(Long ownerId) {
+        return ownerQueryRepository.calculateAgeRate(ownerId);
     }
 
 

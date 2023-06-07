@@ -12,7 +12,7 @@ public class BasicMemberInfo {
     private String email;
     private String password;
     private String name;
-    private LocalDate birthday;
+    private LocalDate birthdate;
     private String phoneNumber;
     private String address;
     private Gender gender;
@@ -28,7 +28,7 @@ public class BasicMemberInfo {
         this.email = member.getEmail();
         this.password = member.getPassword();
         this.name = member.getName();
-        this.birthday = member.getBirthday();
+        this.birthdate = member.getBirthdate();
         this.phoneNumber = member.getPhoneNumber();
         this.address = member.getAddress();
         this.gender = member.getGender();

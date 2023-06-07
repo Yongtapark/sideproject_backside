@@ -1,9 +1,8 @@
 package com.backend.fitta.service.apiService.interfaces;
 
 import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
+import com.backend.fitta.dto.ownermypage.*;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
-import com.backend.fitta.dto.common.GenderLate;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 
@@ -29,9 +28,13 @@ public interface OwnerApiService {
      * 관리자페이지
      */
 
-    OwnerAllGymInfoResponse ownerAllGymInfo(Long OwnerId);
-    Long calculateSignupToday(Long ownerId);
-    GenderLate genderLate(Long ownerId);
+    AllGymCount ownerAllGymInfo(Long OwnerId);
+    MemberTodayRate calculateSignupToday(Long ownerId);
+    MemberRate genderLate(Long ownerId);
+
+    OwnerAllView ownerAllView(Long ownerId);
+
+    MemberAgeRate memberAgeRate(Long ownerId);
 
 
 }
