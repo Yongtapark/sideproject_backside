@@ -1,6 +1,7 @@
 package com.backend.fitta.controller.owner;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.common.GenderLate;
 import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
@@ -77,6 +78,12 @@ public class OwnerController {
     @GetMapping("/{ownerId}/signup-count")
     public ResponseEntity<Long> memberTodaySignup(@PathVariable Long ownerId){
         return ResponseEntity.ok(ownerApiService.calculateSignupToday(ownerId));
+    }
+
+    @Operation(summary = "남녀 수, 비율 반환")
+    @GetMapping("/{ownerId}/gender-rate")
+    public ResponseEntity<GenderLate> memberGenderLate(@PathVariable Long ownerId){
+        return ResponseEntity.ok(ownerApiService.genderLate(ownerId));
     }
 
 }

@@ -3,6 +3,7 @@ package com.backend.fitta.service.apiService.interfaces;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
+import com.backend.fitta.dto.common.GenderLate;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 
@@ -30,6 +31,7 @@ public interface OwnerApiService {
 
     OwnerAllGymInfoResponse ownerAllGymInfo(Long OwnerId);
     Long calculateSignupToday(Long ownerId);
+    GenderLate genderLate(Long ownerId);
 
 
 }

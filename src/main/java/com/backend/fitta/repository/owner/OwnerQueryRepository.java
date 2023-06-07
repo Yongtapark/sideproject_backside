@@ -1,12 +1,14 @@
 package com.backend.fitta.repository.owner;
 
 import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
-import com.backend.fitta.entity.gym.QStaff;
-import com.backend.fitta.entity.member.QMember;
+import com.backend.fitta.dto.common.GenderLate;
+import com.backend.fitta.entity.enums.Gender;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -15,6 +17,7 @@ import static com.backend.fitta.entity.gym.QStaff.staff;
 import static com.backend.fitta.entity.member.QMember.member;
 
 @Repository
+@Slf4j
 public class OwnerQueryRepository {
     private final JPAQueryFactory query;
 
@@ -63,7 +66,7 @@ public class OwnerQueryRepository {
     }
 
 
-    //오늘 가입자 수 계산
+    //전체 오늘 가입자 수 계산
     public Long calculateSignupToday(Long ownerId){
         LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
         LocalDateTime endOfDay = LocalDate.now().plusDays(1).atStartOfDay();
@@ -76,7 +79,7 @@ public class OwnerQueryRepository {
 
         return newMembers;
     }
-    //가입률 계산
+    //전체 가입률 계산
     public double calculateSignupRate(Long ownerId){
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
 
@@ -90,6 +93,29 @@ public class OwnerQueryRepository {
         Long totalMembers = memberCountByOwnerId(ownerId);
 
         return (double)newMembers/totalMembers;
+    }
+
+    //전체 남녀비율 계산
+    public GenderLate calculateGenderRate(Long ownerId){
+        Long maleCount = query.select(member.count())
+                .from(member)
+                .where(member.gym.owner.id.eq(ownerId))
+                .where(member.gender.eq(Gender.MALE))
+                .fetchOne();
+
+        Long femaleCount = query.select(member.count())
+                .from(member)
+                .where(member.gym.owner.id.eq(ownerId))
+                .where(member.gender.eq(Gender.FEMALE))
+                .fetchOne();
+
+        Long totalMembers = memberCountByOwnerId(ownerId);
+
+
+        double maleRate = ((double)maleCount/(double)totalMembers)*100;
+        double femaleRate = ((double)femaleCount/(double)totalMembers)*100;
+
+        return new GenderLate(maleRate,femaleRate,maleCount,femaleCount,totalMembers);
     }
 
 

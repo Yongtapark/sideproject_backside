@@ -110,6 +110,7 @@ public class initDb {
                     .email("email1@email.com")
                     .password("password")
                     .name("testMember1")
+                    .gender(Gender.FEMALE)
                     .gym(gym1)
                     .build();
 
@@ -119,6 +120,7 @@ public class initDb {
                     .email("email2@email.com")
                     .password("password")
                     .name("testMember2")
+                    .gender(Gender.FEMALE)
                     .gym(gym1)
                     .build();
 
@@ -127,6 +129,7 @@ public class initDb {
                     .email("email3@email.com")
                     .password("password")
                     .name("testMember3")
+                    .gender(Gender.MALE)
                     .gym(gym1)
                     .build();
 
