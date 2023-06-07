@@ -9,5 +9,4 @@ import java.awt.print.Pageable;
 
 
 public interface GymRepository extends JpaRepository<Gym,Long> {
-   /* Page<Gym> findAll(Pageable pageable);*/
 }

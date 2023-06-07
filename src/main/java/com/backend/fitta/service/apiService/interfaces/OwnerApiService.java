@@ -6,6 +6,7 @@ import com.backend.fitta.dto.ownermypage.*;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
+import com.backend.fitta.entity.gym.Owner;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public interface OwnerApiService {
 
     OwnerProfileInfo findProfileById(Long id);
     BasicOwnerInfo findById(Long id);
+    Owner findByID(Long id);
 
     Result<List<BasicOwnerInfo>> findAll();
 

@@ -1,4 +1,4 @@
-package com.backend.fitta.controller.google;
+package com.backend.fitta.controller.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

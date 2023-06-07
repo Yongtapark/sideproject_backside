@@ -1,31 +1,26 @@
-package com.backend.fitta.controller.google;
+package com.backend.fitta.controller.login;
 
 
+import com.backend.fitta.controller.owner.OwnerController;
 import com.backend.fitta.dto.google.AccountInfo;
+import com.backend.fitta.dto.login.TestLoginData;
+import com.backend.fitta.dto.owner.OwnerProfileInfo;
+import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.service.LoginService;
+import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URLEncoder;
 
 @RestController
@@ -35,12 +30,22 @@ import java.net.URLEncoder;
 @Tag(name = "인증",description ="OAuth2.0을 이용한 google 로그인 로직입니다(미구현)" )
 public class LoginController {
     private final LoginService loginService;
+    private final OwnerApiService ownerApiService;
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
 
     @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
     private String redirectUri;
     private String loginPage;
+
+
+
+    @Operation(summary = "테스트 userdata")
+    @GetMapping("/userdata")
+    public ResponseEntity<TestLoginData> login(){
+        Owner owner = ownerApiService.findByID(1L);
+        return ResponseEntity.ok(new TestLoginData(owner.getId(),owner.getRole(), owner.getName(),owner.getProfileImage()));
+    }
 
     /**
      * 구글 로그인 페이지로 이동합니다
