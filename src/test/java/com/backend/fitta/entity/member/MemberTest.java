@@ -2,8 +2,16 @@ package com.backend.fitta.entity.member;
 
 import com.backend.fitta.controller.member.MemberController;
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.enums.GenderDivision;
+import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.repository.gym.GymRepository;
+import com.backend.fitta.repository.owner.OwnerRepository;
+import com.backend.fitta.repository.staff.StaffRepository;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +19,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 @SpringBootTest
@@ -24,11 +33,33 @@ public class MemberTest {
     @Autowired
     MemberController memberController;
 
+    @Autowired
+    StaffRepository staffRepository;
+    @Autowired
+    OwnerRepository ownerRepository;
+
+    @Autowired
+    GymRepository gymRepository;
+
+    Staff savedStaff;
+
+    @BeforeEach
+    void init(){
+        Owner owner = new Owner("email", "password", "name", "01010101", "addd", "0000");
+        Owner savedOwner = ownerRepository.save(owner);
+
+        Gym gym = new Gym("powerGym", savedOwner, "12312321", "adddr", GenderDivision.UNISEX);
+        Gym savedGym = gymRepository.save(gym);
+
+        Staff staff = new Staff("staff", LocalDate.of(1995, Month.MAY, 3), Gender.FEMALE, "0000000", "addr", savedGym, null);
+        savedStaff = staffRepository.save(staff);
+    }
+
 
     @Test
     public void testEntity() {
-        Team teamA = new Team("teamA");
-        Team teamB = new Team("teamB");
+        Team teamA = new Team("teamA",savedStaff);
+        Team teamB = new Team("teamB",savedStaff);
         em.persist(teamA);
         em.persist(teamB);
 

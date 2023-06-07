@@ -2,21 +2,47 @@ package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.GenderDivision;
-import com.backend.fitta.entity.enums.Grade;
+import com.backend.fitta.repository.gym.GymRepository;
+import com.backend.fitta.repository.owner.OwnerRepository;
+import com.backend.fitta.repository.staff.StaffRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @Slf4j
 @Transactional
 class StaffTest {
+
+    @Autowired
+    StaffRepository staffRepository;
+    @Autowired
+    OwnerRepository ownerRepository;
+
+    @Autowired
+    GymRepository gymRepository;
+
+    Staff savedStaff;
+
+    @BeforeEach
+    void init(){
+        Owner owner = new Owner("email", "password", "name", "01010101", "addd", "0000");
+        Owner savedOwner = ownerRepository.save(owner);
+
+        Gym gym = new Gym("powerGym", savedOwner, "12312321", "adddr", GenderDivision.UNISEX);
+        Gym savedGym = gymRepository.save(gym);
+
+        Staff staff = new Staff("staff", LocalDate.of(1995, Month.MAY, 3), Gender.FEMALE, "0000000", "addr", savedGym, null);
+        savedStaff = staffRepository.save(staff);
+    }
     @Test
     void staffIntoGym(){
         Owner owner = new Owner("email","pass","박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
@@ -27,7 +53,6 @@ class StaffTest {
                 Gender.MALE,
                 "010-1234-1234",
                 "주소어드레스",
-                Grade.TRAINER,
                 null,
                 null
         );
@@ -37,7 +62,6 @@ class StaffTest {
                 Gender.FEMALE,
                 "010-1234-1234",
                 "주소어드레스",
-                Grade.TRAINER,
                 null,
                 null
         );
@@ -54,14 +78,13 @@ class StaffTest {
     void staffIntoTeam(){
         Owner owner = new Owner("email","pass","박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
         Gym gym = new Gym("testGym", owner, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
-        Team team = new Team("teamA");
+        Team team = new Team("teamA",savedStaff);
         Staff staff1 = new Staff(
                 "박직원",
                 LocalDate.of(1999,1,1),
                 Gender.MALE,
                 "010-1234-1234",
                 "주소어드레스",
-                Grade.TRAINER,
                 null,
                 null
         );
@@ -71,7 +94,6 @@ class StaffTest {
                 Gender.FEMALE,
                 "010-1234-1234",
                 "주소어드레스",
-                Grade.TRAINER,
                 null,
                 null
         );
@@ -81,7 +103,7 @@ class StaffTest {
 
         staff1.changeTeam(team);
 
-        assertThat(team.getStaffs()).contains(staff1);
+        assertThat(team.getStaff()).isEqualTo(savedStaff);
     }
 
 

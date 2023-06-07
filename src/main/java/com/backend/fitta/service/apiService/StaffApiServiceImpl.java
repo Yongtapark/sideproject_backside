@@ -29,11 +29,15 @@ public class StaffApiServiceImpl implements StaffApiService {
     private final TeamRepository teamRepository;
     private final GymRepository gymRepository;
 
+    Team team;
+
     @Override
     public Long save(SaveStaffRequest request) {
-        Team team = teamRepository.findById(request.getTeamId()).orElseThrow(() -> new TeamNotFoundException());
+        if(request.getTeamId()!=null){
+            team = teamRepository.findById(request.getTeamId()).orElseThrow(() -> new TeamNotFoundException());
+        }
         Gym gym = gymRepository.findById(request.getGymId()).orElseThrow(() -> new GymNotFoundException());
-        Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(),request.getGrade(), gym, team);
+        Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(), gym, team);
         return staffRepository.save(staff).getId();
     }
 
@@ -55,7 +59,7 @@ public class StaffApiServiceImpl implements StaffApiService {
     @Override
     public Long update(Long id, UpdateStaffRequest request) {
         Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
-        staff.changeStaffInfo(request.getName(),request.getBirthday(),request.getPhoneNumber(), request.getAddress(),request.getGrade());
+        staff.changeStaffInfo(request.getName(),request.getBirthday(),request.getPhoneNumber(), request.getAddress());
         return staff.getId();
     }
 

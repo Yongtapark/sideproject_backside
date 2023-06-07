@@ -39,10 +39,6 @@ public class initDb {
         private final OwnerRepository ownerRepository;
         private final GymRepository gymRepository;
 
-        private final OwnerApiService ownerApiService;
-        private final OwnerController ownerController;
-
-
         //테스트용 맴버 생성
         public void dbInit(){
             Member member = Member
@@ -71,10 +67,6 @@ public class initDb {
             gymRepository.save(gym1);
             gymRepository.save(gym2);
             gymRepository.save(gym3);
-
-
-
-
         }
 
 

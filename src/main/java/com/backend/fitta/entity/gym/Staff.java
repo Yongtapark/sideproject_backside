@@ -2,7 +2,6 @@ package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.Auditing;
 import com.backend.fitta.entity.enums.Gender;
-import com.backend.fitta.entity.enums.Grade;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,7 +22,7 @@ public class Staff extends Auditing {
     private String phoneNumber;
     private String address;
     @Enumerated(EnumType.STRING)
-    private Grade grade;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
@@ -37,13 +36,13 @@ public class Staff extends Auditing {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "schedule_id")
 //    private Schedule schedule;
-    public Staff(String name, LocalDate birthday, Gender gender, String phoneNumber, String address, Grade grade, Gym gym, Team team) {
+    public Staff(String name, LocalDate birthday, Gender gender, String phoneNumber, String address, Gym gym, Team team) {
         this.name = name;
         this.birthday = birthday;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.grade = grade;
+
         if (gym != null) {
             changeGym(gym);
         }
@@ -52,12 +51,11 @@ public class Staff extends Auditing {
         }
     }
 
-    public void changeStaffInfo(String name, LocalDate birthday, String phone, String address, Grade grade) {
+    public void changeStaffInfo(String name, LocalDate birthday, String phone, String address) {
         this.name = name;
         this.birthday = birthday;
         this.phoneNumber = phone;
         this.address = address;
-        this.grade = grade;
     }
 
     public void changeGym(Gym gym){
@@ -70,7 +68,7 @@ public class Staff extends Auditing {
 
     public void changeTeam(Team team){
         this.team=team;//staff 객체에 team 을 추가하고
-        team.getStaffs().add(this); // team 객체에도 동시에 staff 의 객체를 추가합니다.
+        //team.getStaffs().add(this); // team 객체에도 동시에 staff 의 객체를 추가합니다.
     }
 
 

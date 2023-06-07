@@ -1,6 +1,5 @@
 package com.backend.fitta.dto.team;
 
-import com.backend.fitta.entity.enums.Grade;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,5 @@ public class UpdateStaffRequest {
     private String phoneNumber;
     @NotBlank
     private String address;
-    @NotNull
-    private Grade grade;
 }
 
