@@ -1,6 +1,7 @@
 package com.backend.fitta.controller.owner;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
@@ -65,6 +66,11 @@ public class OwnerController {
     public ResponseEntity<Void> deleteOwner(@PathVariable Long ownerId) {
         ownerApiService.deleteOwner(ownerId);
         return ResponseEntity.noContent().build();
+    }
+    @Operation(summary = "체육관, 직원, 회원 수량 반환")
+    @GetMapping("/totalcount/{ownerId}")
+    public ResponseEntity<OwnerAllGymInfoResponse> ownerAllGymInfo(@PathVariable Long ownerId){
+       return ResponseEntity.ok(ownerApiService.ownerAllGymInfo(ownerId));
     }
 
 }

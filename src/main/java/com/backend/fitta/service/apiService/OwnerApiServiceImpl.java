@@ -75,8 +75,8 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     }
 
     @Override
-    public OwnerAllGymInfoResponse ownerAllGymInfo(Long OwnerId) {
-        return null;
+    public OwnerAllGymInfoResponse ownerAllGymInfo(Long ownerId) {
+       return ownerQueryRepository.ownerAllGymInfoResponse(ownerId);
     }
 
 

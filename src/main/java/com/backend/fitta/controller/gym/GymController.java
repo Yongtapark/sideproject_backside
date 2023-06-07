@@ -2,6 +2,7 @@ package com.backend.fitta.controller.gym;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
+import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
@@ -63,14 +64,6 @@ public class GymController {
         return ResponseEntity.noContent().build();
     }
 
-    /***
-     * 오너 마이페이지
-     */
-//
-    /*@Operation(summary = "오너 마이페이지 헬스장 현황")
-    @GetMapping("/owner/{ownerId}/gym/{gymId}")
-    public ResponseEntity<Void> gymInfoByOwnerId(@PathVariable Long gymId, @PathVariable Long ownerId){
-        gymApiService.findAllByOwnerId(gymId,ownerId);
-    }*/
+
 
 }
