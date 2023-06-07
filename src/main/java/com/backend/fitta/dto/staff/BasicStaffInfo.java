@@ -20,7 +20,7 @@ public class BasicStaffInfo {
     public BasicStaffInfo(Staff staff) {
         this.id= staff.getId();
         this.name = staff.getName();
-        this.birthdate = staff.getBirthday();
+        this.birthdate = staff.getBirthdate();
         this.gender = staff.getGender();
         this.phoneNumber = staff.getPhoneNumber();
         this.address = staff.getAddress();

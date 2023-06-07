@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class SimpleMemberInfo {
     private String email;
     private String name;
-    private LocalDate birthday;
+    private LocalDate birthdate;
     private String phoneNumber;
     private String address;
     private Gender gender;
@@ -21,7 +21,7 @@ public class SimpleMemberInfo {
     public SimpleMemberInfo(Member member) {
         this.email = member.getEmail();
         this.name = member.getName();
-        this.birthday = member.getBirthdate();
+        this.birthdate = member.getBirthdate();
         this.phoneNumber = member.getPhoneNumber();
         this.address = member.getAddress();
         this.gender = member.getGender();

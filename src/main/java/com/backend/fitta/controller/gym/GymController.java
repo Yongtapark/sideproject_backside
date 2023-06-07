@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("gyms")
+@RequestMapping("/gyms")
 public class GymController {
     private final GymApiService gymApiService;
 
@@ -40,11 +40,11 @@ public class GymController {
         return ResponseEntity.ok(gymApiService.findById(gymId));
     }
 
-    @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
+    /*@Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping
     public ResponseEntity<Result<List<BasicGymInfo>>> findAll() {
         return ResponseEntity.ok(gymApiService.findAll());
-    }
+    }*/
 
     @Operation(summary = "헬스장 정보 수정 메서드", description = "헬스장 id로 헬스장 정보를 찾아 헬스장 정보를 수정 할 수 있습니다.")
     @PutMapping("/{gymId}")
@@ -59,13 +59,14 @@ public class GymController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "헬스장 오너 등록", description = "헬스장 id로 헬스장을 찾아 오너를 추가해줍니다.")
+    /*@Operation(summary = "헬스장 오너 등록", description = "헬스장 id로 헬스장을 찾아 오너를 추가해줍니다.")
     @PostMapping("/owner/{gymId}/{ownerId}")
     public ResponseEntity<Void> saveOwnerGym(@PathVariable long gymId, @PathVariable long ownerId) {
         gymApiService.saveOwnerGym(gymId, ownerId);
         return ResponseEntity.noContent().build();
-    }
-    @GetMapping("/paged")
+    }*/
+    @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
+    @GetMapping
     public ResponseEntity<Page<GymProfileInfo>> gymPaging(@PageableDefault(size = 6, sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
         Page<GymProfileInfo> gymInfoPage = gymApiService.findAll(pageable);
         return ResponseEntity.ok(gymInfoPage);

@@ -59,7 +59,7 @@ public class StaffApiServiceImpl implements StaffApiService {
     @Override
     public Long update(Long id, UpdateStaffRequest request) {
         Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
-        staff.changeStaffInfo(request.getName(),request.getBirthday(),request.getPhoneNumber(), request.getAddress());
+        staff.changeStaffInfo(request.getName(),request.getBirthdate(),request.getPhoneNumber(), request.getAddress());
         return staff.getId();
     }
 

@@ -72,7 +72,7 @@ public class MemberTest {
                 .gender(Gender.FEMALE)
                 .gym(savedGym)
                 .isSubscribed(true)
-                .birthday(LocalDate.of(2012, 10, 22))
+                .birthdate(LocalDate.of(2012, 10, 22))
                 .build();
 
         Member member2 = new Member("member1@naver.com", "1234", "member1", LocalDate.of(2012, 10, 22),

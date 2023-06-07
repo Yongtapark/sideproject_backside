@@ -16,7 +16,7 @@ public class Staff extends Auditing {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private LocalDate birthday;
+    private LocalDate birthdate;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String phoneNumber;
@@ -36,9 +36,9 @@ public class Staff extends Auditing {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "schedule_id")
 //    private Schedule schedule;
-    public Staff(String name, LocalDate birthday, Gender gender, String phoneNumber, String address, Gym gym, Team team) {
+    public Staff(String name, LocalDate birthdate, Gender gender, String phoneNumber, String address, Gym gym, Team team) {
         this.name = name;
-        this.birthday = birthday;
+        this.birthdate = birthdate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -51,9 +51,9 @@ public class Staff extends Auditing {
         }
     }
 
-    public void changeStaffInfo(String name, LocalDate birthday, String phone, String address) {
+    public void changeStaffInfo(String name, LocalDate birthdate, String phone, String address) {
         this.name = name;
-        this.birthday = birthday;
+        this.birthdate = birthdate;
         this.phoneNumber = phone;
         this.address = address;
     }

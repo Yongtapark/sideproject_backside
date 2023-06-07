@@ -14,7 +14,7 @@ public class UpdateStaffRequest {
     @NotBlank
     private String name;
     @NotNull
-    private LocalDate birthday;
+    private LocalDate birthdate;
     @NotBlank
     private String phoneNumber;
     @NotBlank

@@ -15,12 +15,12 @@ public class StaffGymResponse {
     private String address;
     private String phoneNumber;
 
-    private LocalDate birthday;
+    private LocalDate birthdate;
 
     @QueryProjection
-    public StaffGymResponse(String name, LocalDate birthday, Gender gender, String phoneNumber, String address) {
+    public StaffGymResponse(String name, LocalDate birthdate, Gender gender, String phoneNumber, String address) {
         this.name = name;
-        this.birthday = birthday;
+        this.birthdate = birthdate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.address = address;

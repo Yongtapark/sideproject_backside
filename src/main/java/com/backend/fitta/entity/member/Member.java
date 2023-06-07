@@ -122,11 +122,11 @@ public class Member extends Auditing implements UserDetails {
         this.subscribeDate=LocalDate.now();
         this.endSubscribeDate= subscribeDate.plusMonths(1).minusDays(1);
     }
-    public void changeMemberInfo(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
+    public void changeMemberInfo(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.birthdate = birthday;
+        this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.height = height;
