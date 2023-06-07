@@ -5,16 +5,13 @@ import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
-public class BasicMemberInfo {
+public class MemberProfileInfo {
     private Long id;
     private String email;
-    private String password;
     private String name;
     private LocalDate birthdate;
     private String phoneNumber;
@@ -24,14 +21,11 @@ public class BasicMemberInfo {
     private Long weight;
     private String occupation;
     private String note;
-    private String teamName;
-    private String gymName;
     private Role role;
 
-    public BasicMemberInfo(Member member) {
+    public MemberProfileInfo(Member member) {
         this.id = member.getId();
         this.email = member.getEmail();
-        this.password = member.getPassword();
         this.name = member.getName();
         this.birthdate = member.getBirthdate();
         this.phoneNumber = member.getPhoneNumber();
@@ -41,12 +35,6 @@ public class BasicMemberInfo {
         this.weight = member.getWeight();
         this.occupation = member.getOccupation();
         this.note = member.getNote();
-        if(member.getTeam()!=null){
-            this.teamName = member.getTeam().getName();
-        }
-        if (member.getGym()!=null){
-            this.gymName = member.getGym().getName();
-        }
         this.role = member.getRole();
     }
 }

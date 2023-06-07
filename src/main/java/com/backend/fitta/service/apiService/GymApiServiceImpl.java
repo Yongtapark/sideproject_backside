@@ -11,9 +11,11 @@ import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,8 +68,10 @@ public class GymApiServiceImpl implements GymApiService {
         gym.changeOwner(owner);
     }
 
-    @Override
-    public void findAllByOwnerId(Long gymId, Long ownerId) {
+    /*@Override
+    public Page<BasicGymInfo> findAll(Pageable pageable) {
+        *//*List<Gym> all = gymRepository.findAll().st*//*
+        return null;
+    }*/
 
-    }
 }

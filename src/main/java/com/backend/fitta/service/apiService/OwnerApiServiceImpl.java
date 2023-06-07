@@ -1,6 +1,7 @@
 package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.owner.OwnerProfileInfo;
 import com.backend.fitta.dto.ownermypage.*;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
@@ -43,6 +44,12 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         ownerRepository.save(owner);
         return owner.getId();
 
+    }
+
+    @Override
+    public OwnerProfileInfo findProfileById(Long id) {
+        Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
+        return new OwnerProfileInfo(owner);
     }
 
     @Override
