@@ -78,7 +78,7 @@ class OwnerApiServiceImplTest {
         log.info("update={}",update);
 
         // 저장된 사장1의 정보로 헬스장을 생성
-        Gym gym = new Gym("testGym", savedOwner1, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX);
+        Gym gym = new Gym("testGym", savedOwner1, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX,"123123");
         // 헬스장 정보 저장
 //        gymApiService.save(gym);
 

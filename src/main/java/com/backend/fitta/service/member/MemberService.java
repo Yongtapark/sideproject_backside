@@ -98,9 +98,9 @@ public class MemberService {
         if (!findMember.isEmpty()) { //중복 체크
             throw new AlreadyExistMemberException();
         }
-        if (!rq.getPassword().equals(rq.getPasswordConfirm())) {
+       /* if (!rq.getPassword().equals(rq.getPasswordConfirm())) {
             throw new PWNotCorrespondException();
-        }
+        }*/
         Member member = new Member(rq.getEmail(), rq.getPassword(), rq.getName(), rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress()
                 , rq.getGender(), null, null, rq.getOccupation(), null, null, null, Role.MEMBER);
         memberRepository.save(member);
@@ -123,7 +123,7 @@ public class MemberService {
 
     public Long update(Long memberId, UpdateMemberRequest rq) {
         Member member = memberRepository.findById(memberId).orElseThrow();
-        member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), rq.getBirthday(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
+        member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
         return member.getId();
     }
 

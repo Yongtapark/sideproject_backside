@@ -15,12 +15,18 @@ import lombok.NoArgsConstructor;
 public class SaveGymRequest {
 
     @NotBlank
+    @NotNull
     private String name;
     @NotBlank
+    @NotNull
     private String phoneNumber;
     @NotBlank
+    @NotNull
     private String address;
+    @NotNull
     private GenderDivision genderDivision;
     @NotNull
     private Long ownerId;
+    @NotNull
+    private String businessIdentificationNumber;
 }

@@ -34,7 +34,9 @@ public class Gym extends Auditing {
     @OneToMany(mappedBy = "gym")
     private List<Member> member = new ArrayList<>();
 
-    public Gym(String name, Owner owner, String phoneNumber, String address, GenderDivision genderDivision) {
+    private String businessIdentificationNumber;
+
+    public Gym(String name, Owner owner, String phoneNumber, String address, GenderDivision genderDivision,String businessIdentificationNumber ) {
         this.name = name;
         if (owner != null) {
             changeOwner(owner);
@@ -42,6 +44,7 @@ public class Gym extends Auditing {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.genderDivision = genderDivision;
+        this.businessIdentificationNumber=businessIdentificationNumber;
     }
 
     public void changeGymInfo(String name, String phoneNumber, String address, GenderDivision genderDivision) {

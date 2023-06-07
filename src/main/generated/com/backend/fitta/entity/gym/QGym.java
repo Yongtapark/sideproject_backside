@@ -26,6 +26,8 @@ public class QGym extends EntityPathBase<Gym> {
 
     public final StringPath address = createString("address");
 
+    public final StringPath businessIdentificationNumber = createString("businessIdentificationNumber");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 

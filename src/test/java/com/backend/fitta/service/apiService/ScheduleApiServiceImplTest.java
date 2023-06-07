@@ -63,7 +63,7 @@ class ScheduleApiServiceImplTest {
         Owner owner = new Owner("email", "password", "name", "01010101", "addd", "0000");
         Owner savedOwner = ownerRepository.save(owner);
 
-        Gym gym = new Gym("powerGym", savedOwner, "12312321", "adddr", GenderDivision.UNISEX);
+        Gym gym = new Gym("powerGym", savedOwner, "12312321", "adddr", GenderDivision.UNISEX,"12312312");
         savedGym = gymRepository.save(gym);
 
         Staff staff = new Staff("staff", LocalDate.of(1995, Month.MAY, 3), Gender.FEMALE, "0000000", "addr", savedGym, null);

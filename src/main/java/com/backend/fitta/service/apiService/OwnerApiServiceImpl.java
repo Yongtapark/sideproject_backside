@@ -33,9 +33,9 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         if (!findOwner.isEmpty()) { //중복 체크
             throw new AlreadyExistOwnerException();
         }
-        if (!request.getPassword().equals(request.getPasswordConfirm())) {
+      /*  if (!request.getPassword().equals(request.getPasswordConfirm())) {
             throw new PWNotCorrespondException();
-        }
+        }*/
         log.info("request.getEmail()={}",request.getEmail());
         Owner owner = new Owner(request.getEmail(), request.getPassword(), request.getName(), request.getPhoneNumber(), request.getAddress(), request.getBusinessRegistrationNumber());
         ownerRepository.save(owner);

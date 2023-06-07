@@ -4,6 +4,7 @@ import com.backend.fitta.dto.team.BasicStaffInfo;
 import com.backend.fitta.dto.team.SimpleMemberInfo;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
@@ -11,10 +12,15 @@ import java.util.stream.Collectors;
 
 @Data
 public class BasicGymInfo {
+
     private String name;
+
     private String ownerName;
+
     private String phoneNumber;
+
     private String address;
+
     private GenderDivision genderDivision;
     private List<SimpleMemberInfo> members;
     private List<BasicStaffInfo> staffs;

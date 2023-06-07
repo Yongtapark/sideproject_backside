@@ -34,7 +34,6 @@ class MemberControllerTest {
                 .builder()
                 .email("email123")
                 .password("password")
-                .passwordConfirm("password")
                 .build();
         memberController.saveMember(signUpRequest);
     }

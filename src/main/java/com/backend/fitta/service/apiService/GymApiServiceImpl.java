@@ -27,7 +27,7 @@ public class GymApiServiceImpl implements GymApiService {
     @Override
     public Long save(SaveGymRequest request) {
         Owner owner = ownerService.findById(request.getOwnerId());
-        Gym gym = new Gym(request.getName(),owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision());
+        Gym gym = new Gym(request.getName(),owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
         return gymRepository.save(gym).getId();
     }
 
