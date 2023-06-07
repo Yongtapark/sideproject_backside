@@ -1,6 +1,8 @@
 package com.backend.fitta.controller.owner;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.common.GenderLate;
+import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
@@ -65,6 +67,23 @@ public class OwnerController {
     public ResponseEntity<Void> deleteOwner(@PathVariable Long ownerId) {
         ownerApiService.deleteOwner(ownerId);
         return ResponseEntity.noContent().build();
+    }
+    @Operation(summary = "체육관, 직원, 회원 수량 반환")
+    @GetMapping("{ownerId}/total-count")
+    public ResponseEntity<OwnerAllGymInfoResponse> ownerAllGymInfo(@PathVariable Long ownerId){
+       return ResponseEntity.ok(ownerApiService.ownerAllGymInfo(ownerId));
+    }
+
+    @Operation(summary = "오늘 가입한 회원 수 반환")
+    @GetMapping("/{ownerId}/signup-count")
+    public ResponseEntity<Long> memberTodaySignup(@PathVariable Long ownerId){
+        return ResponseEntity.ok(ownerApiService.calculateSignupToday(ownerId));
+    }
+
+    @Operation(summary = "남녀 수, 비율 반환")
+    @GetMapping("/{ownerId}/gender-rate")
+    public ResponseEntity<GenderLate> memberGenderLate(@PathVariable Long ownerId){
+        return ResponseEntity.ok(ownerApiService.genderLate(ownerId));
     }
 
 }

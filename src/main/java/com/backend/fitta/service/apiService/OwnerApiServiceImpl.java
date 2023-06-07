@@ -3,12 +3,12 @@ package com.backend.fitta.service.apiService;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
+import com.backend.fitta.dto.common.GenderLate;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.AlreadyExistOwnerException;
 import com.backend.fitta.exception.OwnerNotFoundException;
-import com.backend.fitta.exception.PWNotCorrespondException;
 import com.backend.fitta.repository.owner.OwnerQueryRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
@@ -74,9 +74,25 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         ownerRepository.delete(owner);
     }
 
+    /**
+     * 오너 마이페이지
+     */
+    /*체육관, 직원, 회원 수 반환*/
     @Override
-    public OwnerAllGymInfoResponse ownerAllGymInfo(Long OwnerId) {
-        return null;
+    public OwnerAllGymInfoResponse ownerAllGymInfo(Long ownerId) {
+       return ownerQueryRepository.ownerAllGymInfoResponse(ownerId);
+    }
+
+    /*오늘 가입한 회원 수 반환*/
+    @Override
+    public Long calculateSignupToday(Long ownerId) {
+        return ownerQueryRepository.calculateSignupToday(ownerId);
+    }
+
+    /*남녀 수, 비율 반환*/
+    @Override
+    public GenderLate genderLate(Long ownerId) {
+        return ownerQueryRepository.calculateGenderRate(ownerId);
     }
 
 
