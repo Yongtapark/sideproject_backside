@@ -3,10 +3,7 @@ package com.backend.fitta.controller.member;
 import com.backend.fitta.config.jwt.JwtTokenProvider;
 import com.backend.fitta.config.jwt.TokenInfo;
 import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.member.BasicMemberInfo;
-import com.backend.fitta.dto.member.MemberLoginRequestDto;
-import com.backend.fitta.dto.member.SignUpRequest;
-import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.dto.member.*;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.member.Member;
@@ -54,8 +51,8 @@ public class MemberController {
     }*/
     @Operation(summary = "테스트 userdata")
     @GetMapping("/testuserdata")
-    public ResponseEntity<BasicMemberInfo> getTestMemberInfo(HttpServletRequest request){
-        BasicMemberInfo member1 = memberService.findMember(1L);
+    public ResponseEntity<MemberProfileInfo> getTestMemberInfo(){
+        MemberProfileInfo member1 = memberService.findProfileMember(1L);
         return ResponseEntity.ok(member1);
     }
 

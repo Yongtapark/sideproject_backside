@@ -1,6 +1,7 @@
 package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Owner extends Auditing {
     private String phoneNumber;
     private String address;
     private String businessRegistrationNumber;
+    private Role role = Role.OWNER;
     @OneToMany(mappedBy = "owner")
     private List<Gym> gym = new ArrayList<>();
 

@@ -1,6 +1,7 @@
 package com.backend.fitta.service.apiService.interfaces;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.owner.OwnerProfileInfo;
 import com.backend.fitta.dto.ownermypage.*;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
@@ -14,6 +15,7 @@ public interface OwnerApiService {
      */
     Long save(SignUpOwnerRequest request);
 
+    OwnerProfileInfo findProfileById(Long id);
     BasicOwnerInfo findById(Long id);
 
     Result<List<BasicOwnerInfo>> findAll();

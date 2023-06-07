@@ -55,7 +55,8 @@ public class initDb {
             Member member = Member
                     .builder()
                     .email("email@email.com")
-                    .password("password")
+                    .gender(Gender.MALE)
+                    .birthdate(LocalDate.of(1996,Month.MAY,3))
                     .name("testMember")
                     .build();
             memberRepository.save(member);

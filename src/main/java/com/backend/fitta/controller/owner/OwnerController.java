@@ -1,6 +1,7 @@
 package com.backend.fitta.controller.owner;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.owner.OwnerProfileInfo;
 import com.backend.fitta.dto.ownermypage.OwnerAllView;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
@@ -30,8 +31,8 @@ public class OwnerController {
     //
     @Operation(summary = "테스트 userdata")
     @GetMapping("/testuserdata")
-    public ResponseEntity<BasicOwnerInfo> getTestMemberInfo(HttpServletRequest request){
-        BasicOwnerInfo byId1 = ownerApiService.findById(1L);
+    public ResponseEntity<OwnerProfileInfo> getTestMemberInfo(){
+        OwnerProfileInfo byId1 = ownerApiService.findProfileById(1L);
         return ResponseEntity.ok(byId1);
     }
 

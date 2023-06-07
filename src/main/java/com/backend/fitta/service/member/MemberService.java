@@ -4,6 +4,7 @@ import com.backend.fitta.config.jwt.JwtTokenProvider;
 import com.backend.fitta.config.jwt.TokenInfo;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.member.BasicMemberInfo;
+import com.backend.fitta.dto.member.MemberProfileInfo;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.entity.enums.Role;
@@ -111,6 +112,11 @@ public class MemberService {
     public BasicMemberInfo findMember(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow();
         return new BasicMemberInfo(member);
+    }
+
+    public MemberProfileInfo findProfileMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        return new MemberProfileInfo(member);
     }
 
     public Result<List<BasicMemberInfo>> findAll() {

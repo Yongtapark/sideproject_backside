@@ -48,7 +48,7 @@ public class Member extends Auditing implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
-    private Role role;
+    private Role role = Role.MEMBER;
     //체육관 등록일
     private LocalDate gymJoinDate;
     //결제일
