@@ -56,7 +56,6 @@ public class initDb {
                     .builder()
                     .email("email@email.com")
                     .password("password")
-                    .roles(Role.MEMBER)
                     .name("testMember")
                     .build();
             memberRepository.save(member);
@@ -112,6 +111,7 @@ public class initDb {
                     .name("testMember1")
                     .gender(Gender.FEMALE)
                     .gym(gym1)
+                    .birthdate(LocalDate.of(1995,Month.MAY,3))
                     .build();
 
 
@@ -121,6 +121,7 @@ public class initDb {
                     .password("password")
                     .name("testMember2")
                     .gender(Gender.FEMALE)
+                    .birthdate(LocalDate.of(1985,Month.MAY,3))
                     .gym(gym1)
                     .build();
 
@@ -130,12 +131,49 @@ public class initDb {
                     .password("password")
                     .name("testMember3")
                     .gender(Gender.MALE)
+                    .birthdate(LocalDate.of(2005,Month.MAY,3))
                     .gym(gym1)
                     .build();
+
+            //맴버 가입
+            Member member4 = Member
+                    .builder()
+                    .email("email4@email.com")
+                    .password("password")
+                    .name("testMember4")
+                    .gender(Gender.MALE)
+                    .gym(gym1)
+                    .birthdate(LocalDate.of(1955,Month.MAY,3))
+                    .build();
+
+
+            Member member5 = Member
+                    .builder()
+                    .email("email6@email.com")
+                    .password("password")
+                    .name("testMember6")
+                    .gender(Gender.MALE)
+                    .birthdate(LocalDate.of(1945,Month.MAY,3))
+                    .gym(gym1)
+                    .build();
+
+            Member member6 = Member
+                    .builder()
+                    .email("email3@email.com")
+                    .password("password")
+                    .name("testMember3")
+                    .gender(Gender.MALE)
+                    .birthdate(LocalDate.of(2005,Month.MAY,3))
+                    .gym(gym1)
+                    .build();
+
 
             memberRepository.save(member1);
             memberRepository.save(member2);
             memberRepository.save(member3);
+            memberRepository.save(member4);
+            memberRepository.save(member5);
+            memberRepository.save(member6);
 
 
 

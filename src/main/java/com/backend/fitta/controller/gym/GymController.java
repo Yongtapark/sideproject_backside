@@ -2,7 +2,6 @@ package com.backend.fitta.controller.gym;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
-import com.backend.fitta.dto.gym.OwnerAllGymInfoResponse;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;

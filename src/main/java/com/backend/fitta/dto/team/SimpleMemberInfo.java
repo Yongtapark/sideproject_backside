@@ -21,7 +21,7 @@ public class SimpleMemberInfo {
     public SimpleMemberInfo(Member member) {
         this.email = member.getEmail();
         this.name = member.getName();
-        this.birthday = member.getBirthday();
+        this.birthday = member.getBirthdate();
         this.phoneNumber = member.getPhoneNumber();
         this.address = member.getAddress();
         this.gender = member.getGender();

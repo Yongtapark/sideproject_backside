@@ -30,12 +30,11 @@ public class Member extends Auditing implements UserDetails {
     private String email;
     private String password;
     private String name;
-    private LocalDate birthday;
+    private LocalDate birthdate;
     private String phoneNumber;
     private String address;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
     private Long height;
     private Long weight;
     private String occupation;
@@ -50,12 +49,22 @@ public class Member extends Auditing implements UserDetails {
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
     private Role role;
+    //체육관 등록일
+    private LocalDate gymJoinDate;
+    //결제일
+    private LocalDate subscribeDate;
+    //만료일
+    private LocalDate endSubscribeDate;
+    //결제여부
+    private boolean isSubscribed;
 
-    public Member(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
+
+
+    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.birthday = birthday;
+        this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.gender = gender;
@@ -63,6 +72,7 @@ public class Member extends Auditing implements UserDetails {
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
+        this.isSubscribed=isSubscribed;
         if(gym!=null){
             changeGym(gym);
         }
@@ -70,22 +80,12 @@ public class Member extends Auditing implements UserDetails {
             changeTeam(team);
         }
     }
-    public void changeGym(Gym gym){
-        this.gym=gym;
-        gym.getMember().add(this);
-    }
-
-    public void changeTeam(Team team){
-        this.team=team;
-        team.getMembers().add(this);
-    }
-
     @Builder
-    public Member(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Role roles) {
+    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Boolean isSubscribed) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.birthday = birthday;
+        this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.gender = gender;
@@ -95,13 +95,38 @@ public class Member extends Auditing implements UserDetails {
         this.note = note;
         this.team = team;
         this.gym = gym;
-        this.role = roles;
+        this.isSubscribed = false;
+        if(gym!=null){
+            changeGym(gym);
+        }
+        if(team!=null){
+            changeTeam(team);
+        }
+        if(isSubscribed=true){
+            subscribe();
+        }
+    }
+
+    public void changeGym(Gym gym){
+        this.gym=gym;
+        gym.getMember().add(this);
+        this.gymJoinDate=LocalDate.now();
+    }
+
+    public void changeTeam(Team team){
+        this.team=team;
+        team.getMembers().add(this);
+    }
+
+    public void subscribe(){
+        this.subscribeDate=LocalDate.now();
+        this.endSubscribeDate= subscribeDate.plusMonths(1).minusDays(1);
     }
     public void changeMemberInfo(String email, String password, String name, LocalDate birthday, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.birthday = birthday;
+        this.birthdate = birthday;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.height = height;
