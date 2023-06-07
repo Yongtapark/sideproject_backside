@@ -13,8 +13,8 @@ public class QStaffGymResponse extends ConstructorExpression<StaffGymResponse> {
 
     private static final long serialVersionUID = 824332821L;
 
-    public QStaffGymResponse(com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<java.time.LocalDate> birthdate, com.querydsl.core.types.Expression<com.backend.fitta.entity.enums.Gender> gender, com.querydsl.core.types.Expression<String> phoneNumber, com.querydsl.core.types.Expression<String> address) {
-        super(StaffGymResponse.class, new Class<?>[]{String.class, java.time.LocalDate.class, com.backend.fitta.entity.enums.Gender.class, String.class, String.class}, name, birthdate, gender, phoneNumber, address);
+    public QStaffGymResponse(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<java.time.LocalDate> birthdate, com.querydsl.core.types.Expression<com.backend.fitta.entity.enums.Gender> gender, com.querydsl.core.types.Expression<String> phoneNumber, com.querydsl.core.types.Expression<String> address) {
+        super(StaffGymResponse.class, new Class<?>[]{long.class, String.class, java.time.LocalDate.class, com.backend.fitta.entity.enums.Gender.class, String.class, String.class}, id, name, birthdate, gender, phoneNumber, address);
     }
 
 }

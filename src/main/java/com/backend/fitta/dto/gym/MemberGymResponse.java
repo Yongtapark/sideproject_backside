@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class MemberGymResponse {
+    private Long id;
     private String email;
     private String name;
     private Gender gender;

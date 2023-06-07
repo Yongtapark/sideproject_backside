@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class StaffGymResponse {
+    private Long id;
     private String name;
     private Gender gender;
     private String address;
@@ -18,7 +19,8 @@ public class StaffGymResponse {
     private LocalDate birthdate;
 
     @QueryProjection
-    public StaffGymResponse(String name, LocalDate birthdate, Gender gender, String phoneNumber, String address) {
+    public StaffGymResponse(Long id, String name, LocalDate birthdate, Gender gender, String phoneNumber, String address) {
+        this.id=id;
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;

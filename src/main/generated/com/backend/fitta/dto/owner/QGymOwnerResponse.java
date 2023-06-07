@@ -13,8 +13,8 @@ public class QGymOwnerResponse extends ConstructorExpression<GymOwnerResponse> {
 
     private static final long serialVersionUID = 1381543066L;
 
-    public QGymOwnerResponse(com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<String> phoneNumber, com.querydsl.core.types.Expression<String> address, com.querydsl.core.types.Expression<com.backend.fitta.entity.enums.GenderDivision> genderDivision) {
-        super(GymOwnerResponse.class, new Class<?>[]{String.class, String.class, String.class, com.backend.fitta.entity.enums.GenderDivision.class}, name, phoneNumber, address, genderDivision);
+    public QGymOwnerResponse(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<String> phoneNumber, com.querydsl.core.types.Expression<String> address, com.querydsl.core.types.Expression<com.backend.fitta.entity.enums.GenderDivision> genderDivision) {
+        super(GymOwnerResponse.class, new Class<?>[]{long.class, String.class, String.class, String.class, com.backend.fitta.entity.enums.GenderDivision.class}, id, name, phoneNumber, address, genderDivision);
     }
 
 }
