@@ -9,12 +9,13 @@ import java.util.stream.Collectors;
 
 @Getter
 public class BasicTeamInfo {
-
+    private Long id;
     private String name;
     private List<SimpleMemberInfo> members;
     private Long staffId;
 
     public BasicTeamInfo(Team team) {
+        this.id = team.getId();
         this.name = team.getName();
         this.members = team.getMembers().stream()
                 .map(member -> new SimpleMemberInfo(member))

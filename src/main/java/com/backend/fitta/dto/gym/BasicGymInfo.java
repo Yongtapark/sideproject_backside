@@ -1,10 +1,9 @@
 package com.backend.fitta.dto.gym;
 
-import com.backend.fitta.dto.team.BasicStaffInfo;
+import com.backend.fitta.dto.staff.BasicStaffInfo;
 import com.backend.fitta.dto.team.SimpleMemberInfo;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Data
 public class BasicGymInfo {
-
+    private Long id;
     private String name;
 
     private String ownerName;
@@ -26,6 +25,7 @@ public class BasicGymInfo {
     private List<BasicStaffInfo> staffs;
 
     public BasicGymInfo(Gym gym) {
+        this.id=gym.getId();
         this.name = gym.getName();
         if (gym.getOwner() != null) {
             this.ownerName = gym.getOwner().getName();

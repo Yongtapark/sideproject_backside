@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @Getter
 public class BasicMemberInfo {
     private Long id;
-
     private String email;
     private String password;
     private String name;

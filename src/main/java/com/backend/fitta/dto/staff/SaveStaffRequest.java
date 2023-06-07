@@ -1,4 +1,4 @@
-package com.backend.fitta.dto.team;
+package com.backend.fitta.dto.staff;
 
 import com.backend.fitta.entity.enums.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;

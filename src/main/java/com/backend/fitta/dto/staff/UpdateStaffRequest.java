@@ -1,4 +1,4 @@
-package com.backend.fitta.dto.team;
+package com.backend.fitta.dto.staff;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -2,10 +2,10 @@ package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.SaveGymRequest;
-import com.backend.fitta.dto.team.BasicStaffInfo;
-import com.backend.fitta.dto.team.SaveStaffRequest;
+import com.backend.fitta.dto.staff.BasicStaffInfo;
+import com.backend.fitta.dto.staff.SaveStaffRequest;
 import com.backend.fitta.dto.team.SaveTeamRequest;
-import com.backend.fitta.dto.team.UpdateStaffRequest;
+import com.backend.fitta.dto.staff.UpdateStaffRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;

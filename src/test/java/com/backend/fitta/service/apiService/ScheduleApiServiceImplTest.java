@@ -4,7 +4,7 @@ import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.schedule.BasicScheduleInfo;
 import com.backend.fitta.dto.schedule.SaveScheduleRequest;
 import com.backend.fitta.dto.schedule.UpdateScheduleRequest;
-import com.backend.fitta.dto.team.SaveStaffRequest;
+import com.backend.fitta.dto.staff.SaveStaffRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;

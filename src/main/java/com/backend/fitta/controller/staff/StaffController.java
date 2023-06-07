@@ -1,9 +1,9 @@
 package com.backend.fitta.controller.staff;
 
 import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.team.BasicStaffInfo;
-import com.backend.fitta.dto.team.SaveStaffRequest;
-import com.backend.fitta.dto.team.UpdateStaffRequest;
+import com.backend.fitta.dto.staff.BasicStaffInfo;
+import com.backend.fitta.dto.staff.SaveStaffRequest;
+import com.backend.fitta.dto.staff.UpdateStaffRequest;
 import com.backend.fitta.service.apiService.interfaces.StaffApiService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

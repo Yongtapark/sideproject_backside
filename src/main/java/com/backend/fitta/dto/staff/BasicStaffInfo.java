@@ -1,4 +1,4 @@
-package com.backend.fitta.dto.team;
+package com.backend.fitta.dto.staff;
 
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Staff;
@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 public class BasicStaffInfo {
+    private Long id;
     private String name;
     private LocalDate birthday;
     private Gender gender;
@@ -17,6 +18,7 @@ public class BasicStaffInfo {
     private String gymName;
 
     public BasicStaffInfo(Staff staff) {
+        this.id= staff.getId();
         this.name = staff.getName();
         this.birthday = staff.getBirthday();
         this.gender = staff.getGender();
