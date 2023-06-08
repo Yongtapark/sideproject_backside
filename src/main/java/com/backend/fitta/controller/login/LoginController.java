@@ -10,6 +10,7 @@ import com.backend.fitta.dto.login.LoginRequestDto;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.MemberNotFoundException;
+import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.service.LoginService;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
@@ -71,23 +72,28 @@ public class LoginController {
      */
 
     @GetMapping("/userdata")
-    public ResponseEntity<UserProfile> getMemberInfo(HttpServletRequest request){
+    public ResponseEntity<?> getMemberInfo(HttpServletRequest request){
         String accessToken = getAccessTokenFromCookies(request);
-        if(accessToken!=null&&jwtTokenProvider.validateToken(accessToken)){
-            Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
-            String username = authentication.getName();
-            log.info("username={}",username);
-            try{
-                Member member = memberService.findMemberByEmail(username);
-                log.info("memberService={}",username);
-                return ResponseEntity.ok(new UserProfile(member));
-                }catch (MemberNotFoundException e){
-                log.info("ownerService={}",username);
-                Owner owner = ownerService.findByEmail(username);
-                return ResponseEntity.ok(new UserProfile(owner));
-            }
+        if(accessToken == null) {
+            return new ResponseEntity<>("Access Token not found in cookies.", HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(null);
+        /*if(!jwtTokenProvider.validateToken(accessToken)){
+            return new ResponseEntity<>("Invalid access token.", HttpStatus.NO_CONTENT);
+        }*/
+        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+        String username = authentication.getName();
+        log.info("username={}",username);
+        try{
+            Member member = memberService.findMemberByEmail(username);
+            log.info("memberService={}",username);
+            return ResponseEntity.ok(new UserProfile(member));
+        } catch (MemberNotFoundException e){
+            log.info("ownerService={}",username);
+            Owner owner = ownerService.findByEmail(username);
+            return ResponseEntity.ok(new UserProfile(owner));
+        }catch (OwnerNotFoundException e){
+            return new ResponseEntity<>("No Data",HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
     }
 
 
@@ -113,7 +119,7 @@ public class LoginController {
                 //.httpOnly(false)
                 //.secure(true)
                 .path("/")
-                //.maxAge(60L)
+                .maxAge(1296000)
                 //.domain(".fitta-git-dev-yiminwook.vercel.app")
                 // .sameSite("none")
                 .build();
@@ -121,6 +127,18 @@ public class LoginController {
         //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
         return ResponseEntity.ok(tokenInfo);
     }
+    /*@PostMapping("/signout")
+    public ResponseEntity<?> logout(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null){
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0);
+                if(cookie.getName().equals("accessToken")){
+                }
+            }
+        }
+        return new ResponseEntity<>("signOut",HttpStatus.OK);
+    }*/
 
     /**
      * 구글 로그인 페이지로 이동합니다

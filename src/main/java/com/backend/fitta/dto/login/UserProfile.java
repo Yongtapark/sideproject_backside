@@ -4,8 +4,10 @@ import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.Lob;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -31,6 +33,9 @@ public class UserProfile {
         this.name = owner.getName();
         this.profileImage = owner.getProfileImage();
         this.role = owner.getRole();
+    }
+
+    public UserProfile() {
     }
 }
 

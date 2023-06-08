@@ -64,6 +64,13 @@ public class SecurityConfig{
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+
+                .logout()
+                .logoutUrl("/signout")
+                //.logoutSuccessHandler((request, response, authentication) -> response.sendRedirect("/"))
+                .deleteCookies("accessToken")
+                .and()
+
                 .cors().configurationSource(corsConfigurationSource());
 
         return http.build();
