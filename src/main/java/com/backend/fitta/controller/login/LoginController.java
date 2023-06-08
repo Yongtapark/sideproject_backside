@@ -87,7 +87,7 @@ public class LoginController {
                 return ResponseEntity.ok(new UserProfile(owner));
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        return ResponseEntity.ok(null);
     }
 
 
