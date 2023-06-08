@@ -1,4 +1,4 @@
-package com.backend.fitta.config.jwt;
+package com.backend.fitta.config.security.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

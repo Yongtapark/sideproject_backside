@@ -1,11 +1,16 @@
 package com.backend.fitta.service;
 
+import com.backend.fitta.config.security.jwt.JwtTokenProvider;
+import com.backend.fitta.config.security.jwt.TokenInfo;
 import com.backend.fitta.dto.google.AccountInfo;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -18,9 +23,78 @@ public class LoginService {
     private final ConfigurableEnvironment environment;
     private final RestTemplate restTemplate=new RestTemplate();
 
+    private final JwtTokenProvider jwtTokenProvider;
+
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+
     String resourceUri = "https://www.googleapis.com/oauth2/v3/userinfo";
 
 
+    /**
+     * JWT
+     */
+
+    public TokenInfo login(String email, String password){
+        //1. Login ID/PW 를 기반으로 Authentication 객체 생성
+        // 이 때, authentication 은 인증 여부를 확인하는 authenticated 값이 false
+        UsernamePasswordAuthenticationToken authenticationToken  = new UsernamePasswordAuthenticationToken(email,password);
+        log.info("authenticationToken={}",authenticationToken);
+        /*
+        ex : authenticationToken=
+        UsernamePasswordAuthenticationToken
+        [
+        Principal=email@email.com,
+        Credentials=[PROTECTED],
+        Authenticated=false,
+        Details=null,
+        Granted Authorities=[]
+        ]
+        */
+
+        //2. 실제 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
+        //authenticate 메서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        log.info("authentication={}",authentication);
+        /*ex : authentication=
+        UsernamePasswordAuthenticationToken [
+        Principal=
+        org.springframework.security.core.userdetails.User
+        [
+        Username=
+        email@email.com,
+        Password=[PROTECTED],
+        Enabled=true,
+        AccountNonExpired=true,
+        credentialsNonExpired=true,
+        AccountNonLocked=true,
+        Granted Authorities=[ROLE_USER]
+        ],
+        Credentials=[PROTECTED],
+        Authenticated=true,
+        Details=null,
+        Granted Authorities=[ROLE_USER]
+        ]
+        */
+
+        //3. 인증 정보를 기반으로 JWT 토큰 생성
+        TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
+        log.info("tokenInfo={}",tokenInfo);
+        return tokenInfo;
+        /*
+        ex : tokenInfo=TokenInfo(
+        grantType=Bearer,
+        accessToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWFpbEBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg1NjkwMTk0fQ._rU-PWMo2HF-aisInq95C7DIwEsvtyrWq3olckGW7aY,
+        refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODU2OTAxOTR9.CevfTfOuDWooA_LrllBhk8vQPxa-lP2QHANLEMP9FMY
+        )
+        */
+    }
+
+
+
+    /**
+     * OAUTH 2.0
+     */
     public AccountInfo socialLogin(String code, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResource = getUserResource(accessToken, registrationId);

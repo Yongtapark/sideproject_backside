@@ -1,9 +1,9 @@
 package com.backend.fitta.config;
 
 
-import com.backend.fitta.config.jwt.JwtAuthenticationFilter;
-import com.backend.fitta.config.jwt.JwtTokenProvider;
-import com.backend.fitta.config.oauth.CustomOAuth2UserService;
+import com.backend.fitta.config.security.jwt.JwtAuthenticationFilter;
+import com.backend.fitta.config.security.jwt.JwtTokenProvider;
+import com.backend.fitta.config.security.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -82,6 +82,7 @@ public class SecurityConfig{
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

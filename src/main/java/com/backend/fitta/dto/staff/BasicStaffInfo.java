@@ -1,6 +1,7 @@
 package com.backend.fitta.dto.staff;
 
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.gym.Staff;
 import lombok.Getter;
 
@@ -14,8 +15,8 @@ public class BasicStaffInfo {
     private Gender gender;
     private String phoneNumber;
     private String address;
-
     private String gymName;
+    private Role role;
 
     public BasicStaffInfo(Staff staff) {
         this.id= staff.getId();
@@ -27,6 +28,7 @@ public class BasicStaffInfo {
         if (staff.getGym() != null) {
             this.gymName = staff.getGym().getName();
         }
+        this.role=staff.getRole();
 
     }
 }

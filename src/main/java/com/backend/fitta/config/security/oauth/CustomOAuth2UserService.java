@@ -1,7 +1,7 @@
-package com.backend.fitta.config.oauth;
+package com.backend.fitta.config.security.oauth;
 
-import com.backend.fitta.config.oauth.dto.OAuthAttributes;
-import com.backend.fitta.config.oauth.dto.SessionUser;
+import com.backend.fitta.config.security.oauth.dto.OAuthAttributes;
+import com.backend.fitta.config.security.oauth.dto.SessionUser;
 import com.backend.fitta.entity.user.User;
 import com.backend.fitta.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;

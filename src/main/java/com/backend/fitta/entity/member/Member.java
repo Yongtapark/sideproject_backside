@@ -30,6 +30,8 @@ public class Member extends Auditing implements UserDetails {
     private String email;
     private String password;
     private String name;
+    @Lob
+    private String profileImage;
     private LocalDate birthdate;
     private String phoneNumber;
     private String address;
@@ -81,7 +83,7 @@ public class Member extends Auditing implements UserDetails {
         }
     }
     @Builder
-    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Boolean isSubscribed) {
+    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Boolean isSubscribed,Role role,String profileImage ) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -105,6 +107,8 @@ public class Member extends Auditing implements UserDetails {
         if(isSubscribed=true){
             subscribe();
         }
+        this.role =role;
+        this.profileImage=profileImage;
     }
 
     public void changeGym(Gym gym){

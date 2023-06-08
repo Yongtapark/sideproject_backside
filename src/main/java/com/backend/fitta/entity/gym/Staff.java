@@ -2,6 +2,7 @@ package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.Auditing;
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Staff extends Auditing {
     private Gender gender;
     private String phoneNumber;
     private String address;
+    private Role role=Role.STAFF;
     @Enumerated(EnumType.STRING)
 
     @ManyToOne(fetch = FetchType.LAZY)

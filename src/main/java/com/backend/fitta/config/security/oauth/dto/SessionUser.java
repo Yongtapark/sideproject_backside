@@ -1,4 +1,4 @@
-package com.backend.fitta.config.oauth.dto;
+package com.backend.fitta.config.security.oauth.dto;
 
 import com.backend.fitta.entity.user.User;
 import lombok.Getter;

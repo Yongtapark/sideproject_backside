@@ -19,6 +19,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,9 +56,11 @@ public class initDb {
             Member member = Member
                     .builder()
                     .email("email@email.com")
+                    .password("password")
                     .gender(Gender.MALE)
                     .birthdate(LocalDate.of(1996,Month.MAY,3))
                     .name("testMember")
+                    .role(Role.MEMBER)
                     .build();
             memberRepository.save(member);
 
@@ -66,7 +69,16 @@ public class initDb {
         //테스트용 오너와 짐 생성
 
         public void dbInitGym1(){
-            Owner owner = new Owner("owner@emai.com", "password", "testOwner", "010-0100-0000", "address", "123123123");
+            Owner owner = Owner
+                    .builder()
+                    .email("owner@email.com")
+                    .password("password")
+                    .name("testOwner")
+                    .phoneNumber("010-0100-0000")
+                    .address("address")
+                    .businessRegistrationNumber("asdasdasda")
+                    .role(Role.OWNER)
+                    .build();
             Owner save = ownerRepository.save(owner);
 
 
@@ -112,6 +124,7 @@ public class initDb {
                     .name("testMember1")
                     .gender(Gender.FEMALE)
                     .gym(gym1)
+                    .role(Role.MEMBER)
                     .birthdate(LocalDate.of(1995,Month.MAY,3))
                     .build();
 
@@ -124,6 +137,7 @@ public class initDb {
                     .gender(Gender.FEMALE)
                     .birthdate(LocalDate.of(1985,Month.MAY,3))
                     .gym(gym1)
+                    .role(Role.MEMBER)
                     .build();
 
             Member member3 = Member
@@ -134,6 +148,7 @@ public class initDb {
                     .gender(Gender.MALE)
                     .birthdate(LocalDate.of(2005,Month.MAY,3))
                     .gym(gym1)
+                    .role(Role.MEMBER)
                     .build();
 
             //맴버 가입
@@ -144,6 +159,7 @@ public class initDb {
                     .name("testMember4")
                     .gender(Gender.MALE)
                     .gym(gym1)
+                    .role(Role.MEMBER)
                     .birthdate(LocalDate.of(1955,Month.MAY,3))
                     .build();
 
@@ -154,6 +170,7 @@ public class initDb {
                     .password("password")
                     .name("testMember6")
                     .gender(Gender.MALE)
+                    .role(Role.MEMBER)
                     .birthdate(LocalDate.of(1945,Month.MAY,3))
                     .gym(gym1)
                     .build();
@@ -164,6 +181,7 @@ public class initDb {
                     .password("password")
                     .name("testMember3")
                     .gender(Gender.MALE)
+                    .role(Role.MEMBER)
                     .birthdate(LocalDate.of(2005,Month.MAY,3))
                     .gym(gym1)
                     .build();

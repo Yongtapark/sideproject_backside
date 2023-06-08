@@ -1,6 +1,5 @@
-package com.backend.fitta.config.jwt;
+package com.backend.fitta.config.security.jwt;
 
-import com.backend.fitta.entity.member.Member;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
