@@ -127,18 +127,21 @@ public class LoginController {
         //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
         return ResponseEntity.ok(tokenInfo);
     }
-    /*@PostMapping("/signout")
-    public ResponseEntity<?> logout(HttpServletRequest request){
+    @PostMapping("/signout")
+    public ResponseEntity<?> logout(HttpServletRequest request,HttpServletResponse response){
         Cookie[] cookies = request.getCookies();
         if(cookies!=null){
             for (Cookie cookie : cookies) {
-                cookie.setMaxAge(0);
+                log.info("cookie={}",cookies);
                 if(cookie.getName().equals("accessToken")){
+                    cookie.setMaxAge(0);
+                    log.info("isThereCookie={}",cookie.getValue(),cookie.getMaxAge());
+                    response.addCookie(cookie);//무조건 쿠키에 추가해야함..
                 }
             }
         }
         return new ResponseEntity<>("signOut",HttpStatus.OK);
-    }*/
+    }
 
     /**
      * 구글 로그인 페이지로 이동합니다
