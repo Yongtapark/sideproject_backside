@@ -1,13 +1,12 @@
 package com.backend.fitta.entity.gym;
 
-import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;

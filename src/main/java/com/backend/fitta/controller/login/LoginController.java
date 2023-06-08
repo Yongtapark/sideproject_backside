@@ -127,7 +127,7 @@ public class LoginController {
         //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
         return ResponseEntity.ok(tokenInfo);
     }
-    @PostMapping("/signout")
+   /* @PostMapping("/signout")
     public ResponseEntity<?> logout(HttpServletRequest request,HttpServletResponse response){
         Cookie[] cookies = request.getCookies();
         if(cookies!=null){
@@ -141,7 +141,7 @@ public class LoginController {
             }
         }
         return new ResponseEntity<>("signOut",HttpStatus.OK);
-    }
+    }*/
 
     /**
      * 구글 로그인 페이지로 이동합니다
@@ -170,9 +170,7 @@ public class LoginController {
      */
 
     @Operation(summary = "구글에서 리데이렉션 해서 보내주는 값을 받는 메서드",description = "사용자의 이메일, 이름, 사진을 받아옵니다")
-    @Cacheable(value = "accountInfo",key = "#code")
     @GetMapping("/login/oauth2/code/{registrationId}")
-    @Scheduled(fixedRateString = "6000")
     public ResponseEntity<AccountInfo> login(@RequestParam String code, @PathVariable String registrationId) throws JsonProcessingException {
         AccountInfo accountInfo = loginService.socialLogin(code, registrationId);
         log.info("userInfo={}",accountInfo);

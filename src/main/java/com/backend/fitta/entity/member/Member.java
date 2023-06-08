@@ -1,7 +1,8 @@
 package com.backend.fitta.entity.member;
 
 
-import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.utils.Auditing;
+import com.backend.fitta.entity.utils.Users;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Schedule;
@@ -23,7 +24,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends Auditing implements UserDetails {
+public class Member extends Auditing implements UserDetails, Users {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

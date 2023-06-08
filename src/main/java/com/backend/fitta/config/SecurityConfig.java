@@ -65,13 +65,11 @@ public class SecurityConfig{
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
-
-                /*.logout()
+                .logout()
                 .logoutUrl("/signout")
                 .logoutSuccessHandler((request, response, authentication) -> response.setStatus(200))
                 .deleteCookies("accessToken")
-                .and()*/
-
+                .and()
                 .cors().configurationSource(corsConfigurationSource());
 
         return http.build();

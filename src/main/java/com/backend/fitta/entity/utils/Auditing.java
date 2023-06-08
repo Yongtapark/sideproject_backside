@@ -1,4 +1,4 @@
-package com.backend.fitta.entity;
+package com.backend.fitta.entity.utils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

@@ -1,6 +1,6 @@
 package com.backend.fitta.entity.gym;
 
-import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

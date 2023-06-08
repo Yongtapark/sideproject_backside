@@ -1,6 +1,7 @@
 package com.backend.fitta.entity.gym;
 
-import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.utils.Auditing;
+import com.backend.fitta.entity.utils.Users;
 import com.backend.fitta.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Owner extends Auditing {
+public class Owner extends Auditing implements Users {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
