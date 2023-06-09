@@ -144,7 +144,8 @@ public class LoginController {
         log.info("1.registrationId={}",registrationId); //google
         UserProfile accountInfo = loginService.socialLogin(code, registrationId);
         log.info("userInfo={}",accountInfo);
-        TokenInfo tokenInfo = loginService.login(accountInfo.getEmail(), null);
+        Member memberByEmail = memberService.findMemberByEmail(accountInfo.getEmail());
+        TokenInfo tokenInfo = loginService.login(accountInfo.getEmail(), memberByEmail.getPassword());
         addCookie(response,tokenInfo);
         return ResponseEntity.ok(accountInfo);
     }
