@@ -1,6 +1,6 @@
 package com.backend.fitta.service;
 
-import com.backend.fitta.config.security.jwt.JwtTokenProvider;
+import com.backend.fitta.config.security.jwt.JwtTokenManager;
 import com.backend.fitta.config.security.jwt.TokenInfo;
 import com.backend.fitta.dto.google.AccountInfo;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,7 +23,7 @@ public class LoginService {
     private final ConfigurableEnvironment environment;
     private final RestTemplate restTemplate=new RestTemplate();
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenManager jwtTokenManager;
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -78,7 +78,7 @@ public class LoginService {
         */
 
         //3. 인증 정보를 기반으로 JWT 토큰 생성
-        TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
+        TokenInfo tokenInfo = jwtTokenManager.generateToken(authentication);
         log.info("tokenInfo={}",tokenInfo);
         return tokenInfo;
         /*

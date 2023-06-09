@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,10 +22,14 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class JwtTokenProvider {
+public class JwtTokenManager {
+
+    /**
+     * 이 클레스는 JwtAuthenticationFilter 가 http 요청을 제일 먼저 받으면 이 값들을 검증하거나, 생성 합니다.
+     */
     private final Key key;
 
-    public JwtTokenProvider(@Value("${jwt.secret}") String secretKey) {
+    public JwtTokenManager(@Value("${jwt.secret}") String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -87,8 +92,8 @@ public class JwtTokenProvider {
         try{
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
-        }catch (SecurityException| MalformedJwtException e){
-            log.info("Invalid JWT Token",e);
+        }catch (SecurityException| MalformedJwtException e) {
+            log.info("Invalid JWT Token", e);
         }catch (ExpiredJwtException e){
             log.info("Expired JWT Token",e);
         }catch (UnsupportedJwtException e){
@@ -101,7 +106,7 @@ public class JwtTokenProvider {
     private Claims parseClaims(String accessToken){
         try{
             Claims claimsOutPut = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
-            log.info("claimsOutPut={}",claimsOutPut);
+            log.info("claimsOutPut={}",claimsOutPut.toString());
             return claimsOutPut;
         }catch (ExpiredJwtException e){
             return e.getClaims();

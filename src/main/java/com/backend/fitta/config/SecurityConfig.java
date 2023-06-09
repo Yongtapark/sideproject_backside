@@ -1,14 +1,13 @@
 package com.backend.fitta.config;
 
 
-import com.backend.fitta.config.security.jwt.JwtAuthenticationFilter;
-import com.backend.fitta.config.security.jwt.JwtTokenProvider;
+import com.backend.fitta.config.security.jwt.JwtAuthenticationFilterV2;
+import com.backend.fitta.config.security.jwt.JwtTokenManager;
 import com.backend.fitta.config.security.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -32,7 +31,7 @@ import java.util.List;
 @Profile("!test")
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenManager jwtTokenManager;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -64,12 +63,12 @@ public class SecurityConfig{
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
-                .logout()
+                .addFilterBefore(new JwtAuthenticationFilterV2(jwtTokenManager), UsernamePasswordAuthenticationFilter.class)
+                /*.logout()
                 .logoutUrl("/signout")
                 .logoutSuccessHandler((request, response, authentication) -> response.setStatus(200))
                 .deleteCookies("accessToken")
-                .and()
+                .and()*/
                 .cors().configurationSource(corsConfigurationSource());
 
         return http.build();

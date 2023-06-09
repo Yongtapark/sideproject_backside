@@ -22,7 +22,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
-    public final com.backend.fitta.entity.QAuditing _super = new com.backend.fitta.entity.QAuditing(this);
+    public final com.backend.fitta.entity.utils.QAuditing _super = new com.backend.fitta.entity.utils.QAuditing(this);
 
     public final StringPath address = createString("address");
 

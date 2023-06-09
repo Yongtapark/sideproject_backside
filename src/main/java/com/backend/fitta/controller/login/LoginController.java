@@ -1,20 +1,16 @@
 package com.backend.fitta.controller.login;
 
 
-import com.backend.fitta.config.security.jwt.JwtTokenProvider;
 import com.backend.fitta.config.security.jwt.TokenInfo;
 import com.backend.fitta.dto.google.AccountInfo;
 import com.backend.fitta.dto.login.UserProfile;
-import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.login.LoginRequestDto;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.service.LoginService;
-import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
-import com.backend.fitta.service.apiService.MemberApiService;
 import com.backend.fitta.service.member.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,12 +22,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,11 +39,8 @@ import java.net.URLEncoder;
 @Tag(name = "인증",description ="OAuth2.0을 이용한 google 로그인 로직입니다(미구현)" )
 public class LoginController {
     private final LoginService loginService;
-    private final OwnerApiService ownerApiService;
     private final MemberService memberService;
     private final OwnerService ownerService;
-
-    private final JwtTokenProvider jwtTokenProvider;
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
 
@@ -58,55 +49,21 @@ public class LoginController {
     private String loginPage;
 
 
-
-  /*  @Operation(summary = "테스트 userdata")
     @GetMapping("/userdata")
-    public ResponseEntity<TestLoginData> login(){
-        Owner owner = ownerApiService.findByID(1L);
-        return ResponseEntity.ok(new TestLoginData(owner.getId(),owner.getRole(), owner.getName(),owner.getProfileImage()));
-    }*/
-
-    /**
-     * JWT 로그인
-     * @return
-     */
-
-    @GetMapping("/userdata")
-    public ResponseEntity<?> getMemberInfo(HttpServletRequest request){
-        String accessToken = getAccessTokenFromCookies(request);
-        if(accessToken == null) {
-            return new ResponseEntity<>("Access Token not found in cookies.", HttpStatus.NO_CONTENT);
+    public ResponseEntity<?> getUserInfo(Authentication authentication){
+        if(authentication == null) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        /*if(!jwtTokenProvider.validateToken(accessToken)){
-            return new ResponseEntity<>("Invalid access token.", HttpStatus.NO_CONTENT);
-        }*/
-        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
         String username = authentication.getName();
-        log.info("username={}",username);
         try{
             Member member = memberService.findMemberByEmail(username);
-            log.info("memberService={}",username);
             return ResponseEntity.ok(new UserProfile(member));
         } catch (MemberNotFoundException e){
-            log.info("ownerService={}",username);
             Owner owner = ownerService.findByEmail(username);
             return ResponseEntity.ok(new UserProfile(owner));
         }catch (OwnerNotFoundException e){
-            return new ResponseEntity<>("No Data",HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            return ResponseEntity.status(HttpStatus.NON_AUTHORITATIVE_INFORMATION).build();
         }
-    }
-
-
-    private String getAccessTokenFromCookies(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if(cookies!=null){
-            for (Cookie cookie : cookies) {
-                if(cookie.getName().equals("accessToken")){
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
     }
 
     @PostMapping("/signin")
@@ -127,7 +84,7 @@ public class LoginController {
         //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
         return ResponseEntity.ok(tokenInfo);
     }
-   /* @PostMapping("/signout")
+    @PostMapping("/signout")
     public ResponseEntity<?> logout(HttpServletRequest request,HttpServletResponse response){
         Cookie[] cookies = request.getCookies();
         if(cookies!=null){
@@ -141,7 +98,7 @@ public class LoginController {
             }
         }
         return new ResponseEntity<>("signOut",HttpStatus.OK);
-    }*/
+    }
 
     /**
      * 구글 로그인 페이지로 이동합니다
