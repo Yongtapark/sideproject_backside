@@ -27,6 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -72,6 +73,16 @@ public class LoginController {
         String password = loginRequestDto.getPassword();
         TokenInfo tokenInfo = loginService.login(email, password);
         /*Authorization 으로 값을 보내면 새로고침 시 access token 이 사라진다. 대신 cookie 로 값을 전송한다. */
+        addCookie(response, tokenInfo);
+        return ResponseEntity.ok(tokenInfo);
+    }
+
+    /* @PostMapping("/signin")
+     public ResponseEntity<TokenInfo> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response){
+         String email = loginRequestDto.getEmail();
+         String password = loginRequestDto.getPassword();
+         TokenInfo tokenInfo = loginService.login(email, password);
+         *//*Authorization 으로 값을 보내면 새로고침 시 access token 이 사라진다. 대신 cookie 로 값을 전송한다. *//*
         ResponseCookie cookie = ResponseCookie.from("accessToken", tokenInfo.getAccessToken())
                 //.httpOnly(false)
                 //.secure(true)
@@ -83,7 +94,8 @@ public class LoginController {
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
         return ResponseEntity.ok(tokenInfo);
-    }
+    }*/
+
     @PostMapping("/signout")
     public ResponseEntity<?> logout(HttpServletRequest request,HttpServletResponse response){
         Cookie[] cookies = request.getCookies();
@@ -99,7 +111,6 @@ public class LoginController {
         }
         return new ResponseEntity<>("signOut",HttpStatus.OK);
     }
-
     /**
      * 구글 로그인 페이지로 이동합니다
      * @param
@@ -128,9 +139,26 @@ public class LoginController {
 
     @Operation(summary = "구글에서 리데이렉션 해서 보내주는 값을 받는 메서드",description = "사용자의 이메일, 이름, 사진을 받아옵니다")
     @GetMapping("/login/oauth2/code/{registrationId}")
-    public ResponseEntity<AccountInfo> login(@RequestParam String code, @PathVariable String registrationId) throws JsonProcessingException {
-        AccountInfo accountInfo = loginService.socialLogin(code, registrationId);
+    public ResponseEntity<UserProfile> login(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws JsonProcessingException {
+        log.info("1.code={}",code); // 4/0AbUR2VMUjPKVg39ZoMrt9TrpFkle7jbyZNhy4xvNvJyq0wZR4-lygmy_zhWYgW1HPjyz1w
+        log.info("1.registrationId={}",registrationId); //google
+        UserProfile accountInfo = loginService.socialLogin(code, registrationId);
         log.info("userInfo={}",accountInfo);
+        TokenInfo tokenInfo = loginService.login(accountInfo.getEmail(), null);
+        addCookie(response,tokenInfo);
         return ResponseEntity.ok(accountInfo);
+    }
+
+    private static void addCookie(HttpServletResponse response, TokenInfo tokenInfo) {
+        ResponseCookie cookie = ResponseCookie.from("accessToken", tokenInfo.getAccessToken())
+                //.httpOnly(false)
+                //.secure(true)
+                .path("/")
+                .maxAge(1296000)
+                //.domain(".fitta-git-dev-yiminwook.vercel.app")
+                // .sameSite("none")
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        //http에서 https와 cross origin 환경을 진행하면 setCookie 속성이 적용되지 않는다.
     }
 }

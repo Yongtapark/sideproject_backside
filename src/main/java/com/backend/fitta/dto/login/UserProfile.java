@@ -19,6 +19,12 @@ public class UserProfile {
     private String profileImage;
     private Role role;
 
+    public UserProfile(String email, String name, String profileImage) {
+        this.email = email;
+        this.name = name;
+        this.profileImage = profileImage;
+    }
+
     public UserProfile(Member member) {
         this.id = member.getId();
         this.email = member.getEmail();

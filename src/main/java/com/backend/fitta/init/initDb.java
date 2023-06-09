@@ -64,6 +64,17 @@ public class initDb {
                     .build();
             memberRepository.save(member);
 
+            Member member2 = Member
+                    .builder()
+                    .email("bjjtachan@gmail.com")
+                    .password("password")
+                    .gender(Gender.MALE)
+                    .birthdate(LocalDate.of(1996,Month.MAY,3))
+                    .name("testMember")
+                    .role(Role.MEMBER)
+                    .build();
+            memberRepository.save(member2);
+
         }
 
         //테스트용 오너와 짐 생성

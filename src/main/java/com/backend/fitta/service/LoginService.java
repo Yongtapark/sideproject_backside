@@ -3,6 +3,7 @@ package com.backend.fitta.service;
 import com.backend.fitta.config.security.jwt.JwtTokenManager;
 import com.backend.fitta.config.security.jwt.TokenInfo;
 import com.backend.fitta.dto.google.AccountInfo;
+import com.backend.fitta.dto.login.UserProfile;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -95,16 +96,18 @@ public class LoginService {
     /**
      * OAUTH 2.0
      */
-    public AccountInfo socialLogin(String code, String registrationId) {
+    public UserProfile socialLogin(String code, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResource = getUserResource(accessToken, registrationId);
+        log.info("2.accessToken={}",accessToken);
+        log.info("2.userResource={}",userResource);
 
         String picture = userResource.get("picture").asText();
         String email = userResource.get("email").textValue();
         String name = userResource.get("name").textValue();
 
-        AccountInfo accountInfo = new AccountInfo(email, name, picture);
-        return accountInfo;
+        UserProfile userProfile = new UserProfile(email, name, picture);
+        return userProfile;
     }
 
 
@@ -129,7 +132,8 @@ public class LoginService {
 
             ResponseEntity<JsonNode> responseNode = restTemplate.exchange(tokenUri, HttpMethod.POST, entity, JsonNode.class);
             JsonNode accessTokenNode = responseNode.getBody();
-            return accessTokenNode.get("access_token").asText();
+        String token = accessTokenNode.get("access_token").asText();
+        return token;
 
 
     }

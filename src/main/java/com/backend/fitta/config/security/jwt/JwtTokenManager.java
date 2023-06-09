@@ -5,6 +5,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
 import io.jsonwebtoken.security.SignatureException;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -67,6 +68,32 @@ public class JwtTokenManager {
                 .build();
     }
 
+    public String refreshAccessToken(String refreshToken, Authentication authentication){
+        if(validateToken(refreshToken)){
+            Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(refreshToken).getBody();
+            String username = claims.getSubject();
+            return createAccessToken(username,authentication);
+        }else {
+            throw new RuntimeException("Refresh token is not valid");
+        }
+    }
+
+    private String createAccessToken(String username,Authentication authentication) {
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        long now = (new Date()).getTime();
+        //Access Token 생성
+        Date accessTokenExpiresIn = new Date(now + 1800000);
+        String accessToken = Jwts.builder().setSubject(username)
+                .claim("auth", authorities)
+                .setExpiration(accessTokenExpiresIn)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+
+        return accessToken;
+    }
+
     //JWT 토큰을 복호화하여 토큰에 들어있는 정보를 꺼내는 메서드
     public Authentication getAuthentication(String accessToken){
         //토큰 복호화
@@ -112,4 +139,6 @@ public class JwtTokenManager {
             return e.getClaims();
         }
     }
+
+
 }
