@@ -1,13 +1,11 @@
 package com.backend.fitta.dto.login;
 
 import com.backend.fitta.entity.enums.Role;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.Lob;
-import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor

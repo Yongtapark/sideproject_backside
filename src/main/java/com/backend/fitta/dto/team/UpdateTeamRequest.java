@@ -1,11 +1,10 @@
 package com.backend.fitta.dto.team;
 
-import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;

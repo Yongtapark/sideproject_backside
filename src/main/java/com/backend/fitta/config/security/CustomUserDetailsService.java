@@ -1,9 +1,6 @@
 package com.backend.fitta.config.security;
 
 import com.backend.fitta.entity.utils.Users;
-import com.backend.fitta.entity.enums.Role;
-import com.backend.fitta.entity.gym.Owner;
-import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Slf4j

@@ -1,5 +1,8 @@
-package com.backend.fitta.entity.gym;
+package com.backend.fitta.entity.staff;
 
+import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Schedule;
+import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.Role;

@@ -28,6 +28,8 @@ public class QGym extends EntityPathBase<Gym> {
 
     public final StringPath businessIdentificationNumber = createString("businessIdentificationNumber");
 
+    public final ListPath<Classes, QClasses> classes = this.<Classes, QClasses>createList("classes", Classes.class, QClasses.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -42,11 +44,11 @@ public class QGym extends EntityPathBase<Gym> {
 
     public final StringPath name = createString("name");
 
-    public final QOwner owner;
+    public final com.backend.fitta.entity.owner.QOwner owner;
 
     public final StringPath phoneNumber = createString("phoneNumber");
 
-    public final ListPath<Staff, QStaff> staff = this.<Staff, QStaff>createList("staff", Staff.class, QStaff.class, PathInits.DIRECT2);
+    public final ListPath<com.backend.fitta.entity.staff.Staff, com.backend.fitta.entity.staff.QStaff> staff = this.<com.backend.fitta.entity.staff.Staff, com.backend.fitta.entity.staff.QStaff>createList("staff", com.backend.fitta.entity.staff.Staff.class, com.backend.fitta.entity.staff.QStaff.class, PathInits.DIRECT2);
 
     public QGym(String variable) {
         this(Gym.class, forVariable(variable), INITS);
@@ -66,7 +68,7 @@ public class QGym extends EntityPathBase<Gym> {
 
     public QGym(Class<? extends Gym> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.owner = inits.isInitialized("owner") ? new QOwner(forProperty("owner")) : null;
+        this.owner = inits.isInitialized("owner") ? new com.backend.fitta.entity.owner.QOwner(forProperty("owner")) : null;
     }
 
 }

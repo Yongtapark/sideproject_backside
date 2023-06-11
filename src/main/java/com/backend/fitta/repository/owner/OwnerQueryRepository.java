@@ -2,6 +2,7 @@ package com.backend.fitta.repository.owner;
 
 import com.backend.fitta.dto.ownermypage.*;
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.staff.QStaff;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 
 import static com.backend.fitta.entity.gym.QGym.gym;
-import static com.backend.fitta.entity.gym.QStaff.staff;
 import static com.backend.fitta.entity.member.QMember.member;
+import static com.backend.fitta.entity.staff.QStaff.staff;
+
 
 @Repository
 @Slf4j

@@ -2,7 +2,7 @@ package com.backend.fitta.dto.staff;
 
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.Role;
-import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.entity.staff.Staff;
 import lombok.Getter;
 
 import java.time.LocalDate;

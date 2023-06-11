@@ -1,5 +1,6 @@
-package com.backend.fitta.entity.gym;
+package com.backend.fitta.entity.owner;
 
+import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.utils.Users;
 import com.backend.fitta.entity.enums.Role;
