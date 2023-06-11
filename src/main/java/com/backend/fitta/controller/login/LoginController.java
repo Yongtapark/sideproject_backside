@@ -46,6 +46,7 @@ public class LoginController {
         Owner owner = ownerApiService.findByID(1L);
         return ResponseEntity.ok(new TestLoginData(owner.getId(),owner.getRole(), owner.getName(),owner.getProfileImage()));
     }
+    //
 
     /**
      * 구글 로그인 페이지로 이동합니다
