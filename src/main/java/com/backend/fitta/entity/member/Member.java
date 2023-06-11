@@ -70,6 +70,7 @@ public class Member extends Auditing implements UserDetails, Users {
         gym.getMember().add(this);
         registerClasses(selectedClasses);
     }*/
+    //
 
     /*private void registerClasses(List<Classes> selectedClasses) {
         for (Classes cls : selectedClasses) {
