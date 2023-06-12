@@ -57,7 +57,7 @@ class MemberServiceTest {
         assertThat(signUpRequest.getPassword()).isEqualTo(findMember.getPassword());
         assertThat(signUpRequest.getName()).isEqualTo(findMember.getName());
         assertThat(signUpRequest.getOccupation()).isEqualTo(findMember.getOccupation());
-        assertThat(signUpRequest.getBirthday()).isEqualTo(findMember.getBirthday());
+        assertThat(signUpRequest.getbirthdate()).isEqualTo(findMember.getbirthdate());
         assertThat(signUpRequest.getAddress()).isEqualTo(findMember.getAddress());
         assertThat(signUpRequest.getPhoneNumber()).isEqualTo(findMember.getPhoneNumber());
         assertThat(signUpRequest.getGender()).isEqualTo(findMember.getGender());
@@ -74,7 +74,7 @@ class MemberServiceTest {
         assertThat(findMember.getPassword()).isEqualTo(updateMemberRequest.getPassword());
         assertThat(findMember.getName()).isEqualTo(updateMemberRequest.getName());
         assertThat(findMember.getOccupation()).isEqualTo(updateMemberRequest.getOccupation());
-        assertThat(findMember.getBirthday()).isEqualTo(updateMemberRequest.getBirthday());
+        assertThat(findMember.getbirthdate()).isEqualTo(updateMemberRequest.getbirthdate());
         assertThat(findMember.getAddress()).isEqualTo(updateMemberRequest.getAddress());
         assertThat(findMember.getPhoneNumber()).isEqualTo(updateMemberRequest.getPhoneNumber());
         assertThat(findMember.getGender()).isEqualTo(updateMemberRequest.getGender());
@@ -90,7 +90,7 @@ class MemberServiceTest {
         assertThat(findMember.getPassword()).isEqualTo("1234");
         assertThat(findMember.getName()).isEqualTo("초기멤버");
         assertThat(findMember.getOccupation()).isEqualTo("학생");
-        assertThat(findMember.getBirthday()).isEqualTo(LocalDate.of(1999, 5, 10));
+        assertThat(findMember.getbirthdate()).isEqualTo(LocalDate.of(1999, 5, 10));
         assertThat(findMember.getAddress()).isEqualTo("서울");
         assertThat(findMember.getPhoneNumber()).isEqualTo("01012341234");
         assertThat(findMember.getGender()).isEqualTo(Gender.MALE);

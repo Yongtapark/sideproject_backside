@@ -1,13 +1,12 @@
 package com.backend.fitta.entity.gym;
 
-import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,9 @@ public class Gym extends Auditing {
     @OneToMany(mappedBy = "gym")
     private List<Member> member = new ArrayList<>();
 
-    public Gym(String name, Owner owner, String phoneNumber, String address, GenderDivision genderDivision) {
+    private String businessIdentificationNumber;
+
+    public Gym(String name, Owner owner, String phoneNumber, String address, GenderDivision genderDivision,String businessIdentificationNumber ) {
         this.name = name;
         if (owner != null) {
             changeOwner(owner);
@@ -42,6 +43,7 @@ public class Gym extends Auditing {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.genderDivision = genderDivision;
+        this.businessIdentificationNumber=businessIdentificationNumber;
     }
 
     public void changeGymInfo(String name, String phoneNumber, String address, GenderDivision genderDivision) {

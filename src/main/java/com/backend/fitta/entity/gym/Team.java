@@ -1,6 +1,6 @@
 package com.backend.fitta.entity.gym;
 
-import com.backend.fitta.entity.Auditing;
+import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -20,11 +20,13 @@ public class Team extends Auditing {
     private String name;
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
-    @OneToMany(mappedBy = "team")
-    private List<Staff> staffs =new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "staff_id")
+    private Staff staff;
 
-    public Team(String name) {
+    public Team(String name, Staff staff) {
         this.name = name;
+        this.staff = staff;
     }
 
     public void changeTeamInfo(String name){

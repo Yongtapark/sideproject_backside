@@ -10,18 +10,20 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class SimpleMemberInfo {
+    private Long id;
     private String email;
     private String name;
-    private LocalDate birthday;
+    private LocalDate birthdate;
     private String phoneNumber;
     private String address;
     private Gender gender;
 
 
     public SimpleMemberInfo(Member member) {
+        this.id=member.getId();
         this.email = member.getEmail();
         this.name = member.getName();
-        this.birthday = member.getBirthday();
+        this.birthdate = member.getBirthdate();
         this.phoneNumber = member.getPhoneNumber();
         this.address = member.getAddress();
         this.gender = member.getGender();

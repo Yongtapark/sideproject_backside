@@ -1,9 +1,9 @@
 package com.backend.fitta.service.apiService;
 
 import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.team.BasicStaffInfo;
-import com.backend.fitta.dto.team.SaveStaffRequest;
-import com.backend.fitta.dto.team.UpdateStaffRequest;
+import com.backend.fitta.dto.staff.BasicStaffInfo;
+import com.backend.fitta.dto.staff.SaveStaffRequest;
+import com.backend.fitta.dto.staff.UpdateStaffRequest;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.entity.gym.Team;
@@ -29,9 +29,15 @@ public class StaffApiServiceImpl implements StaffApiService {
     private final TeamRepository teamRepository;
     private final GymRepository gymRepository;
 
+    Team team;
+
     @Override
     public Long save(SaveStaffRequest request) {
-        Staff staff = new Staff(request.getName(),request.getBirthday(),request.getGender(),request.getPhoneNumber(),request.getAddress(),request.getGrade(),request.getGym(), request.getTeam());
+        if(request.getTeamId()!=null){
+            team = teamRepository.findById(request.getTeamId()).orElseThrow(() -> new TeamNotFoundException());
+        }
+        Gym gym = gymRepository.findById(request.getGymId()).orElseThrow(() -> new GymNotFoundException());
+        Staff staff = new Staff(request.getName(),request.getBirthdate(),request.getGender(),request.getPhoneNumber(),request.getAddress(), gym, team);
         return staffRepository.save(staff).getId();
     }
 
@@ -53,7 +59,7 @@ public class StaffApiServiceImpl implements StaffApiService {
     @Override
     public Long update(Long id, UpdateStaffRequest request) {
         Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
-        staff.changeStaffInfo(request.getName(),request.getBirthday(),request.getPhoneNumber(), request.getAddress(),request.getGrade());
+        staff.changeStaffInfo(request.getName(),request.getBirthdate(),request.getPhoneNumber(), request.getAddress());
         return staff.getId();
     }
 

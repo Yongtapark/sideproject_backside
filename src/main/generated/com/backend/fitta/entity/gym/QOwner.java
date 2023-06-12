@@ -20,7 +20,7 @@ public class QOwner extends EntityPathBase<Owner> {
 
     public static final QOwner owner = new QOwner("owner");
 
-    public final com.backend.fitta.entity.QAuditing _super = new com.backend.fitta.entity.QAuditing(this);
+    public final com.backend.fitta.entity.utils.QAuditing _super = new com.backend.fitta.entity.utils.QAuditing(this);
 
     public final StringPath address = createString("address");
 
@@ -43,6 +43,10 @@ public class QOwner extends EntityPathBase<Owner> {
     public final StringPath password = createString("password");
 
     public final StringPath phoneNumber = createString("phoneNumber");
+
+    public final StringPath profileImage = createString("profileImage");
+
+    public final EnumPath<com.backend.fitta.entity.enums.Role> role = createEnum("role", com.backend.fitta.entity.enums.Role.class);
 
     public QOwner(String variable) {
         super(Owner.class, forVariable(variable));

@@ -2,6 +2,7 @@ package com.backend.fitta.controller.gym;
 
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
+import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
@@ -10,6 +11,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +25,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("gyms")
+@RequestMapping("/gyms")
 public class GymController {
     private final GymApiService gymApiService;
 
@@ -29,19 +34,17 @@ public class GymController {
     public ResponseEntity<Long> saveGym(@Valid @RequestBody SaveGymRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request));
     }
-
-
     @Operation(summary = "헬스장 조회 메서드", description = "헬스장 id로 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping("/{gymId}")
     public ResponseEntity<BasicGymInfo> findGym(@PathVariable long gymId) {
         return ResponseEntity.ok(gymApiService.findById(gymId));
     }
 
-    @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
+    /*@Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping
     public ResponseEntity<Result<List<BasicGymInfo>>> findAll() {
         return ResponseEntity.ok(gymApiService.findAll());
-    }
+    }*/
 
     @Operation(summary = "헬스장 정보 수정 메서드", description = "헬스장 id로 헬스장 정보를 찾아 헬스장 정보를 수정 할 수 있습니다.")
     @PutMapping("/{gymId}")
@@ -56,21 +59,19 @@ public class GymController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "헬스장 오너 등록", description = "헬스장 id로 헬스장을 찾아 오너를 추가해줍니다.")
-    @PostMapping("owner/{gymId}/{ownerId}")
+    /*@Operation(summary = "헬스장 오너 등록", description = "헬스장 id로 헬스장을 찾아 오너를 추가해줍니다.")
+    @PostMapping("/owner/{gymId}/{ownerId}")
     public ResponseEntity<Void> saveOwnerGym(@PathVariable long gymId, @PathVariable long ownerId) {
         gymApiService.saveOwnerGym(gymId, ownerId);
         return ResponseEntity.noContent().build();
+    }*/
+    @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
+    @GetMapping
+    public ResponseEntity<Page<GymProfileInfo>> gymPaging(@PageableDefault(size = 6, sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
+        Page<GymProfileInfo> gymInfoPage = gymApiService.findAll(pageable);
+        return ResponseEntity.ok(gymInfoPage);
     }
 
-    /***
-     * 오너 마이페이지
-     */
-//
-    /*@Operation(summary = "오너 마이페이지 헬스장 현황")
-    @GetMapping("/owner/{ownerId}/gym/{gymId}")
-    public ResponseEntity<Void> gymInfoByOwnerId(@PathVariable Long gymId, @PathVariable Long ownerId){
-        gymApiService.findAllByOwnerId(gymId,ownerId);
-    }*/
+
 
 }

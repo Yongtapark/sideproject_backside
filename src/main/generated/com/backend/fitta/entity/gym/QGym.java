@@ -22,9 +22,11 @@ public class QGym extends EntityPathBase<Gym> {
 
     public static final QGym gym = new QGym("gym");
 
-    public final com.backend.fitta.entity.QAuditing _super = new com.backend.fitta.entity.QAuditing(this);
+    public final com.backend.fitta.entity.utils.QAuditing _super = new com.backend.fitta.entity.utils.QAuditing(this);
 
     public final StringPath address = createString("address");
+
+    public final StringPath businessIdentificationNumber = createString("businessIdentificationNumber");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;

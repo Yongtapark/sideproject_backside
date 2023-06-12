@@ -17,6 +17,7 @@ import com.backend.fitta.service.interfaces.OwnerService;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,46 +47,57 @@ class GymApiServiceImplTest {
 
 
 
+
     @Test
     void ytGymSaveTest() throws Exception{
         //given
         //오너 등록
-        Owner owner = new Owner("email", "pass", "name", "123", "ad", "12312312");
+       Owner owner = new Owner("email", "pass", "name", "123", "ad", "12312312");
         Long savedOwner = ownerService.save(owner);
 
         //when
         // 체육관 생성
-        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,savedOwner));
+        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,savedOwner,"1231"));
         BasicGymInfo gymDto = gymApiService.findById(savedGymId);
 
         //then
         assertThat(gymDto.getName()).isEqualTo("헬스장1");
         assertThat(gymDto.getOwnerName()).isEqualTo("name");
-        assertThatThrownBy(()->gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,5L))).isInstanceOf(OwnerNotFoundException.class);
+        assertThatThrownBy(()->gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,5L,"123123"))).isInstanceOf(OwnerNotFoundException.class);
 
 
     }
 
     @Test
     void saveAndFindById() {
-        Owner owner = ownerService.findById(1L);
-        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,owner.getId()));
-        BasicGymInfo gymInfo = gymApiService.findById(savedGymId);
-        assertThat(gymInfo.getName()).isEqualTo("헬스장1");
-        assertThat(gymInfo.getPhoneNumber()).isEqualTo("01012341234");
-        assertThat(gymInfo.getAddress()).isEqualTo("대전");
-        assertThat(gymInfo.getGenderDivision()).isEqualTo(GenderDivision.UNISEX);
+
+        //오너 등록
+        Owner owner = new Owner("email", "pass", "name", "123", "ad", "12312312");
+        Long savedOwner = ownerService.save(owner);
+
+
+        // 체육관 생성
+        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,savedOwner,"1231"));
+        BasicGymInfo gymDto = gymApiService.findById(savedGymId);
+
+        assertThat(gymDto.getName()).isEqualTo("헬스장1");
+        assertThat(gymDto.getPhoneNumber()).isEqualTo("01012341234");
+        assertThat(gymDto.getAddress()).isEqualTo("대전");
+        assertThat(gymDto.getGenderDivision()).isEqualTo(GenderDivision.UNISEX);
     }
 
     @Test
     void findAll() {
-        Owner owner = ownerService.findById(1L);
-        gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,owner.getId()));
-        gymApiService.save(new SaveGymRequest("헬스장2", "01012341234", "대전", GenderDivision.UNISEX,owner.getId()));
+        //오너 등록
+        Owner owner = new Owner("email", "pass", "name", "123", "ad", "12312312");
+        Long savedOwner = ownerService.save(owner);
+
+        gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,owner.getId(),"12312312"));
+        gymApiService.save(new SaveGymRequest("헬스장2", "01012341234", "대전", GenderDivision.UNISEX,owner.getId(),"12312312"));
         Result<List<BasicGymInfo>> all = gymApiService.findAll();
         //assertThat(all.getData().size()).isEqualTo(2);
-//        assertThat(all.getData().get(0).getName()).isEqualTo("헬스장1");
-     //   assertThat(all.getData().get(1).getName()).isEqualTo("헬스장2");
+      /*  assertThat(all.getData().get(0).getName()).isEqualTo("헬스장1");
+        assertThat(all.getData().get(1).getName()).isEqualTo("헬스장2");*/
 
     }
 
@@ -95,7 +107,7 @@ class GymApiServiceImplTest {
         Long savedOwner = ownerService.save(owner);
         Owner findOwner = ownerService.findById(savedOwner);
 
-        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,findOwner.getId()));
+        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,findOwner.getId(),"123123123"));
         Gym gym = gymRepository.findById(savedGymId).orElseThrow();
         gymApiService.update(savedGymId, new UpdateGymRequest("헬스장2", "01012341234", "대구", GenderDivision.FEMALE_ONLY));
         assertThat(gym.getName()).isEqualTo("헬스장2");
@@ -109,7 +121,7 @@ class GymApiServiceImplTest {
         Owner owner = new Owner("email", "pass", "name", "123", "ad", "12312312");
         Long savedOwner = ownerService.save(owner);
         Owner findOwner = ownerService.findById(savedOwner);
-        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,findOwner.getId()));
+        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,findOwner.getId(),"1231232"));
         gymApiService.delete(savedGymId);
         //삭제해서 아이디로 찾으면 오류터짐
         assertThatThrownBy(()->gymApiService.findById(savedGymId))
@@ -121,8 +133,8 @@ class GymApiServiceImplTest {
         Owner owner = new Owner("email", "pass", "name", "123", "ad", "12312312");
         Long savedOwner = ownerService.save(owner);
         Owner findOwner = ownerService.findById(savedOwner);
-        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,findOwner.getId()));
-        Long savedOwnerId = ownerApiService.save(new SignUpOwnerRequest("asd123@naver.com", "1234", "1234", "오너1", "01012341234", "부천", "123456"));
+        Long savedGymId = gymApiService.save(new SaveGymRequest("헬스장1", "01012341234", "대전", GenderDivision.UNISEX,findOwner.getId(),"123123123"));
+        Long savedOwnerId = ownerApiService.save(new SignUpOwnerRequest("asd123@naver.com", "1234", "오너1", "01012341234", "부천", "123456"));
         gymApiService.saveOwnerGym(savedGymId, savedOwnerId);
         Gym gym = gymRepository.findById(savedGymId).orElseThrow();
         assertThat(gym.getOwner().getEmail()).isEqualTo("asd123@naver.com");

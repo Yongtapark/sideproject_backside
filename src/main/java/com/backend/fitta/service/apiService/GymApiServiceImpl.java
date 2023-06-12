@@ -11,8 +11,12 @@ import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +31,7 @@ public class GymApiServiceImpl implements GymApiService {
     @Override
     public Long save(SaveGymRequest request) {
         Owner owner = ownerService.findById(request.getOwnerId());
-        Gym gym = new Gym(request.getName(),owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision());
+        Gym gym = new Gym(request.getName(),owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
         return gymRepository.save(gym).getId();
     }
 
@@ -67,7 +71,10 @@ public class GymApiServiceImpl implements GymApiService {
     }
 
     @Override
-    public void findAllByOwnerId(Long gymId, Long ownerId) {
-
+    public Page<GymProfileInfo> findAll(Pageable pageable) {
+        Page<Gym> all = gymRepository.findAll(pageable);
+        List<GymProfileInfo> gymInfoList = all.stream().map(g -> new GymProfileInfo(g)).collect(Collectors.toList());
+        return new PageImpl<>(gymInfoList,pageable,all.getTotalElements());
     }
+
 }

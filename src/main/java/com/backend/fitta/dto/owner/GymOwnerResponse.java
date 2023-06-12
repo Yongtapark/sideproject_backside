@@ -6,13 +6,15 @@ import lombok.Getter;
 
 @Getter
 public class GymOwnerResponse {
+    private Long id;
     private String name;
     private String phoneNumber;
     private String address;
     private GenderDivision genderDivision;
 
     @QueryProjection
-    public GymOwnerResponse(String name, String phoneNumber, String address, GenderDivision genderDivision) {
+    public GymOwnerResponse(Long id,String name, String phoneNumber, String address, GenderDivision genderDivision) {
+        this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;

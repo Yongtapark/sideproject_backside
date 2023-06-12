@@ -1,7 +1,6 @@
 package com.backend.fitta.dto.gym;
 
 import com.backend.fitta.entity.enums.Gender;
-import com.backend.fitta.entity.enums.Grade;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,20 +10,21 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class StaffGymResponse {
+    private Long id;
     private String name;
     private Gender gender;
     private String address;
     private String phoneNumber;
-    private Grade grade;
-    private LocalDate birthday;
+
+    private LocalDate birthdate;
 
     @QueryProjection
-    public StaffGymResponse(String name, LocalDate birthday, Gender gender, String phoneNumber, String address, Grade grade) {
+    public StaffGymResponse(Long id, String name, LocalDate birthdate, Gender gender, String phoneNumber, String address) {
+        this.id=id;
         this.name = name;
-        this.birthday = birthday;
+        this.birthdate = birthdate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.grade = grade;
     }
 }

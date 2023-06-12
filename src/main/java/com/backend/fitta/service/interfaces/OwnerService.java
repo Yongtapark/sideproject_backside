@@ -12,6 +12,8 @@ public interface OwnerService {
     Owner update(Long id, Owner owner);
     void delete(Long id);
 
+    Owner findByEmail(String email);
+
 
 
 }

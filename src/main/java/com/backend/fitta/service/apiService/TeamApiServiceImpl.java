@@ -4,8 +4,11 @@ import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.team.BasicTeamInfo;
 import com.backend.fitta.dto.team.SaveTeamRequest;
 import com.backend.fitta.dto.team.UpdateTeamRequest;
+import com.backend.fitta.entity.gym.Staff;
 import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.repository.staff.StaffRepository;
 import com.backend.fitta.repository.team.TeamRepository;
 import com.backend.fitta.service.apiService.interfaces.TeamApiService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +25,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TeamApiServiceImpl implements TeamApiService {
     private final TeamRepository teamRepository;
+    private final StaffRepository staffRepository;
     @Override
     public Long save(SaveTeamRequest request) {
-        Team team = new Team(request.getName());
+        Staff staff = staffRepository.findById(request.getStaffId()).orElseThrow(() -> new StaffNotFoundException());
+        Team team = new Team(request.getName(),staff);
         return teamRepository.save(team).getId();
     }
 

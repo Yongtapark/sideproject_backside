@@ -1,9 +1,9 @@
 package com.backend.fitta.config;
 
 
-import com.backend.fitta.config.jwt.JwtAuthenticationFilter;
-import com.backend.fitta.config.jwt.JwtTokenProvider;
-import com.backend.fitta.config.oauth.CustomOAuth2UserService;
+import com.backend.fitta.config.security.jwt.JwtAuthenticationFilterV2;
+import com.backend.fitta.config.security.jwt.JwtTokenManager;
+import com.backend.fitta.config.security.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ import java.util.List;
 @Profile("!test")
 public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenManager jwtTokenManager;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -63,7 +63,12 @@ public class SecurityConfig{
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilterV2(jwtTokenManager), UsernamePasswordAuthenticationFilter.class)
+                /*.logout()
+                .logoutUrl("/signout")
+                .logoutSuccessHandler((request, response, authentication) -> response.setStatus(200))
+                .deleteCookies("accessToken")
+                .and()*/
                 .cors().configurationSource(corsConfigurationSource());
 
         return http.build();
@@ -82,6 +87,7 @@ public class SecurityConfig{
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

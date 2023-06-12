@@ -41,4 +41,9 @@ public class OwnerServiceImpl implements OwnerService {
         Owner findOwner = findById(id);
         ownerRepository.delete(findOwner);
     }
+
+    @Override
+    public Owner findByEmail(String email) {
+        return ownerRepository.findByEmail(email).orElseThrow(()->new OwnerNotFoundException());
+    }
 }
