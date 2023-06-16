@@ -61,7 +61,7 @@ public class MemberController {
         validateExistMember(memberId);
         String fileName = image.getOriginalFilename();
         image.transferTo(new File("/Users/sunjun/Downloads/study/images/" + fileName));
-        return ResponseEntity.ok(memberApiService.update(memberId, request));
+        return ResponseEntity.ok(memberApiService.update(memberId, request, image));
     }
 
     @Operation(summary = "회원 삭제 메서드", description = "회원 id로 회원을 삭제할 수 있습니다.")
