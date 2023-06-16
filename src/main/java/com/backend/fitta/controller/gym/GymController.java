@@ -1,6 +1,5 @@
 package com.backend.fitta.controller.gym;
 
-import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
@@ -16,9 +15,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Tag(name = "헬스장", description = "헬스장 관련 api 입니다.")
@@ -30,10 +36,24 @@ public class GymController {
     private final GymApiService gymApiService;
 
     @Operation(summary = "헬스장 추가 메서드", description = "헬스장 추가 메서드입니다.")
-    @PostMapping
-    public ResponseEntity<Long> saveGym(@Valid @RequestBody SaveGymRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request));
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Long> saveGym(@Valid @RequestPart("request") SaveGymRequest request,
+                                        @RequestPart(value = "images", required = false) List<MultipartFile> images) {
+        try {
+            for (MultipartFile image : images) {
+                // 이미지 저장
+                String fileName = image.getOriginalFilename();
+                image.transferTo(new File("/Users/sunjun/Downloads/study/images/" + fileName));
+            }
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request));
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(gymApiService.save(request));
+        }
+
     }
+
+
     @Operation(summary = "헬스장 조회 메서드", description = "헬스장 id로 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping("/{gymId}")
     public ResponseEntity<BasicGymInfo> findGym(@PathVariable long gymId) {

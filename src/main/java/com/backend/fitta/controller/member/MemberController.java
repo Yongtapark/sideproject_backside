@@ -1,6 +1,7 @@
 package com.backend.fitta.controller.member;
 
 import com.backend.fitta.dto.Result;
+import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.member.*;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.service.apiService.MemberApiService;
@@ -10,9 +11,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "회원", description = "회원 관련 api 입니다.")
@@ -49,9 +54,13 @@ public class MemberController {
     }
 
     @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
-    @PutMapping("/{memberId}")
-    public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestBody UpdateMemberRequest request) {
+    @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestPart UpdateMemberRequest request,
+                                             @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+
         validateExistMember(memberId);
+        String fileName = image.getOriginalFilename();
+        image.transferTo(new File("/Users/sunjun/Downloads/study/images/" + fileName));
         return ResponseEntity.ok(memberApiService.update(memberId, request));
     }
 
