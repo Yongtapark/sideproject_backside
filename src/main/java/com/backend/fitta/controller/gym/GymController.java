@@ -20,12 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "헬스장", description = "헬스장 관련 api 입니다.")
 @RestController
@@ -38,19 +36,8 @@ public class GymController {
     @Operation(summary = "헬스장 추가 메서드", description = "헬스장 추가 메서드입니다.")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> saveGym(@Valid @RequestPart("request") SaveGymRequest request,
-                                        @RequestPart(value = "images", required = false) List<MultipartFile> images) {
-        try {
-            for (MultipartFile image : images) {
-                // 이미지 저장
-                String fileName = image.getOriginalFilename();
-                image.transferTo(new File("/Users/sunjun/Downloads/study/images/" + fileName));
-            }
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request));
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(gymApiService.save(request));
-        }
-
+                                        @RequestPart(value = "images", required = false) Optional<List<MultipartFile>> images) throws IOException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request,images.orElse(new ArrayList<>())));
     }
 
 

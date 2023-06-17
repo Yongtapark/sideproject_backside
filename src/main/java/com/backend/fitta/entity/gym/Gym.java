@@ -1,5 +1,6 @@
 package com.backend.fitta.entity.gym;
 
+import com.backend.fitta.entity.image.Image;
 import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.member.Member;
@@ -29,6 +30,8 @@ public class Gym extends Auditing {
     @Enumerated(EnumType.STRING)
     private GenderDivision genderDivision;
     @OneToMany(mappedBy = "gym")
+    private List<Image> image = new ArrayList<>();
+    @OneToMany(mappedBy = "gym")
     private List<Staff> staff = new ArrayList<>();
     @OneToMany(mappedBy = "gym")
     private List<Member> member = new ArrayList<>();
@@ -43,7 +46,7 @@ public class Gym extends Auditing {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.genderDivision = genderDivision;
-        this.businessIdentificationNumber=businessIdentificationNumber;
+        this.businessIdentificationNumber = businessIdentificationNumber;
     }
 
     public void changeGymInfo(String name, String phoneNumber, String address, GenderDivision genderDivision) {

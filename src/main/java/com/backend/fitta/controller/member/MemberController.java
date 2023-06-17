@@ -56,12 +56,10 @@ public class MemberController {
     @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
     @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestPart UpdateMemberRequest request,
-                                             @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+                                             @RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile) throws IOException {
 
         validateExistMember(memberId);
-        String fileName = image.getOriginalFilename();
-        image.transferTo(new File("/Users/sunjun/Downloads/study/images/" + fileName));
-        return ResponseEntity.ok(memberApiService.update(memberId, request, image));
+        return ResponseEntity.ok(memberApiService.update(memberId, request, multipartFile));
     }
 
     @Operation(summary = "회원 삭제 메서드", description = "회원 id로 회원을 삭제할 수 있습니다.")

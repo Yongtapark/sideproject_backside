@@ -1,14 +1,13 @@
 package com.backend.fitta.entity.member;
 
 
-import com.backend.fitta.entity.image.Image;
-import com.backend.fitta.entity.utils.Auditing;
-import com.backend.fitta.entity.utils.Users;
 import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Schedule;
 import com.backend.fitta.entity.gym.Team;
-import com.backend.fitta.entity.enums.Role;
+import com.backend.fitta.entity.utils.Auditing;
+import com.backend.fitta.entity.utils.Users;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -17,7 +16,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -44,9 +42,6 @@ public class Member extends Auditing implements UserDetails, Users {
     private Long weight;
     private String occupation;
     private String note;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
-    private Image image;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
@@ -128,18 +123,16 @@ public class Member extends Auditing implements UserDetails, Users {
         team.getMembers().add(this);
     }
 
-    public void changeImage(Image image) {
-        this.image = image;
-        image.getMember().image = image;
-    }
+
     public void subscribe(){
         this.subscribeDate=LocalDate.now();
         this.endSubscribeDate= subscribeDate.plusMonths(1).minusDays(1);
     }
-    public void changeMemberInfo(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Long height, Long weight, String occupation, String note, Image image) {
+    public void changeMemberInfo(String email, String password, String name, String profileImage, LocalDate birthdate, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.profileImage = profileImage;
         this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -147,9 +140,6 @@ public class Member extends Auditing implements UserDetails, Users {
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
-        if (image!=null) {
-            changeImage(image);
-        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.backend.fitta.entity.image;
 
-import com.backend.fitta.entity.member.Member;
+import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.utils.Auditing;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -17,13 +17,20 @@ public class Image extends Auditing {
     private Long id;
     private String originalName;
     private String storeName;
-    @OneToOne(mappedBy = "image")
-    private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
 
-    public Image(String originalName, String storeName, Member member) {
+    public Image(String originalName, String storeName, Gym gym) {
         this.originalName = originalName;
         this.storeName = storeName;
-        this.member = member;
+        if (gym != null) {
+            changeGym(gym);
+        }
+    }
+    public void changeGym(Gym gym){
+        this.gym=gym;
+        gym.getImage().add(this);
     }
 }
