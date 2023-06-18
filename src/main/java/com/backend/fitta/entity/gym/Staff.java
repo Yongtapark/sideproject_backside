@@ -18,6 +18,8 @@ public class Staff extends Auditing {
     private Long id;
     private String name;
     private LocalDate birthdate;
+    @Lob
+    private String profileImage;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String phoneNumber;
