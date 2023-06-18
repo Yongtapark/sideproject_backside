@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "회원", description = "회원 관련 api 입니다.")
 @RestController
@@ -56,10 +57,9 @@ public class MemberController {
     @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
     @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestPart UpdateMemberRequest request,
-                                             @RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile) throws IOException {
-
+                                             @RequestPart(value = "multipartFile", required = false) Optional<MultipartFile> multipartFile) throws IOException {
         validateExistMember(memberId);
-        return ResponseEntity.ok(memberApiService.update(memberId, request, multipartFile));
+        return ResponseEntity.ok(memberApiService.update(memberId, request, multipartFile.orElse(null)));
     }
 
     @Operation(summary = "회원 삭제 메서드", description = "회원 id로 회원을 삭제할 수 있습니다.")

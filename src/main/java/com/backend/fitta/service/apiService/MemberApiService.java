@@ -73,8 +73,11 @@ public class MemberApiService {
 
     public Long update(Long memberId, UpdateMemberRequest rq, MultipartFile multipartFile) throws IOException {
         Member member = memberRepository.findById(memberId).orElseThrow();
-        String storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
-        multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+        String storeFileName = null;
+        if(!multipartFile.isEmpty()){
+            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
+            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+        }
         member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), storeFileName, rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
 
         return member.getId();

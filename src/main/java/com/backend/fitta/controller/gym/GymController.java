@@ -57,7 +57,7 @@ public class GymController {
     @Operation(summary = "헬스장 정보 수정 메서드", description = "헬스장 id로 헬스장 정보를 찾아 헬스장 정보를 수정 할 수 있습니다.")
     @PutMapping("/{gymId}")
     public ResponseEntity<Long> updateGym(@PathVariable Long gymId, @Valid @RequestPart("request") UpdateGymRequest request,
-                                          @RequestPart(value = "images", required = false) Optional<List<MultipartFile>> images) {
+                                          @RequestPart(value = "images", required = false) Optional<List<MultipartFile>> images) throws IOException {
         return ResponseEntity.ok(gymApiService.update(gymId, request, images.orElse(new ArrayList<>())));
     }
 

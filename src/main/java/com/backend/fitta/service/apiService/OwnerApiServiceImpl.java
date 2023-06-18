@@ -16,9 +16,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -73,8 +77,13 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     }
 
     @Override
-    public Long update(Long id, UpdateOwnerRequest request) {
+    public Long update(Long id, UpdateOwnerRequest request, MultipartFile multipartFile) throws IOException {
         Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
+        String storeFileName = null;
+        if(!multipartFile.isEmpty()){
+            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
+            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+        }
         owner.changeOwnerInfo(owner);
         return id;
     }
@@ -116,5 +125,16 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         return ownerQueryRepository.calculateAgeRate(ownerId);
     }
 
+
+    private String createStoreFileName(String originalFilename) {
+        String ext = extractExt(originalFilename);
+        String uuid = UUID.randomUUID().toString();
+        return uuid + "." + ext;
+    }
+
+    private String extractExt(String originalFilename) {
+        int pos = originalFilename.lastIndexOf(".");
+        return originalFilename.substring(pos + 1);
+    }
 
 }
