@@ -1,5 +1,6 @@
 package com.backend.fitta.controller.gym;
 
+import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
@@ -47,16 +48,17 @@ public class GymController {
         return ResponseEntity.ok(gymApiService.findById(gymId));
     }
 
-    /*@Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
-    @GetMapping
-    public ResponseEntity<Result<List<BasicGymInfo>>> findAll() {
-        return ResponseEntity.ok(gymApiService.findAll());
-    }*/
+//    @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
+//    @GetMapping
+//    public ResponseEntity<Result<List<BasicGymInfo>>> findAll() {
+//        return ResponseEntity.ok(gymApiService.findAll());
+//    }
 
     @Operation(summary = "헬스장 정보 수정 메서드", description = "헬스장 id로 헬스장 정보를 찾아 헬스장 정보를 수정 할 수 있습니다.")
     @PutMapping("/{gymId}")
-    public ResponseEntity<Long> updateGym(@PathVariable Long gymId, @Valid @RequestBody UpdateGymRequest request) {
-        return ResponseEntity.ok(gymApiService.update(gymId, request));
+    public ResponseEntity<Long> updateGym(@PathVariable Long gymId, @Valid @RequestPart("request") UpdateGymRequest request,
+                                          @RequestPart(value = "images", required = false) Optional<List<MultipartFile>> images) {
+        return ResponseEntity.ok(gymApiService.update(gymId, request, images.orElse(new ArrayList<>())));
     }
 
     @Operation(summary = "헬스장 삭제 메서드", description = "헬스장 id로 헬스장을 삭제할 수 있습니다.")
@@ -78,7 +80,4 @@ public class GymController {
         Page<GymProfileInfo> gymInfoPage = gymApiService.findAll(pageable);
         return ResponseEntity.ok(gymInfoPage);
     }
-
-
-
 }

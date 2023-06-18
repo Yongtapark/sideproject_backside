@@ -39,14 +39,7 @@ public class GymApiServiceImpl implements GymApiService {
     public Long save(SaveGymRequest request,List<MultipartFile> images) throws IOException {
         Owner owner = ownerService.findById(request.getOwnerId());
         Gym gym = new Gym(request.getName(), owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
-        for (MultipartFile multipartFile : images) {
-            // 이미지 저장
-            String originalFileName = multipartFile.getOriginalFilename();
-            String storeFileName = createStoreFileName(originalFileName);
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
-            Image image = new Image(originalFileName, storeFileName, gym);
-            imageRepository.save(image);
-        }
+        saveImages(images, gym);
         return gymRepository.save(gym).getId();
     }
 
@@ -66,9 +59,10 @@ public class GymApiServiceImpl implements GymApiService {
     }
 
     @Override
-    public Long update(Long id, UpdateGymRequest request) {
+    public Long update(Long id, UpdateGymRequest request, List<MultipartFile> images) throws IOException {
         Gym findGym = gymRepository.findById(id).orElseThrow(() -> new GymNotFoundException());
         findGym.changeGymInfo(request.getName(),request.getPhoneNumber(),request.getAddress(),request.getGenderDivision());
+        saveImages(images, findGym);
         return findGym.getId();
     }
 
@@ -103,4 +97,14 @@ public class GymApiServiceImpl implements GymApiService {
         return originalFilename.substring(pos + 1);
     }
 
+    private void saveImages(List<MultipartFile> images, Gym findGym) throws IOException {
+        for (MultipartFile multipartFile : images) {
+            // 이미지 저장
+            String originalFileName = multipartFile.getOriginalFilename();
+            String storeFileName = createStoreFileName(originalFileName);
+            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+            Image image = new Image(originalFileName, storeFileName, findGym);
+            imageRepository.save(image);
+        }
+    }
 }
