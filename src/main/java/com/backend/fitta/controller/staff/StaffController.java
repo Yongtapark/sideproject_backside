@@ -13,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "스태프", description = "스태프 관련 api 입니다.")
 @RestController
@@ -45,8 +48,9 @@ public class StaffController {
 
     @Operation(summary = "스태프 정보 수정 메서드", description = "스태프 id로 스태프를 찾아 스태프의 정보를 수정 할 수 있습니다.")
     @PutMapping("/{staffId}")
-    public ResponseEntity<Long> updateTeam(@PathVariable Long staffId, @Valid @RequestBody UpdateStaffRequest request) {
-        return ResponseEntity.ok(staffApiService.update(staffId, request));
+    public ResponseEntity<Long> updateTeam(@PathVariable Long staffId, @Valid @RequestBody UpdateStaffRequest request,
+                                           @RequestPart(value = "multipartFile", required = false) Optional<MultipartFile> multipartFile) throws IOException {
+        return ResponseEntity.ok(staffApiService.update(staffId, request,multipartFile.orElse(null)));
     }
 
     @Operation(summary = "스태프 삭제 메서드", description = "스태프 id로 스태프를 삭제할 수 있습니다.")

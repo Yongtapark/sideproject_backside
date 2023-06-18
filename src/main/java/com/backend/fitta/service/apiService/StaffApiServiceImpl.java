@@ -13,12 +13,16 @@ import com.backend.fitta.exception.TeamNotFoundException;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.staff.StaffRepository;
 import com.backend.fitta.repository.team.TeamRepository;
-import com.backend.fitta.service.apiService.interfaces.StaffApiService;
+import com.backend.fitta.service.apiService.interfaces. StaffApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -57,8 +61,13 @@ public class StaffApiServiceImpl implements StaffApiService {
     }
 
     @Override
-    public Long update(Long id, UpdateStaffRequest request) {
+    public Long update(Long id, UpdateStaffRequest request, MultipartFile multipartFile) throws IOException {
         Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
+        String storeFileName = null;
+        if(!multipartFile.isEmpty()){
+            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
+            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+        }
         staff.changeStaffInfo(request.getName(),request.getBirthdate(),request.getPhoneNumber(), request.getAddress());
         return staff.getId();
     }
@@ -81,5 +90,16 @@ public class StaffApiServiceImpl implements StaffApiService {
         Staff findStaff = staffRepository.findById(staffId).orElseThrow(() -> new StaffNotFoundException());
         Gym gym = gymRepository.findById(gymId).orElseThrow(() -> new GymNotFoundException());
         findStaff.changeGym(gym);
+    }
+
+    private String createStoreFileName(String originalFilename) {
+        String ext = extractExt(originalFilename);
+        String uuid = UUID.randomUUID().toString();
+        return uuid + "." + ext;
+    }
+
+    private String extractExt(String originalFilename) {
+        int pos = originalFilename.lastIndexOf(".");
+        return originalFilename.substring(pos + 1);
     }
 }
