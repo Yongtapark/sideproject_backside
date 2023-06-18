@@ -32,7 +32,7 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Long update(Long id, Staff staff) {
         Staff findStaff = findById(id);
-        findStaff.changeStaffInfo(staff.getName(),staff.getBirthdate(),staff.getPhoneNumber(), staff.getAddress());
+        findStaff.changeStaffInfo(staff.getName(), staff.getProfileImage(), staff.getBirthdate(), staff.getPhoneNumber(), staff.getAddress());
         return findStaff.getId();
     }
 

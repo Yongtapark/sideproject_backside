@@ -64,11 +64,11 @@ public class StaffApiServiceImpl implements StaffApiService {
     public Long update(Long id, UpdateStaffRequest request, MultipartFile multipartFile) throws IOException {
         Staff staff = staffRepository.findById(id).orElseThrow(() -> new StaffNotFoundException());
         String storeFileName = null;
-        if(!multipartFile.isEmpty()){
+        if(multipartFile!=null){
             storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
             multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
         }
-        staff.changeStaffInfo(request.getName(),request.getBirthdate(),request.getPhoneNumber(), request.getAddress());
+        staff.changeStaffInfo(request.getName(), storeFileName, request.getBirthdate(), request.getPhoneNumber(), request.getAddress());
         return staff.getId();
     }
 

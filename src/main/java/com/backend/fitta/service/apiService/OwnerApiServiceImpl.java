@@ -80,11 +80,11 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     public Long update(Long id, UpdateOwnerRequest request, MultipartFile multipartFile) throws IOException {
         Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
         String storeFileName = null;
-        if(!multipartFile.isEmpty()){
+        if(multipartFile!=null){
             storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
             multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
         }
-        owner.changeOwnerInfo(owner);
+        owner.changeOwnerInfo(request.getName(), storeFileName, request.getPassword(), request.getPhoneNumber(), request.getAddress(), request.getBusinessRegistrationNumber());
         return id;
     }
 

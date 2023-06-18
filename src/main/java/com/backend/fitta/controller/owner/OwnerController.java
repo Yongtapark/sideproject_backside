@@ -60,7 +60,7 @@ public class OwnerController {
 
     @Operation(summary = "오너 정보 수정 메서드", description = "오너의 정보를 수정 할 수 있습니다.")
     @PutMapping("/{ownerId}")
-    public ResponseEntity<Long> updateOwner(@PathVariable Long ownerId, @Valid @RequestBody UpdateOwnerRequest request,
+    public ResponseEntity<Long> updateOwner(@PathVariable Long ownerId, @Valid @RequestPart UpdateOwnerRequest request,
                                             @RequestPart(value = "multipartFile", required = false) Optional<MultipartFile> multipartFile) throws IOException {
         return ResponseEntity.ok(ownerApiService.update(ownerId, request, multipartFile.orElse(null)));
     }
