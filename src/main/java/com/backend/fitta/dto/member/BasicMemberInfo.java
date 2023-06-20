@@ -16,6 +16,7 @@ public class BasicMemberInfo {
     private String email;
     private String password;
     private String name;
+    private String profileImage;
     private LocalDate birthdate;
     private String phoneNumber;
     private String address;
@@ -33,6 +34,7 @@ public class BasicMemberInfo {
         this.email = member.getEmail();
         this.password = member.getPassword();
         this.name = member.getName();
+        this.profileImage = member.getProfileImage();
         this.birthdate = member.getBirthdate();
         this.phoneNumber = member.getPhoneNumber();
         this.address = member.getAddress();

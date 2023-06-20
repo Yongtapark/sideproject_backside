@@ -1,11 +1,13 @@
 package com.backend.fitta.entity.member;
 
 
-import com.backend.fitta.entity.gym.*;
-import com.backend.fitta.entity.utils.Auditing;
-import com.backend.fitta.entity.utils.Users;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.Role;
+import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Schedule;
+import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.entity.utils.Auditing;
+import com.backend.fitta.entity.utils.Users;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,12 +17,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Getter
@@ -52,9 +51,6 @@ public class Member extends Auditing implements UserDetails, Users {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
-
-    @OneToMany(mappedBy = "member")
-    private List<Registrations> registrations = new ArrayList<>();
     private Role role = Role.MEMBER;
     //체육관 등록일
     private LocalDate gymJoinDate;
@@ -64,37 +60,6 @@ public class Member extends Auditing implements UserDetails, Users {
     private LocalDate endSubscribeDate;
     //결제여부
     private boolean isSubscribed;
-
-    /*public void joinGym(Gym gym, List<Classes> selectedClasses) {
-        this.gym = gym;
-        gym.getMember().add(this);
-        registerClasses(selectedClasses);
-    }*/
-    //
-
-    /*private void registerClasses(List<Classes> selectedClasses) {
-        for (Classes cls : selectedClasses) {
-            this.classes.add(cls);
-            cls.getMembers().add(this);
-        }
-    }
-
-    class Solution {
-        public String solution(String s) {
-            String[] array=s.split(" ");
-            int[] ints =new int[array.length];
-            for(int i=0; i< array.length;i++){
-                int parseToInt = Integer.parseInt(array[i]);
-               ints[i]=parseToInt;
-            }
-            Arrays.sort(ints);
-
-
-            String answer = ints[0]+""+ints[ints.length-1];
-            return answer;
-        }
-    }*/
-
 
 
 
@@ -158,14 +123,16 @@ public class Member extends Auditing implements UserDetails, Users {
         team.getMembers().add(this);
     }
 
+
     public void subscribe(){
         this.subscribeDate=LocalDate.now();
         this.endSubscribeDate= subscribeDate.plusMonths(1).minusDays(1);
     }
-    public void changeMemberInfo(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
+    public void changeMemberInfo(String email, String password, String name, String profileImage, LocalDate birthdate, String phoneNumber, String address, Long height, Long weight, String occupation, String note) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.profileImage = profileImage;
         this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
         this.address = address;

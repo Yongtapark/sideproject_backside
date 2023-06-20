@@ -13,6 +13,7 @@ public class BasicOwnerInfo {
     private Long id;
     private String email;
     private String name;
+    private String profileImage;
     private String phoneNumber;
     private String address;
     private String businessRegistrationNumber;
@@ -23,6 +24,7 @@ public class BasicOwnerInfo {
         this.id=owner.getId();
         this.email = owner.getEmail();
         this.name = owner.getName();
+        this.profileImage = owner.getProfileImage();
         this.phoneNumber = owner.getPhoneNumber();
         this.address =owner.getAddress();
         this.businessRegistrationNumber=owner.getBusinessRegistrationNumber();

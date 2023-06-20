@@ -21,6 +21,8 @@ public class Staff extends Auditing {
     private Long id;
     private String name;
     private LocalDate birthdate;
+    @Lob
+    private String profileImage;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String phoneNumber;
@@ -56,8 +58,9 @@ public class Staff extends Auditing {
         }
     }
 
-    public void changeStaffInfo(String name, LocalDate birthdate, String phone, String address) {
+    public void changeStaffInfo(String name, String profileImage, LocalDate birthdate, String phone, String address) {
         this.name = name;
+        this.profileImage = profileImage;
         this.birthdate = birthdate;
         this.phoneNumber = phone;
         this.address = address;
