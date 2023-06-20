@@ -2,7 +2,7 @@ package com.backend.fitta.dto.owner;
 
 import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.entity.enums.Role;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import lombok.Data;
 
 import java.util.List;

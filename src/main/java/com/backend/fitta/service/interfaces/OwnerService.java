@@ -1,7 +1,6 @@
 package com.backend.fitta.service.interfaces;
 
-import com.backend.fitta.dto.owner.SignUpOwnerRequest;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.backend.fitta.service;
 
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.interfaces.OwnerService;

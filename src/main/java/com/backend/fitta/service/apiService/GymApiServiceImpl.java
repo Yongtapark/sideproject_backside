@@ -3,7 +3,7 @@ package com.backend.fitta.service.apiService;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.*;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.gym.GymRepository;

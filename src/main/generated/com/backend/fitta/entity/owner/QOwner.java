@@ -1,4 +1,4 @@
-package com.backend.fitta.entity.gym;
+package com.backend.fitta.entity.owner;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QOwner extends EntityPathBase<Owner> {
 
-    private static final long serialVersionUID = 1167193260L;
+    private static final long serialVersionUID = -1973753692L;
 
     public static final QOwner owner = new QOwner("owner");
 
@@ -31,7 +31,7 @@ public class QOwner extends EntityPathBase<Owner> {
 
     public final StringPath email = createString("email");
 
-    public final ListPath<Gym, QGym> gym = this.<Gym, QGym>createList("gym", Gym.class, QGym.class, PathInits.DIRECT2);
+    public final ListPath<com.backend.fitta.entity.gym.Gym, com.backend.fitta.entity.gym.QGym> gym = this.<com.backend.fitta.entity.gym.Gym, com.backend.fitta.entity.gym.QGym>createList("gym", com.backend.fitta.entity.gym.Gym.class, com.backend.fitta.entity.gym.QGym.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

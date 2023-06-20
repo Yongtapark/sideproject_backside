@@ -4,8 +4,8 @@ import com.backend.fitta.controller.member.MemberController;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
-import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.entity.owner.Owner;
+import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
@@ -13,12 +13,10 @@ import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.repository.staff.StaffRepository;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -75,10 +73,7 @@ public class MemberTest {
                 .birthdate(LocalDate.of(2012, 10, 22))
                 .build();
 
-        Member member2 = new Member("member1@naver.com", "1234", "member1", LocalDate.of(2012, 10, 22),
-                "010234", "대구", Gender.FEMALE, null, null, null, null, null, savedGym,true);
-
-        Member save = memberRepository.save(member2);
+        Member save = memberRepository.save(member1);
 
         log.info("member1.subscribe={}",member1.getSubscribeDate());
 

@@ -1,25 +1,19 @@
 package com.backend.fitta.init;
 
-import com.backend.fitta.controller.owner.OwnerController;
-import com.backend.fitta.dto.owner.BasicOwnerInfo;
-import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.enums.Role;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
-import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.entity.owner.Owner;
+import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.repository.staff.StaffRepository;
-import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

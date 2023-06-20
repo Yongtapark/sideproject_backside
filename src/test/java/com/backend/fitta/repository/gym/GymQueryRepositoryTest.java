@@ -2,7 +2,7 @@ package com.backend.fitta.repository.gym;
 
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.repository.owner.OwnerQueryRepository;
 import com.backend.fitta.service.interfaces.OwnerService;
 import lombok.extern.slf4j.Slf4j;
