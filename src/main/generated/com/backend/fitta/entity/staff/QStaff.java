@@ -44,6 +44,8 @@ public class QStaff extends EntityPathBase<Staff> {
 
     public final StringPath phoneNumber = createString("phoneNumber");
 
+    public final StringPath profileImage = createString("profileImage");
+
     public final EnumPath<com.backend.fitta.entity.enums.Role> role = createEnum("role", com.backend.fitta.entity.enums.Role.class);
 
     public final com.backend.fitta.entity.gym.QSchedule schedule;

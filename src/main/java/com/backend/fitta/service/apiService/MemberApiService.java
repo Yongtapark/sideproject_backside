@@ -8,10 +8,7 @@ import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
-import com.backend.fitta.exception.AlreadyExistMemberException;
-import com.backend.fitta.exception.GymNotFoundException;
-import com.backend.fitta.exception.MemberNotFoundException;
-import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.exception.*;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.team.TeamRepository;
@@ -19,13 +16,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -71,15 +64,9 @@ public class MemberApiService {
         return new Result(collect);
     }
 
-    public Long update(Long memberId, UpdateMemberRequest rq, MultipartFile multipartFile) throws IOException {
+    public Long update(Long memberId, UpdateMemberRequest rq) {
         Member member = memberRepository.findById(memberId).orElseThrow();
-        String storeFileName = null;
-        if(multipartFile!=null){
-            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
-        }
-        member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), storeFileName, rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
-
+        member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
         return member.getId();
     }
 
@@ -115,16 +102,4 @@ public class MemberApiService {
         BasicMemberInfo basicMemberInfo = new BasicMemberInfo(member);
         return basicMemberInfo;
     }
-
-    private String createStoreFileName(String originalFilename) {
-        String ext = extractExt(originalFilename);
-        String uuid = UUID.randomUUID().toString();
-        return uuid + "." + ext;
-    }
-
-    private String extractExt(String originalFilename) {
-        int pos = originalFilename.lastIndexOf(".");
-        return originalFilename.substring(pos + 1);
-    }
-
 }

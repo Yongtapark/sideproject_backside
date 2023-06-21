@@ -40,7 +40,7 @@ public class Staff extends Auditing {
 
     @OneToOne(mappedBy = "staff")
     private Schedule schedule;
-//    @ManyToOne(fetch = FetchType.LAZY)
+    //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "schedule_id")
 //    private Schedule schedule;
     public Staff(String name, LocalDate birthdate, Gender gender, String phoneNumber, String address, Gym gym, Team team) {

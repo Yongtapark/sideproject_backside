@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class BasicStaffInfo {
     private Long id;
     private String name;
-    private String profileImage;
     private LocalDate birthdate;
     private Gender gender;
     private String phoneNumber;
@@ -22,7 +21,6 @@ public class BasicStaffInfo {
     public BasicStaffInfo(Staff staff) {
         this.id= staff.getId();
         this.name = staff.getName();
-        this.profileImage = staff.getProfileImage();
         this.birthdate = staff.getBirthdate();
         this.gender = staff.getGender();
         this.phoneNumber = staff.getPhoneNumber();

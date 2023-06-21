@@ -16,11 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 
 @Tag(name = "오너", description = "오너 관련 api 입니다.")
@@ -60,9 +57,8 @@ public class OwnerController {
 
     @Operation(summary = "오너 정보 수정 메서드", description = "오너의 정보를 수정 할 수 있습니다.")
     @PutMapping("/{ownerId}")
-    public ResponseEntity<Long> updateOwner(@PathVariable Long ownerId, @Valid @RequestPart UpdateOwnerRequest request,
-                                            @RequestPart(value = "multipartFile", required = false) Optional<MultipartFile> multipartFile) throws IOException {
-        return ResponseEntity.ok(ownerApiService.update(ownerId, request, multipartFile.orElse(null)));
+    public ResponseEntity<Long> updateOwner(@PathVariable Long ownerId, @Valid @RequestBody UpdateOwnerRequest request) {
+        return ResponseEntity.ok(ownerApiService.update(ownerId, request));
     }
 
     @Operation(summary = "오너 삭제 메서드", description = "오너를 삭제할 수 있습니다.")
