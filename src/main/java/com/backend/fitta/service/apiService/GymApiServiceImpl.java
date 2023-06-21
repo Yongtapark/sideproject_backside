@@ -3,12 +3,10 @@ package com.backend.fitta.service.apiService;
 import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.*;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.image.Image;
 import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.gym.GymRepository;
-import com.backend.fitta.repository.image.ImageRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
@@ -18,13 +16,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,12 +28,10 @@ public class GymApiServiceImpl implements GymApiService {
     private final GymRepository gymRepository;
     private final OwnerRepository ownerRepository;
     private final OwnerService ownerService;
-    private final ImageRepository imageRepository;
     @Override
-    public Long save(SaveGymRequest request,List<MultipartFile> images) throws IOException {
+    public Long save(SaveGymRequest request) {
         Owner owner = ownerService.findById(request.getOwnerId());
-        Gym gym = new Gym(request.getName(), owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
-        saveImages(images, gym);
+        Gym gym = new Gym(request.getName(),owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
         return gymRepository.save(gym).getId();
     }
 
@@ -59,10 +51,9 @@ public class GymApiServiceImpl implements GymApiService {
     }
 
     @Override
-    public Long update(Long id, UpdateGymRequest request, List<MultipartFile> images) throws IOException {
+    public Long update(Long id, UpdateGymRequest request) {
         Gym findGym = gymRepository.findById(id).orElseThrow(() -> new GymNotFoundException());
         findGym.changeGymInfo(request.getName(),request.getPhoneNumber(),request.getAddress(),request.getGenderDivision());
-        saveImages(images, findGym);
         return findGym.getId();
     }
 
@@ -86,25 +77,4 @@ public class GymApiServiceImpl implements GymApiService {
         return new PageImpl<>(gymInfoList,pageable,all.getTotalElements());
     }
 
-    private String createStoreFileName(String originalFilename) {
-        String ext = extractExt(originalFilename);
-        String uuid = UUID.randomUUID().toString();
-        return uuid + "." + ext;
-    }
-
-    private String extractExt(String originalFilename) {
-        int pos = originalFilename.lastIndexOf(".");
-        return originalFilename.substring(pos + 1);
-    }
-
-    private void saveImages(List<MultipartFile> images, Gym findGym) throws IOException {
-        for (MultipartFile multipartFile : images) {
-            // 이미지 저장
-            String originalFileName = multipartFile.getOriginalFilename();
-            String storeFileName = createStoreFileName(originalFileName);
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
-            Image image = new Image(originalFileName, storeFileName, findGym);
-            imageRepository.save(image);
-        }
-    }
 }

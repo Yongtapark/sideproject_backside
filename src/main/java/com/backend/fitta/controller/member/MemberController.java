@@ -1,7 +1,6 @@
 package com.backend.fitta.controller.member;
 
 import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.member.*;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.service.apiService.MemberApiService;
@@ -11,15 +10,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Tag(name = "회원", description = "회원 관련 api 입니다.")
 @RestController
@@ -55,11 +49,10 @@ public class MemberController {
     }
 
     @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
-    @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestPart UpdateMemberRequest request,
-                                             @RequestPart(value = "multipartFile", required = false) Optional<MultipartFile> multipartFile) throws IOException {
+    @PutMapping("/{memberId}")
+    public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestBody UpdateMemberRequest request) {
         validateExistMember(memberId);
-        return ResponseEntity.ok(memberApiService.update(memberId, request, multipartFile.orElse(null)));
+        return ResponseEntity.ok(memberApiService.update(memberId, request));
     }
 
     @Operation(summary = "회원 삭제 메서드", description = "회원 id로 회원을 삭제할 수 있습니다.")
@@ -81,14 +74,14 @@ public class MemberController {
         memberApiService.findById(memberId).orElseThrow(() -> new MemberNotFoundException());
     }
     @Operation(summary = "회원 팀 등록", description = "회원 id로 회원을 찾아 팀을 추가해줍니다.")
-    @PostMapping("{memberId}/team/{teamId}")
+    @PostMapping("team/{memberId}/{teamId}")
     public ResponseEntity<Void> saveTeamMember(@PathVariable long memberId, @PathVariable long teamId) {
         memberApiService.saveTeamMember(memberId,teamId);
         return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "회원 헬스장 등록", description = "회원 id로 회원을 찾아 헬스장을 추가해줍니다.")
-    @PostMapping("{memberId}/gym/{gymId}")
+    @PostMapping("gym/{memberId}/{gymId}")
     public ResponseEntity<Void> saveGymMember(@PathVariable long memberId, @PathVariable long gymId) {
         memberApiService.saveGymMember(memberId,gymId);
         return ResponseEntity.noContent().build();

@@ -125,14 +125,6 @@ public class initDb {
             staffRepository.save(staff8);
             staffRepository.save(staff9);
 
-            //team 생성
-            Team team1 = new Team("teamA", staff1);
-            Team team2 = new Team("teamB", staff2);
-            Team team3 = new Team("teamC", staff3);
-            teamRepository.save(team1);
-            teamRepository.save(team2);
-            teamRepository.save(team3);
-
             //맴버 가입
             Member member1 = Member
                     .builder()
@@ -268,7 +260,13 @@ public class initDb {
         staffRepository.save(staff11);
         staffRepository.save(staff12);
 
-
+        //team 생성
+        Team team1 = new Team("teamA", staff1);
+        Team team2 = new Team("teamB", staff2);
+        Team team3 = new Team("teamC", staff3);
+        teamRepository.save(team1);
+        teamRepository.save(team2);
+        teamRepository.save(team3);
 
 
 
