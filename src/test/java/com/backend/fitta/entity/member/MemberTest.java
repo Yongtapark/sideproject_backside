@@ -69,7 +69,6 @@ public class MemberTest {
                 .name("member1")
                 .gender(Gender.FEMALE)
                 .gym(savedGym)
-                .isSubscribed(true)
                 .birthdate(LocalDate.of(2012, 10, 22))
                 .build();
 
