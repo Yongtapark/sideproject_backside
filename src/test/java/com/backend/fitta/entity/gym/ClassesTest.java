@@ -64,7 +64,6 @@ class ClassesTest {
         Member test1 = Member.builder()
                 .name("test1")
                 .email("email@email")
-                .isSubscribed(false)
                 .gym(null)
                 .build();
 
