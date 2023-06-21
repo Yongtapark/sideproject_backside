@@ -62,6 +62,24 @@ public class Member extends Auditing implements UserDetails, Users {
     private boolean isSubscribed;
 
 
+    public void joinGym(Gym gym, Classes... selectedClasses) {
+        this.gym = gym;
+        gym.getMember().add(this);
+        registerClasses(selectedClasses);
+    }
+
+
+    private void registerClasses(Classes... selectedClasses) {
+        for (Classes classes : selectedClasses) {
+            Registrations registration = new Registrations(this,classes);
+            this.registrations.add(registration);
+            classes.getRegistrations().add(registration);
+        }
+    }
+
+
+
+
 
     public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Gym gym, Team team) {
         this.email = email;
@@ -75,7 +93,7 @@ public class Member extends Auditing implements UserDetails, Users {
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
-        this.isSubscribed=isSubscribed;
+        this.isSubscribed=false;
         if(gym!=null){
             changeGym(gym);
         }
@@ -84,7 +102,7 @@ public class Member extends Auditing implements UserDetails, Users {
         }
     }
     @Builder
-    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Boolean isSubscribed,Role role,String profileImage ) {
+    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym,Role role,String profileImage ) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -105,7 +123,7 @@ public class Member extends Auditing implements UserDetails, Users {
         if(team!=null){
             changeTeam(team);
         }
-        if(isSubscribed=true){
+        if(isSubscribed==true){
             subscribe();
         }
         this.role =role;

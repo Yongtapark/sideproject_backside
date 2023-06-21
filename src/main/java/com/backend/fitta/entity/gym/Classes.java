@@ -35,12 +35,12 @@ public class Classes {
         gym.getClasses().add(this);
     }
 
-  /*  public Classes(String name, BigDecimal price, String note, Gym gym) {
+    public Classes(String name, BigDecimal price, String note, Gym gym) {
         this.name = name;
         this.price = price;
         this.note = note;
         if(gym!=null){
             addClasses(gym);
         }
-    }*/
+    }
 }
