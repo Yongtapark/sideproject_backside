@@ -96,7 +96,7 @@ public class Member extends Auditing implements UserDetails, Users {
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
-        this.isSubscribed=isSubscribed;
+        this.isSubscribed=false;
         if(gym!=null){
             changeGym(gym);
         }
@@ -105,7 +105,7 @@ public class Member extends Auditing implements UserDetails, Users {
         }
     }
     @Builder
-    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Boolean isSubscribed,Role role,String profileImage ) {
+    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym,Role role,String profileImage ) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -126,7 +126,7 @@ public class Member extends Auditing implements UserDetails, Users {
         if(team!=null){
             changeTeam(team);
         }
-        if(isSubscribed){
+        if(isSubscribed==true){
             subscribe();
         }
         this.role =role;

@@ -73,10 +73,15 @@ class ClassesTest {
         test1.joinGym(gym,class1,class2,class5);
 
         //then
+        log.info("test1.isSubscribed()={}",test1.isSubscribed());
         List<Registrations> registrations = test1.getRegistrations();
         for (Registrations registration : registrations) {
             log.info("registration={}",registration.getClasses().getName());
+            log.info("gymName={}",registration.getClasses().getGym().getName());
+            Assertions.assertThat(registration.getClasses().getGym()).isEqualTo(gym);
+            Assertions.assertThat(registration.getClasses()).isIn(class1,class2,class5);
         }
+        Assertions.assertThat(registrations.size()).isEqualTo(3);
 
     }
 
