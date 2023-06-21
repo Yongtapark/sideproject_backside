@@ -100,7 +100,7 @@ class StaffApiServiceImplTest {
     void update() {
         Long savedStaffId = staffApiService.save(new SaveStaffRequest("스태프1", LocalDate.of(1999, 05, 04), Gender.FEMALE, "01012345678", "서울", null, savedGym.getId()));
         Staff staff = staffRepository.findById(savedStaffId).orElseThrow();
-        staffApiService.update(savedStaffId, new UpdateStaffRequest("이름 바뀐 스태프", LocalDate.of(1999, 05, 04), "01012345678", "서울"));
+        staffApiService.update(savedStaffId, new UpdateStaffRequest("이름 바뀐 스태프", LocalDate.of(1999, 05, 04), "01012345678", "서울"), multipartFile.orElse(null));
         assertThat(staff.getName()).isEqualTo("이름 바뀐 스태프");
     }
 

@@ -32,7 +32,7 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public Owner update(Long id, Owner owner) {
         Owner findOwner = findById(id);
-        findOwner.changeOwnerInfo(owner);
+        findOwner.changeOwnerInfo(owner.getName(), owner.getProfileImage(), owner.getPassword(), owner.getPhoneNumber(), owner.getAddress(), owner.getBusinessRegistrationNumber());
         return findOwner;
     }
 
