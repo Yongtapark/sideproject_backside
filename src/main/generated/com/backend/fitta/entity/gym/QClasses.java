@@ -32,6 +32,8 @@ public class QClasses extends EntityPathBase<Classes> {
 
     public final NumberPath<java.math.BigDecimal> price = createNumber("price", java.math.BigDecimal.class);
 
+    public final ListPath<Registrations, QRegistrations> registrations = this.<Registrations, QRegistrations>createList("registrations", Registrations.class, QRegistrations.class, PathInits.DIRECT2);
+
     public QClasses(String variable) {
         this(Classes.class, forVariable(variable), INITS);
     }

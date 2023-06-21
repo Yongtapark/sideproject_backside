@@ -65,35 +65,21 @@ public class Member extends Auditing implements UserDetails, Users {
     //결제여부
     private boolean isSubscribed;
 
-    /*public void joinGym(Gym gym, List<Classes> selectedClasses) {
+    public void joinGym(Gym gym, Classes... selectedClasses) {
         this.gym = gym;
         gym.getMember().add(this);
         registerClasses(selectedClasses);
-    }*/
-    //
+    }
 
-    /*private void registerClasses(List<Classes> selectedClasses) {
-        for (Classes cls : selectedClasses) {
-            this.classes.add(cls);
-            cls.getMembers().add(this);
+
+    private void registerClasses(Classes... selectedClasses) {
+        for (Classes classes : selectedClasses) {
+            Registrations registration = new Registrations(this,classes);
+            this.registrations.add(registration);
+            classes.getRegistrations().add(registration);
         }
     }
 
-    class Solution {
-        public String solution(String s) {
-            String[] array=s.split(" ");
-            int[] ints =new int[array.length];
-            for(int i=0; i< array.length;i++){
-                int parseToInt = Integer.parseInt(array[i]);
-               ints[i]=parseToInt;
-            }
-            Arrays.sort(ints);
-
-
-            String answer = ints[0]+""+ints[ints.length-1];
-            return answer;
-        }
-    }*/
 
 
 
@@ -140,7 +126,7 @@ public class Member extends Auditing implements UserDetails, Users {
         if(team!=null){
             changeTeam(team);
         }
-        if(isSubscribed=true){
+        if(isSubscribed){
             subscribe();
         }
         this.role =role;
