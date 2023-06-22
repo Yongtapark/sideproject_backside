@@ -29,7 +29,7 @@ public class ScheduleApiServiceImpl implements ScheduleApiService {
     @Override
     public Long save(SaveScheduleRequest request) {
         Staff staff = staffRepository.findById(request.getStaffId()).orElseThrow(() -> new StaffNotFoundException());
-        Schedule schedule = new Schedule(request.getStartTime(), request.getEndTime(), request.getDate(), staff);
+        Schedule schedule = new Schedule(request.getStartTime(), request.getEndTime(),null, staff);
         return scheduleRepository.save(schedule).getId();
     }
 
