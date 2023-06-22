@@ -26,7 +26,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends Auditing implements UserDetails, Users {
-
+    //
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String email;
