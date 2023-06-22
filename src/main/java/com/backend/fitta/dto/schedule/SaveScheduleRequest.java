@@ -17,7 +17,7 @@ public class SaveScheduleRequest {
     @NotBlank
     private String endTime;
     @NotNull
-    private LocalDate date;
+    private String[] date;
 
     @NotNull
     private Long staffId;

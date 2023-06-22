@@ -5,7 +5,9 @@ import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
+import com.backend.fitta.repository.gym.GymSearchCond;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
+import io.lettuce.core.output.ScanOutput;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -67,11 +69,16 @@ public class GymController {
     }*/
     @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping
-    public ResponseEntity<Page<GymProfileInfo>> gymPaging(@PageableDefault(size = 6, sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
-        Page<GymProfileInfo> gymInfoPage = gymApiService.findAll(pageable);
+    public ResponseEntity<Page<GymProfileInfo>> gymPaging(@RequestBody Optional<GymSearchCond> cond, @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<GymProfileInfo> gymInfoPage;
+        if (cond.isEmpty()) {
+            gymInfoPage = gymApiService.findAll(pageable);
+        } else {
+            gymInfoPage = gymApiService.findSearch(cond.orElse(null), pageable);
+            System.out.println(cond.get().getGymName());
+        }
         return ResponseEntity.ok(gymInfoPage);
     }
-
 
 
 }
