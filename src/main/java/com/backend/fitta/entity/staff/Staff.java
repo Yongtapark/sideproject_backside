@@ -1,5 +1,8 @@
-package com.backend.fitta.entity.gym;
+package com.backend.fitta.entity.staff;
 
+import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Schedule;
+import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.Role;
@@ -37,7 +40,7 @@ public class Staff extends Auditing {
 
     @OneToOne(mappedBy = "staff")
     private Schedule schedule;
-//    @ManyToOne(fetch = FetchType.LAZY)
+    //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "schedule_id")
 //    private Schedule schedule;
     public Staff(String name, LocalDate birthdate, Gender gender, String phoneNumber, String address, Gym gym, Team team) {

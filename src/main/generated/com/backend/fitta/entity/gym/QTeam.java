@@ -11,46 +11,50 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QSchedule is a Querydsl query type for Schedule
+ * QTeam is a Querydsl query type for Team
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QSchedule extends EntityPathBase<Schedule> {
+public class QTeam extends EntityPathBase<Team> {
 
-    private static final long serialVersionUID = 1733173758L;
+    private static final long serialVersionUID = -1901879996L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QSchedule schedule = new QSchedule("schedule");
+    public static final QTeam team = new QTeam("team");
 
-    public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
+    public final com.backend.fitta.entity.utils.QAuditing _super = new com.backend.fitta.entity.utils.QAuditing(this);
 
-    public final StringPath endTime = createString("endTime");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
+
     public final ListPath<com.backend.fitta.entity.member.Member, com.backend.fitta.entity.member.QMember> members = this.<com.backend.fitta.entity.member.Member, com.backend.fitta.entity.member.QMember>createList("members", com.backend.fitta.entity.member.Member.class, com.backend.fitta.entity.member.QMember.class, PathInits.DIRECT2);
+
+    public final StringPath name = createString("name");
 
     public final com.backend.fitta.entity.staff.QStaff staff;
 
-    public final StringPath startTime = createString("startTime");
-
-    public QSchedule(String variable) {
-        this(Schedule.class, forVariable(variable), INITS);
+    public QTeam(String variable) {
+        this(Team.class, forVariable(variable), INITS);
     }
 
-    public QSchedule(Path<? extends Schedule> path) {
+    public QTeam(Path<? extends Team> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QSchedule(PathMetadata metadata) {
+    public QTeam(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QSchedule(PathMetadata metadata, PathInits inits) {
-        this(Schedule.class, metadata, inits);
+    public QTeam(PathMetadata metadata, PathInits inits) {
+        this(Team.class, metadata, inits);
     }
 
-    public QSchedule(Class<? extends Schedule> type, PathMetadata metadata, PathInits inits) {
+    public QTeam(Class<? extends Team> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.staff = inits.isInitialized("staff") ? new com.backend.fitta.entity.staff.QStaff(forProperty("staff"), inits.get("staff")) : null;
     }

@@ -1,6 +1,7 @@
 package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.member.Member;
+import com.backend.fitta.entity.staff.Staff;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class Schedule {
         this.staff = staff;
     }
 
-    public void changeScheduleInfo(String startTime, String endTime, LocalDate date,Staff staff) {
+    public void changeScheduleInfo(String startTime, String endTime, LocalDate date, Staff staff) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;

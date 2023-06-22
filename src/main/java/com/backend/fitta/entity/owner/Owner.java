@@ -1,5 +1,6 @@
-package com.backend.fitta.entity.gym;
+package com.backend.fitta.entity.owner;
 
+import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.utils.Users;
 import com.backend.fitta.entity.enums.Role;
@@ -38,7 +39,7 @@ public class Owner extends Auditing implements Users {
         this.businessRegistrationNumber = businessRegistrationNumber;
     }
     @Builder
-    public Owner(String email, String password, String name, String phoneNumber, String address, String businessRegistrationNumber, Role role, String profileImage) {
+    public Owner( String email, String password, String name, String phoneNumber, String address, String businessRegistrationNumber, Role role, String profileImage) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -49,12 +50,11 @@ public class Owner extends Auditing implements Users {
         this.profileImage = profileImage;
     }
 
-    public void changeOwnerInfo(String name, String profileImage, String password, String phoneNumber, String address,String businessRegistrationNumber) {
-        this.name = name;
-        this.profileImage = profileImage;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.businessRegistrationNumber = businessRegistrationNumber;
+    public void changeOwnerInfo(Owner owner) {
+        this.name = owner.getName();
+        this.password = owner.getPassword();
+        this.phoneNumber = owner.getPhoneNumber();
+        this.address = owner.getAddress();
+        this.businessRegistrationNumber = owner.getBusinessRegistrationNumber();
     }
 }

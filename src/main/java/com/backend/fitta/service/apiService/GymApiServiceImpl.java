@@ -6,14 +6,15 @@ import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
-import com.backend.fitta.entity.image.Image;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.gym.GymQueryRepository;
 import com.backend.fitta.repository.gym.GymRepository;
+
 import com.backend.fitta.repository.gym.GymSearchCond;
 import com.backend.fitta.repository.image.ImageRepository;
+
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
@@ -23,12 +24,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.File;
 import java.io.IOException;
+
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,13 +40,13 @@ public class GymApiServiceImpl implements GymApiService {
     private final GymQueryRepository gymQueryRepository;
     private final OwnerRepository ownerRepository;
     private final OwnerService ownerService;
+
     private final ImageRepository imageRepository;
 
     @Override
-    public Long save(SaveGymRequest request,List<MultipartFile> images) throws IOException {
+    public Long save(SaveGymRequest request) {
         Owner owner = ownerService.findById(request.getOwnerId());
-        Gym gym = new Gym(request.getName(), owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
-        saveImages(images, gym);
+        Gym gym = new Gym(request.getName(),owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
         return gymRepository.save(gym).getId();
     }
 
@@ -65,10 +66,9 @@ public class GymApiServiceImpl implements GymApiService {
 //    }
 
     @Override
-    public Long update(Long id, UpdateGymRequest request, List<MultipartFile> images) throws IOException {
+    public Long update(Long id, UpdateGymRequest request) {
         Gym findGym = gymRepository.findById(id).orElseThrow(() -> new GymNotFoundException());
         findGym.changeGymInfo(request.getName(),request.getPhoneNumber(),request.getAddress(),request.getGenderDivision());
-        saveImages(images, findGym);
         return findGym.getId();
     }
 
@@ -91,6 +91,7 @@ public class GymApiServiceImpl implements GymApiService {
         List<GymProfileInfo> gymInfoList = all.stream().map(g -> new GymProfileInfo(g)).collect(Collectors.toList());
         return new PageImpl<>(gymInfoList,pageable,all.getTotalElements());
     }
+
 
     @Override
     public Page<GymProfileInfo> findSearch(GymSearchCond cond, Pageable pageable) {
@@ -122,4 +123,5 @@ public class GymApiServiceImpl implements GymApiService {
             imageRepository.save(image);
         }
     }
+
 }

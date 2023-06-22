@@ -1,6 +1,6 @@
 package com.backend.fitta.service;
 
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.interfaces.OwnerService;
@@ -32,7 +32,7 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public Owner update(Long id, Owner owner) {
         Owner findOwner = findById(id);
-        findOwner.changeOwnerInfo(owner.getName(), owner.getProfileImage(), owner.getPassword(), owner.getPhoneNumber(), owner.getAddress(), owner.getBusinessRegistrationNumber());
+        findOwner.changeOwnerInfo(owner);
         return findOwner;
     }
 
