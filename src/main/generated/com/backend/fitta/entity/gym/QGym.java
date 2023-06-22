@@ -37,6 +37,8 @@ public class QGym extends EntityPathBase<Gym> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<com.backend.fitta.entity.image.Image, com.backend.fitta.entity.image.QImage> image = this.<com.backend.fitta.entity.image.Image, com.backend.fitta.entity.image.QImage>createList("image", com.backend.fitta.entity.image.Image.class, com.backend.fitta.entity.image.QImage.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
