@@ -22,14 +22,14 @@ public class Registrations {
     private Member member;
 
     @ManyToOne
-    private Classes classes;
+    private Program program;
 
 
     private LocalDate registDate;
 
-    public Registrations(Member member, Classes classes) {
+    public Registrations(Member member, Program program) {
         this.member = member;
-        this.classes = classes;
+        this.program = program;
         this.registDate = LocalDate.now();
     }
 }

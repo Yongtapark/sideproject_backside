@@ -1,10 +1,12 @@
 package com.backend.fitta.service.apiService;
 
-import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
+import com.backend.fitta.dto.program.ProgramInfo;
+import com.backend.fitta.dto.program.SignUpProgram;
+import com.backend.fitta.entity.gym.Program;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.image.Image;
 import com.backend.fitta.entity.owner.Owner;
@@ -15,6 +17,7 @@ import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.gym.GymSearchCond;
 import com.backend.fitta.repository.image.ImageRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
+import com.backend.fitta.repository.program.ProgramRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +42,8 @@ public class GymApiServiceImpl implements GymApiService {
     private final GymQueryRepository gymQueryRepository;
     private final OwnerRepository ownerRepository;
     private final OwnerService ownerService;
-
     private final ImageRepository imageRepository;
+    private final ProgramRepository programRepository;
 
     @Override
     public Long save(SaveGymRequest request,List<MultipartFile> images) throws IOException {
@@ -55,6 +58,8 @@ public class GymApiServiceImpl implements GymApiService {
         Gym gym = gymRepository.findById(id).orElseThrow(() -> new GymNotFoundException());
         return new BasicGymInfo(gym);
     }
+
+
 
     /*@Override
     public Result<List<BasicGymInfo>> findAll() {
@@ -101,6 +106,13 @@ public class GymApiServiceImpl implements GymApiService {
         System.out.println("pageable.offset = "+pageable.getOffset());
         System.out.println("pageable.getPageSize = "+pageable.getPageSize());
         return new PageImpl<>(gymInfoList,pageable,all.getTotalElements());
+    }
+
+    @Override
+    public void createClasses(SignUpProgram signUpProgram) {
+        Gym gym = gymRepository.findById(signUpProgram.getGymId()).orElseThrow(GymNotFoundException::new);
+        Program savedGym = programRepository.save(new Program(signUpProgram.getName(), signUpProgram.getPrice(), signUpProgram.getNote(), gym));
+        gym.createClasses(savedGym);
     }
 
     private String createStoreFileName(String originalFilename) {

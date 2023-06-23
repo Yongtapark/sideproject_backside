@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class Gym extends Auditing {
     @OneToMany(mappedBy = "gym")
     private List<Image> image = new ArrayList<>();
     @OneToMany(mappedBy = "gym")
-    private List<Classes> classes = new ArrayList<>();
+    private List<Program> programClass = new ArrayList<>();
     @OneToMany(mappedBy = "gym")
     private List<Staff> staff = new ArrayList<>();
     @OneToMany(mappedBy = "gym")
@@ -71,9 +70,10 @@ public class Gym extends Auditing {
      * createMethod
      */
 
-    public Classes createClasses(String name, BigDecimal price, String note){
-        Classes classes = new Classes(name,price,note);
-        classes.addClasses(this);
-        return classes;
+    public Program createClasses(Program program){
+        program.addProgram(this);
+        return program;
     }
+
+
 }

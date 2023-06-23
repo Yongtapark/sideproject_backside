@@ -15,7 +15,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,20 +62,21 @@ public class Member extends Auditing implements UserDetails, Users {
     //만료일
     private LocalDate endSubscribeDate;
     //결제여부
-    private boolean isSubscribed;
+    private boolean isSubscribed =false;
 
-    public void joinGym(Gym gym, Classes... selectedClasses) {
+    public void joinGym(Gym gym, Program... selectedClasses) {
         this.gym = gym;
+        this.isSubscribed=true;
         gym.getMember().add(this);
         registerClasses(selectedClasses);
     }
 
 
-    private void registerClasses(Classes... selectedClasses) {
-        for (Classes classes : selectedClasses) {
-            Registrations registration = new Registrations(this,classes);
+    private void registerClasses(Program... selectedClasses) {
+        for (Program program : selectedClasses) {
+            Registrations registration = new Registrations(this, program);
             this.registrations.add(registration);
-            classes.getRegistrations().add(registration);
+            program.getRegistrations().add(registration);
         }
     }
 
@@ -119,7 +119,7 @@ public class Member extends Auditing implements UserDetails, Users {
         this.note = note;
         this.team = team;
         this.gym = gym;
-        this.isSubscribed = false;
+        isSubscribed = false;
         if(gym!=null){
             changeGym(gym);
         }
