@@ -5,15 +5,20 @@ import com.backend.fitta.dto.member.BasicMemberInfo;
 import com.backend.fitta.dto.member.MemberProfileInfo;
 import com.backend.fitta.dto.member.SignUpRequest;
 import com.backend.fitta.dto.member.UpdateMemberRequest;
+import com.backend.fitta.dto.program.ProgramInfo;
 import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Program;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.*;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
+import com.backend.fitta.repository.program.ProgramQueryRepository;
+import com.backend.fitta.repository.program.ProgramRepository;
 import com.backend.fitta.repository.team.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +35,7 @@ public class MemberApiService {
     private final MemberRepository memberRepository;
     private final TeamRepository teamRepository;
     private final GymRepository gymRepository;
+    private final ProgramQueryRepository programQueryRepository;
 
     public Long save(SignUpRequest rq) {
         Optional<Member> findMember = memberRepository.findByEmail(rq.getEmail());
@@ -101,5 +107,16 @@ public class MemberApiService {
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new MemberNotFoundException());
         BasicMemberInfo basicMemberInfo = new BasicMemberInfo(member);
         return basicMemberInfo;
+    }
+
+    /**
+     * 맴버 -> 체육관 가입
+     */
+
+    public void joinGym(Long memberId, Long gymId, Long... programIds){
+        Member findMember = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
+        Gym findGym = gymRepository.findById(gymId).orElseThrow(GymNotFoundException::new);
+        List<Program> programs = programQueryRepository.joinGymByMember(programIds);
+        findMember.joinGym(findGym,programs);
     }
 }

@@ -51,7 +51,6 @@ public class Member extends Auditing implements UserDetails, Users {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
-
     @OneToMany(mappedBy = "member")
     private List<Registrations> registrations = new ArrayList<>();
     private Role role = Role.MEMBER;
@@ -64,7 +63,7 @@ public class Member extends Auditing implements UserDetails, Users {
     //결제여부
     private boolean isSubscribed =false;
 
-    public void joinGym(Gym gym, Program... selectedClasses) {
+    public void joinGym(Gym gym, List<Program> selectedClasses) {
         this.gym = gym;
         this.isSubscribed=true;
         gym.getMember().add(this);
@@ -72,7 +71,7 @@ public class Member extends Auditing implements UserDetails, Users {
     }
 
 
-    private void registerClasses(Program... selectedClasses) {
+    private void registerClasses(List<Program> selectedClasses) {
         for (Program program : selectedClasses) {
             Registrations registration = new Registrations(this, program);
             this.registrations.add(registration);

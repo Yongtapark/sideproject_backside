@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,7 +69,13 @@ class ProgramTest {
 
         //when
         //체육관에 등록했을때(프로그램 선택 후)
-        test1.joinGym(gym,class1,class2,class5);
+        ArrayList<Program> programs = new ArrayList<>();
+        programs.add(class1);
+        programs.add(class2);
+        programs.add(class5);
+        test1.joinGym(gym,programs);
+
+
 
         //then
         //맴버가 체육관에 등록되었는지 확인
@@ -85,6 +92,8 @@ class ProgramTest {
         }
         //등록한 프로그램 개수 확인
         Assertions.assertThat(registrations.size()).isEqualTo(3);
+
+
 
     }
 
