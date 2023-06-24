@@ -19,9 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -118,6 +124,37 @@ public class MemberTest {
             System.out.println("member = " + member);
             System.out.println("-> member.team" + member.getTeam());
         }
+
+        String hello = "try hello world";
+        String[] split = hello.split(" ");
+        String string1 = null;
+        String[] string2;
+        String[] string3;
+        for (int i=0; i<split.length;i++){
+            String[] split1 = split[i].split("");
+            System.out.println("split1 = " + split[i]);
+            for(int j=0; j<split1.length;j++){
+                if(j%2==0){
+                    split1[j] = split1[j].toUpperCase();
+                }else{
+                    split1[j] = split1[j].toLowerCase();
+                }
+            }
+            System.out.println("split2 = " + split[i]);
+            //System.out.println("split[0]+\" \"+split[1]+\" \"+split[2] = " + split[0]+" "+split[1]+" "+split[2]);
+            System.out.println(" ");
+        }
+
+
+        /*for (String s : split) {
+            String[] split1 = s.split("");
+            for (String s1 : split1) {
+                System.out.println(s1);
+            }
+        }*/
+
+
+
     }
 
 
