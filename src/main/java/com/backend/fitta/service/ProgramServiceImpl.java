@@ -32,6 +32,11 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
+    public List<Program> findAllByGymId(Long gymId) {
+        return programRepository.findAllByGymId(gymId);
+    }
+
+    @Override
     public Long update(Long id, Program program) {
         return null;
     }

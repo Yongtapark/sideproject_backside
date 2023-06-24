@@ -9,6 +9,7 @@ public interface ProgramService {
     Long save(Program program);
     Program findById(Long id);
     List<Program> findAll();
+    List<Program> findAllByGymId(Long gymId);
     Long update(Long id, Program program);
     void delete(Long id);
 }

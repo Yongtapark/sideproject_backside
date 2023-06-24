@@ -90,11 +90,11 @@ public class GymController {
         }
         return ResponseEntity.ok(gymInfoPage);
     }
-    @PostMapping("/create-class")
+    /*@PostMapping("/create-class")
     @Operation(summary = "교육 클래스 생성")
     public ResponseEntity<Void> createClass(@RequestBody SignUpProgram signUpProgram){
         gymApiService.createClasses(signUpProgram);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 
 }
