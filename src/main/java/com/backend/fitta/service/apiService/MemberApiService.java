@@ -8,7 +8,13 @@ import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
-import com.backend.fitta.exception.*;
+
+import com.backend.fitta.exception.AlreadyExistMemberException;
+import com.backend.fitta.exception.GymNotFoundException;
+import com.backend.fitta.exception.MemberNotFoundException;
+import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.file.FilePath;
+
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.team.TeamRepository;
@@ -66,7 +72,15 @@ public class MemberApiService {
 
     public Long update(Long memberId, UpdateMemberRequest rq) {
         Member member = memberRepository.findById(memberId).orElseThrow();
-        member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
+
+        String storeFileName = null;
+        if(multipartFile!=null){
+            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
+            multipartFile.transferTo(new File(FilePath.filePath + storeFileName));
+        }
+        member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), storeFileName, rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
+
+
         return member.getId();
     }
 

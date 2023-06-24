@@ -1,6 +1,5 @@
 package com.backend.fitta.service.apiService;
 
-import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.staff.BasicStaffInfo;
 import com.backend.fitta.dto.staff.SaveStaffRequest;
 import com.backend.fitta.dto.staff.UpdateStaffRequest;
@@ -11,11 +10,17 @@ import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.file.FilePath;
 import com.backend.fitta.repository.gym.GymRepository;
+import com.backend.fitta.repository.staff.StaffQueryRepository;
 import com.backend.fitta.repository.staff.StaffRepository;
+import com.backend.fitta.repository.staff.StaffSearchCond;
 import com.backend.fitta.repository.team.TeamRepository;
-import com.backend.fitta.service.apiService.interfaces. StaffApiService;
+import com.backend.fitta.service.apiService.interfaces.StaffApiService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +38,7 @@ public class StaffApiServiceImpl implements StaffApiService {
     private final StaffRepository staffRepository;
     private final TeamRepository teamRepository;
     private final GymRepository gymRepository;
+    private final StaffQueryRepository staffQueryRepository;
 
     Team team;
 
@@ -53,13 +59,21 @@ public class StaffApiServiceImpl implements StaffApiService {
     }
 
     @Override
-    public Result<List<BasicStaffInfo>> findAll() {
-        List<Staff> all = staffRepository.findAll();
-        List<BasicStaffInfo> collect = all.stream()
+    public Page<BasicStaffInfo> findAll(Pageable pageable) {
+        Page<Staff> all = staffRepository.findAll(pageable);
+        List<BasicStaffInfo> staffInfoList = all.stream()
                 .map(s -> new BasicStaffInfo(s))
                 .collect(Collectors.toList());
-        return new Result(collect);
+        return new PageImpl<>(staffInfoList,pageable,all.getTotalElements());
     }
+
+    @Override
+    public Page<BasicStaffInfo> findSearch(StaffSearchCond staffSearchCond, Pageable pageable) {
+        Page<Staff> all = staffQueryRepository.findAll(staffSearchCond,pageable);
+        List<BasicStaffInfo> staffInfoList = all.stream().map(s -> new BasicStaffInfo(s)).collect(Collectors.toList());
+        return new PageImpl<>(staffInfoList,pageable,all.getTotalElements());
+    }
+
 
     @Override
     public Long update(Long id, UpdateStaffRequest request, MultipartFile multipartFile) throws IOException {
@@ -67,7 +81,7 @@ public class StaffApiServiceImpl implements StaffApiService {
         String storeFileName = null;
         if(multipartFile!=null){
             storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+            multipartFile.transferTo(new File(FilePath.filePath+ storeFileName));
         }
         staff.changeStaffInfo(request.getName(), storeFileName, request.getBirthdate(), request.getPhoneNumber(), request.getAddress());
         return staff.getId();
@@ -92,6 +106,7 @@ public class StaffApiServiceImpl implements StaffApiService {
         Gym gym = gymRepository.findById(gymId).orElseThrow(() -> new GymNotFoundException());
         findStaff.changeGym(gym);
     }
+
 
     private String createStoreFileName(String originalFilename) {
         String ext = extractExt(originalFilename);

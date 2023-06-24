@@ -89,7 +89,7 @@ class StaffApiServiceImplTest {
         staffApiService.save(new SaveStaffRequest("스태프1", LocalDate.of(1999, 05, 04), Gender.FEMALE, "01012345678", "서울", null, savedGym.getId()));
         staffApiService.save(new SaveStaffRequest("스태프2", LocalDate.of(1999, 05, 04), Gender.FEMALE, "01012345678", "서울", null, savedGym.getId()));
         staffApiService.save(new SaveStaffRequest("스태프3", LocalDate.of(1999, 05, 04), Gender.FEMALE, "01012345678", "서울", null, savedGym.getId()));
-        Result<List<BasicStaffInfo>> all = staffApiService.findAll();
+        Result<List<BasicStaffInfo>> all = staffApiService.findAll(pageable);
         assertThat(all.getData().size()).isEqualTo(4);
         assertThat(all.getData().get(1).getName()).isEqualTo("스태프1");
         assertThat(all.getData().get(2).getName()).isEqualTo("스태프2");

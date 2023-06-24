@@ -83,6 +83,7 @@ public class GymController {
         if (query == null || query.equals("")) {
             gymInfoPage = gymApiService.findAll(pageable);
         } else {
+
             GymSearchCond cond = new GymSearchCond();
             cond.setGymName(query); // or any other field you want to search
             gymInfoPage = gymApiService.findSearch(cond, pageable);
