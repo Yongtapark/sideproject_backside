@@ -1,6 +1,8 @@
-package com.backend.fitta.repository.gym;
+package com.backend.fitta.repository.staff;
 
 import com.backend.fitta.entity.gym.Gym;
+import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.repository.gym.GymSearchCond;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,36 +16,40 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 import static com.backend.fitta.entity.gym.QGym.gym;
+import static com.backend.fitta.entity.gym.QStaff.staff;
 
 @Repository
-public class GymQueryRepository {
-
+public class StaffQueryRepository {
     private final JPAQueryFactory query;
 
-    public GymQueryRepository(EntityManager em){
+    public StaffQueryRepository(EntityManager em){
         this.query = new JPAQueryFactory(em);
     }
 
 
-    public Page<Gym> findAll(GymSearchCond cond, Pageable pageable) {
-        QueryResults<Gym> results = query.select(gym)
-                .from(gym)
-                .where(likeGymName(cond.getGymName()))
-                .orderBy(gym.id.desc())
+    public Page<Staff> findAll(StaffSearchCond cond, Pageable pageable) {
+        QueryResults<Staff> results = query.select(staff)
+                .from(staff)
+                .where(likeStaffName(cond.getStaffName()),
+                        gym.id.eq(cond.getGymId()))
+                .orderBy(staff.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
 
-        List<Gym> content = results.getResults();
+        List<Staff> content = results.getResults();
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
 
     }
 
-    private BooleanExpression likeGymName(String gymName) {
-        if (StringUtils.hasText(gymName)) {
-            return gym.name.like("%" + gymName + "%");
+    private BooleanExpression likeStaffName(String staffName) {
+        if (StringUtils.hasText(staffName)) {
+            return staff.name.like("%" + staffName + "%");
         }
         return null;
     }
+
+
+
 }
