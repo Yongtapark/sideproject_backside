@@ -86,4 +86,11 @@ public class MemberController {
         memberApiService.saveGymMember(memberId,gymId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/join-gym")
+    @Operation(summary = "회원 헬스장 결제", description = "회원 체육관 등록 - 등록시 프로그램 선택 후 등록")
+    public ResponseEntity<Void> joinGym(@RequestBody JoinGymMember joinGymMember ){
+        memberApiService.joinGym(joinGymMember.getMemberId(), joinGymMember.getGymId(), joinGymMember.getProgramIds());
+        return ResponseEntity.noContent().build();
+    }
 }

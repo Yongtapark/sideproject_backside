@@ -1,10 +1,7 @@
 package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.member.Member;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +16,11 @@ public class Registrations {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne
+    @JoinColumn(name = "program_id")
     private Program program;
 
 
@@ -32,4 +31,6 @@ public class Registrations {
         this.program = program;
         this.registDate = LocalDate.now();
     }
+
+
 }

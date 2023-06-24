@@ -8,6 +8,7 @@ import com.backend.fitta.dto.member.UpdateMemberRequest;
 import com.backend.fitta.dto.program.ProgramInfo;
 import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Program;
+import com.backend.fitta.entity.gym.Registrations;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.*;
@@ -16,6 +17,7 @@ import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.program.ProgramQueryRepository;
 import com.backend.fitta.repository.program.ProgramRepository;
 import com.backend.fitta.repository.team.TeamRepository;
+import com.backend.fitta.service.interfaces.RegistrationsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -36,6 +38,8 @@ public class MemberApiService {
     private final TeamRepository teamRepository;
     private final GymRepository gymRepository;
     private final ProgramQueryRepository programQueryRepository;
+
+    private final RegistrationsService registrationsService;
 
     public Long save(SignUpRequest rq) {
         Optional<Member> findMember = memberRepository.findByEmail(rq.getEmail());
@@ -117,6 +121,10 @@ public class MemberApiService {
         Member findMember = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
         Gym findGym = gymRepository.findById(gymId).orElseThrow(GymNotFoundException::new);
         List<Program> programs = programQueryRepository.joinGymByMember(programIds);
+        for (Program program : programs) {
+            registrationsService.save(new Registrations(findMember,program));
+        }
         findMember.joinGym(findGym,programs);
     }
+
 }

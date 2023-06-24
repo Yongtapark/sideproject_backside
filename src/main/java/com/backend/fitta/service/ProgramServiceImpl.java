@@ -6,10 +6,12 @@ import com.backend.fitta.repository.program.ProgramRepository;
 import com.backend.fitta.service.interfaces.ProgramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ProgramServiceImpl implements ProgramService {
 
     private final ProgramRepository programRepository;
