@@ -2,6 +2,8 @@ package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.enums.Gender;
 import com.backend.fitta.entity.enums.GenderDivision;
+import com.backend.fitta.entity.owner.Owner;
+import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.repository.staff.StaffRepository;

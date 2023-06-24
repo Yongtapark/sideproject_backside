@@ -4,7 +4,6 @@ import com.backend.fitta.dto.staff.BasicStaffInfo;
 import com.backend.fitta.dto.team.SimpleMemberInfo;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.image.Image;
 import lombok.Data;
 
 import java.util.List;
@@ -22,7 +21,6 @@ public class BasicGymInfo {
     private String address;
 
     private GenderDivision genderDivision;
-    private List<String> imageUrls;
     private List<SimpleMemberInfo> members;
     private List<BasicStaffInfo> staffs;
 
@@ -35,9 +33,6 @@ public class BasicGymInfo {
         this.phoneNumber = gym.getPhoneNumber();
         this.address = gym.getAddress();
         this.genderDivision = gym.getGenderDivision();
-        this.imageUrls = gym.getImage().stream()
-                .map(image -> new String(image.getStoreName()))
-                .collect(Collectors.toList());
         this.members = gym.getMember().stream()
                 .map(member -> new SimpleMemberInfo(member))
                 .collect(Collectors.toList());

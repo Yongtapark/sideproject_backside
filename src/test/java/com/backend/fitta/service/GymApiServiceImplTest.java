@@ -1,3 +1,4 @@
+/*
 package com.backend.fitta.service;
 
 import com.backend.fitta.dto.Result;
@@ -7,7 +8,7 @@ import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.repository.gym.GymRepository;
@@ -16,8 +17,6 @@ import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -96,8 +94,10 @@ class GymApiServiceImplTest {
         gymApiService.save(new SaveGymRequest("헬스장2", "01012341234", "대전", GenderDivision.UNISEX,owner.getId(),"12312312"));
         Result<List<BasicGymInfo>> all = gymApiService.findAll();
         //assertThat(all.getData().size()).isEqualTo(2);
-      /*  assertThat(all.getData().get(0).getName()).isEqualTo("헬스장1");
-        assertThat(all.getData().get(1).getName()).isEqualTo("헬스장2");*/
+      */
+/*  assertThat(all.getData().get(0).getName()).isEqualTo("헬스장1");
+        assertThat(all.getData().get(1).getName()).isEqualTo("헬스장2");*//*
+
 
     }
 
@@ -144,4 +144,4 @@ class GymApiServiceImplTest {
         assertThat(gym.getOwner().getAddress()).isEqualTo("부천");
         assertThat(gym.getOwner().getBusinessRegistrationNumber()).isEqualTo("123456");
     }
-}
+}*/

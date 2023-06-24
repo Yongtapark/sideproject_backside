@@ -1,6 +1,6 @@
 package com.backend.fitta.service.interfaces;
 
-import com.backend.fitta.entity.gym.Staff;
+import com.backend.fitta.entity.staff.Staff;
 
 import java.util.List;
 

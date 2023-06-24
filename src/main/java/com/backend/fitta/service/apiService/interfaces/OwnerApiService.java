@@ -6,10 +6,8 @@ import com.backend.fitta.dto.ownermypage.*;
 import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
-import com.backend.fitta.entity.gym.Owner;
-import org.springframework.web.multipart.MultipartFile;
+import com.backend.fitta.entity.owner.Owner;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface OwnerApiService {
@@ -24,7 +22,7 @@ public interface OwnerApiService {
 
     Result<List<BasicOwnerInfo>> findAll();
 
-    Long update(Long id, UpdateOwnerRequest request, MultipartFile multipartFile) throws IOException;
+    Long update(Long id, UpdateOwnerRequest request);
 
 
     void deleteOwner(Long id);

@@ -17,7 +17,7 @@ import java.util.List;
 public interface GymApiService {
     Long save(SaveGymRequest request, List<MultipartFile> images) throws IOException;
     BasicGymInfo findById(Long id);
-//    Result<List<BasicGymInfo>> findAll();
+    //    Result<List<BasicGymInfo>> findAll();
     Long update(Long id, UpdateGymRequest request, List<MultipartFile> images) throws IOException;
     void delete(Long id);
 

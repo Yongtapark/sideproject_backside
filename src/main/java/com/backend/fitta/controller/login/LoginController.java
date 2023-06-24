@@ -2,10 +2,9 @@ package com.backend.fitta.controller.login;
 
 
 import com.backend.fitta.config.security.jwt.TokenInfo;
-import com.backend.fitta.dto.google.AccountInfo;
 import com.backend.fitta.dto.login.UserProfile;
 import com.backend.fitta.dto.login.LoginRequestDto;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
@@ -27,7 +26,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -101,7 +99,7 @@ public class LoginController {
         Cookie[] cookies = request.getCookies();
         if(cookies!=null){
             for (Cookie cookie : cookies) {
-                log.info("cookie={}",cookies);
+                log.info("cookie={}",cookie);
                 if(cookie.getName().equals("accessToken")){
                     cookie.setMaxAge(0);
                     log.info("isThereCookie={}",cookie.getValue(),cookie.getMaxAge());

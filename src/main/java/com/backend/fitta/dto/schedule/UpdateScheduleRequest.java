@@ -1,6 +1,5 @@
 package com.backend.fitta.dto.schedule;
 
-import com.backend.fitta.entity.gym.Staff;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

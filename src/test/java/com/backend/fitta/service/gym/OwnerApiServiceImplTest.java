@@ -1,11 +1,8 @@
 package com.backend.fitta.service.gym;
 
-import com.backend.fitta.dto.Result;
-import com.backend.fitta.dto.gym.BasicGymInfo;
-import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.entity.enums.GenderDivision;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;

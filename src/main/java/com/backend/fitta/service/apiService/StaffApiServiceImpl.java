@@ -4,8 +4,9 @@ import com.backend.fitta.dto.staff.BasicStaffInfo;
 import com.backend.fitta.dto.staff.SaveStaffRequest;
 import com.backend.fitta.dto.staff.UpdateStaffRequest;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Staff;
+
 import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.exception.TeamNotFoundException;

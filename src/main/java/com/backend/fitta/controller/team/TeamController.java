@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("api/teams")
+@RequestMapping("/teams")
 public class TeamController {
 
     private final TeamApiService teamApiService;

@@ -5,8 +5,8 @@ import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.image.Image;
+import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
 import com.backend.fitta.file.FilePath;
@@ -39,6 +39,7 @@ public class GymApiServiceImpl implements GymApiService {
     private final GymQueryRepository gymQueryRepository;
     private final OwnerRepository ownerRepository;
     private final OwnerService ownerService;
+
     private final ImageRepository imageRepository;
 
     @Override
@@ -55,14 +56,14 @@ public class GymApiServiceImpl implements GymApiService {
         return new BasicGymInfo(gym);
     }
 
-//    @Override
-//    public Result<List<BasicGymInfo>> findAll() {
-//        List<Gym> all = gymRepository.findAll();
-//        List<BasicGymInfo> collect = all.stream()
-//                .map(G -> new BasicGymInfo(G))
-//                .collect(Collectors.toList());
-//        return new Result(collect);
-//    }
+    /*@Override
+    public Result<List<BasicGymInfo>> findAll() {
+        List<Gym> all = gymRepository.findAll();
+        List<BasicGymInfo> collect = all.stream()
+                .map(G -> new BasicGymInfo(G))
+                .collect(Collectors.toList());
+        return new Result(collect);
+    }*/
 
     @Override
     public Long update(Long id, UpdateGymRequest request, List<MultipartFile> images) throws IOException {
@@ -92,6 +93,7 @@ public class GymApiServiceImpl implements GymApiService {
         return new PageImpl<>(gymInfoList,pageable,all.getTotalElements());
     }
 
+
     @Override
     public Page<GymProfileInfo> findSearch(GymSearchCond cond, Pageable pageable) {
         Page<Gym> all = gymQueryRepository.findAll(cond,pageable);
@@ -120,4 +122,5 @@ public class GymApiServiceImpl implements GymApiService {
             imageRepository.save(image);
         }
     }
+
 }
