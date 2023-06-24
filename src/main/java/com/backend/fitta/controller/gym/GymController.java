@@ -78,13 +78,14 @@ public class GymController {
     }*/
     @Operation(summary = "전체 헬스장 조회 메서드", description = "전체 헬스장 정보를 조회 할 수 있습니다.")
     @GetMapping
-    public ResponseEntity<Page<GymProfileInfo>> gymPaging(@RequestBody Optional<GymSearchCond> cond, @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<GymProfileInfo> gymInfoPage;
-        if (cond.isEmpty()) {
+    public ResponseEntity<Page<GymProfileInfo>> gymPaging(String query, @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<GymProfileInfo> gymInfoPage =null;
+        if (query == null || query.equals("")) {
             gymInfoPage = gymApiService.findAll(pageable);
         } else {
-            gymInfoPage = gymApiService.findSearch(cond.orElse(null), pageable);
-            System.out.println(cond.get().getGymName());
+            GymSearchCond cond = new GymSearchCond();
+            cond.setGymName(query); // or any other field you want to search
+            gymInfoPage = gymApiService.findSearch(cond, pageable);
         }
         return ResponseEntity.ok(gymInfoPage);
     }
