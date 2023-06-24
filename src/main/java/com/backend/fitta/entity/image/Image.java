@@ -19,7 +19,7 @@ public class Image extends Auditing {
     private String storeName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
+    @JoinColumn(name = "gym_id")//
     private Gym gym;
 
     public Image(String originalName, String storeName, Gym gym) {
