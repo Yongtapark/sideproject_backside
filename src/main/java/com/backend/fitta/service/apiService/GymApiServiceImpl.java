@@ -10,6 +10,7 @@ import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.entity.image.Image;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
+import com.backend.fitta.repository.file.FilePath;
 import com.backend.fitta.repository.gym.GymQueryRepository;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.gym.GymSearchCond;
@@ -96,8 +97,6 @@ public class GymApiServiceImpl implements GymApiService {
     public Page<GymProfileInfo> findSearch(GymSearchCond cond, Pageable pageable) {
         Page<Gym> all = gymQueryRepository.findAll(cond,pageable);
         List<GymProfileInfo> gymInfoList = all.stream().map(g -> new GymProfileInfo(g)).collect(Collectors.toList());
-        System.out.println("pageable.offset = "+pageable.getOffset());
-        System.out.println("pageable.getPageSize = "+pageable.getPageSize());
         return new PageImpl<>(gymInfoList,pageable,all.getTotalElements());
     }
 
@@ -117,7 +116,7 @@ public class GymApiServiceImpl implements GymApiService {
             // 이미지 저장
             String originalFileName = multipartFile.getOriginalFilename();
             String storeFileName = createStoreFileName(originalFileName);
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+            multipartFile.transferTo(new File(FilePath.filePath + storeFileName));
             Image image = new Image(originalFileName, storeFileName, findGym);
             imageRepository.save(image);
         }
