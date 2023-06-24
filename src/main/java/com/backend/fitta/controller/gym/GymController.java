@@ -84,7 +84,6 @@ public class GymController {
             gymInfoPage = gymApiService.findAll(pageable);
         } else {
             gymInfoPage = gymApiService.findSearch(cond.orElse(null), pageable);
-            System.out.println(cond.get().getGymName());
         }
         return ResponseEntity.ok(gymInfoPage);
     }

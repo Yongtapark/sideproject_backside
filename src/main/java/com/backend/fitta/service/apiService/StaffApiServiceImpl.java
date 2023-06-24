@@ -9,6 +9,7 @@ import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.StaffNotFoundException;
 import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.file.FilePath;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.staff.StaffQueryRepository;
 import com.backend.fitta.repository.staff.StaffRepository;
@@ -79,7 +80,7 @@ public class StaffApiServiceImpl implements StaffApiService {
         String storeFileName = null;
         if(multipartFile!=null){
             storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+            multipartFile.transferTo(new File(FilePath.filePath+ storeFileName));
         }
         staff.changeStaffInfo(request.getName(), storeFileName, request.getBirthdate(), request.getPhoneNumber(), request.getAddress());
         return staff.getId();

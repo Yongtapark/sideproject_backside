@@ -1,8 +1,6 @@
 package com.backend.fitta.repository.staff;
 
-import com.backend.fitta.entity.gym.Gym;
 import com.backend.fitta.entity.gym.Staff;
-import com.backend.fitta.repository.gym.GymSearchCond;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
