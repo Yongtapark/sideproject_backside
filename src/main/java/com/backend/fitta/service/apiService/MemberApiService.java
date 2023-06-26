@@ -12,6 +12,7 @@ import com.backend.fitta.exception.AlreadyExistMemberException;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.MemberNotFoundException;
 import com.backend.fitta.exception.TeamNotFoundException;
+import com.backend.fitta.repository.file.FilePath;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.team.TeamRepository;
@@ -76,7 +77,7 @@ public class MemberApiService {
         String storeFileName = null;
         if(multipartFile!=null){
             storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+            multipartFile.transferTo(new File(FilePath.filePath + storeFileName));
         }
         member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), storeFileName, rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
 
