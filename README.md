@@ -1,5 +1,3 @@
-# 
-
 # sideproject_backside
 
 backside
@@ -21,3 +19,8 @@ none : 스프링부트 시작시 데이터 변경/삭제 하지 않음(단, 테�
 ```
 
 ### **application-oauth.properties**
+
+```java
+spring.security.oauth2.client.registration.google.client-id=${ClientId}
+spring.security.oauth2.client.registration.google.client-secret=${ClientSecret}
+```
