@@ -40,6 +40,7 @@ public class Member extends Auditing implements UserDetails, Users {
     private Gender gender;
     private Long height;
     private Long weight;
+    //
     private String occupation;
     private String note;
     @ManyToOne(fetch = FetchType.LAZY)
