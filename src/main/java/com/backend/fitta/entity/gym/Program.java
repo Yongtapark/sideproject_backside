@@ -12,35 +12,35 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Classes {
+public class Program {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private BigDecimal price;
     private String note;
-    @OneToMany(mappedBy = "classes")
+    @OneToMany(mappedBy = "program")
     private List<Registrations> registrations = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-   /* public Classes(String name, BigDecimal price, String note) {
+    public Program(String name, BigDecimal price, String note) {
         this.name = name;
         this.price = price;
         this.note = note;
-    }*/
-
-   /* void addClasses(Gym gym){
-        this.gym=gym;
-        gym.getClasses().add(this);
     }
 
-    public Classes(String name, BigDecimal price, String note, Gym gym) {
+    void addProgram(Gym gym){
+        this.gym=gym;
+        gym.getProgramClass().add(this);
+    }
+
+    public Program(String name, BigDecimal price, String note, Gym gym) {
         this.name = name;
         this.price = price;
         this.note = note;
         if(gym!=null){
-            addClasses(gym);
+            addProgram(gym);
         }
-    }*/
+    }
 }

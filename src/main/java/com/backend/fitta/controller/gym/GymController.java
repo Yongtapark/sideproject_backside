@@ -4,6 +4,8 @@ import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
+import com.backend.fitta.dto.program.ProgramInfo;
+import com.backend.fitta.dto.program.SignUpProgram;
 import com.backend.fitta.repository.gym.GymSearchCond;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -90,5 +92,11 @@ public class GymController {
         }
         return ResponseEntity.ok(gymInfoPage);
     }
+    /*@PostMapping("/create-class")
+    @Operation(summary = "교육 클래스 생성")
+    public ResponseEntity<Void> createClass(@RequestBody SignUpProgram signUpProgram){
+        gymApiService.createClasses(signUpProgram);
+        return ResponseEntity.noContent().build();
+    }*/
 
 }

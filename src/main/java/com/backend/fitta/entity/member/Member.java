@@ -1,13 +1,11 @@
 package com.backend.fitta.entity.member;
 
 
-import com.backend.fitta.entity.enums.Gender;
-import com.backend.fitta.entity.enums.Role;
-import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.gym.Schedule;
-import com.backend.fitta.entity.gym.Team;
+import com.backend.fitta.entity.gym.*;
 import com.backend.fitta.entity.utils.Auditing;
 import com.backend.fitta.entity.utils.Users;
+import com.backend.fitta.entity.enums.Gender;
+import com.backend.fitta.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -17,9 +15,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,7 +41,6 @@ public class Member extends Auditing implements UserDetails, Users {
     private Gender gender;
     private Long height;
     private Long weight;
-    //
     private String occupation;
     private String note;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -52,6 +52,8 @@ public class Member extends Auditing implements UserDetails, Users {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
+    @OneToMany(mappedBy = "member")
+    private List<Registrations> registrations = new ArrayList<>();
     private Role role = Role.MEMBER;
     //체육관 등록일
     private LocalDate gymJoinDate;
@@ -60,7 +62,25 @@ public class Member extends Auditing implements UserDetails, Users {
     //만료일
     private LocalDate endSubscribeDate;
     //결제여부
-    private boolean isSubscribed;
+    private boolean isSubscribed =false;
+
+    public void joinGym(Gym gym, List<Program> selectedClasses) {
+        this.gym = gym;
+        this.isSubscribed=true;
+        gym.getMember().add(this);
+        registerClasses(selectedClasses);
+    }
+
+
+    private void registerClasses(List<Program> selectedClasses) {
+        for (Program program : selectedClasses) {
+            Registrations registration = new Registrations(this, program);
+            this.registrations.add(registration);
+            program.getRegistrations().add(registration);
+        }
+    }
+
+
 
 
 
@@ -76,7 +96,7 @@ public class Member extends Auditing implements UserDetails, Users {
         this.weight = weight;
         this.occupation = occupation;
         this.note = note;
-        this.isSubscribed=isSubscribed;
+        this.isSubscribed=false;
         if(gym!=null){
             changeGym(gym);
         }
@@ -85,7 +105,7 @@ public class Member extends Auditing implements UserDetails, Users {
         }
     }
     @Builder
-    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym, Boolean isSubscribed,Role role,String profileImage ) {
+    public Member(String email, String password, String name, LocalDate birthdate, String phoneNumber, String address, Gender gender, Long height, Long weight, String occupation, String note, Team team, Gym gym,Role role,String profileImage ) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -106,7 +126,7 @@ public class Member extends Auditing implements UserDetails, Users {
         if(team!=null){
             changeTeam(team);
         }
-        if(isSubscribed=true){
+        if(isSubscribed==true){
             subscribe();
         }
         this.role =role;
@@ -123,7 +143,6 @@ public class Member extends Auditing implements UserDetails, Users {
         this.team=team;
         team.getMembers().add(this);
     }
-
 
     public void subscribe(){
         this.subscribeDate=LocalDate.now();

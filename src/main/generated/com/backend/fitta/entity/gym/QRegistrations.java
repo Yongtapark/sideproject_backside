@@ -22,11 +22,11 @@ public class QRegistrations extends EntityPathBase<Registrations> {
 
     public static final QRegistrations registrations = new QRegistrations("registrations");
 
-    public final QClasses classes;
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final com.backend.fitta.entity.member.QMember member;
+
+    public final QProgram program;
 
     public final DatePath<java.time.LocalDate> registDate = createDate("registDate", java.time.LocalDate.class);
 
@@ -48,8 +48,8 @@ public class QRegistrations extends EntityPathBase<Registrations> {
 
     public QRegistrations(Class<? extends Registrations> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.classes = inits.isInitialized("classes") ? new QClasses(forProperty("classes"), inits.get("classes")) : null;
         this.member = inits.isInitialized("member") ? new com.backend.fitta.entity.member.QMember(forProperty("member"), inits.get("member")) : null;
+        this.program = inits.isInitialized("program") ? new QProgram(forProperty("program"), inits.get("program")) : null;
     }
 
 }

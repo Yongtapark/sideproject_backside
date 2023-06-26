@@ -53,7 +53,7 @@ public class MemberController {
     public ResponseEntity<Result<List<BasicMemberInfo>>> findAll() {
         return ResponseEntity.ok(memberApiService.findAll());
     }
-/////
+
     @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
     @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestPart UpdateMemberRequest request,
@@ -91,6 +91,13 @@ public class MemberController {
     @PostMapping("{memberId}/gym/{gymId}")
     public ResponseEntity<Void> saveGymMember(@PathVariable long memberId, @PathVariable long gymId) {
         memberApiService.saveGymMember(memberId,gymId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/join-gym")
+    @Operation(summary = "회원 헬스장 결제", description = "회원 체육관 등록 - 등록시 프로그램 선택 후 등록")
+    public ResponseEntity<Void> joinGym(@RequestBody JoinGymMember joinGymMember ){
+        memberApiService.joinGym(joinGymMember.getMemberId(), joinGymMember.getGymId(), joinGymMember.getProgramIds());
         return ResponseEntity.noContent().build();
     }
 }

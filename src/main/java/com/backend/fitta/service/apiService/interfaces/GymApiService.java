@@ -5,10 +5,13 @@ import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
+import com.backend.fitta.dto.member.SignUpRequest;
+import com.backend.fitta.dto.program.ProgramInfo;
+import com.backend.fitta.dto.program.SignUpProgram;
+import com.backend.fitta.entity.gym.Program;
 import com.backend.fitta.repository.gym.GymSearchCond;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,5 +27,7 @@ public interface GymApiService {
     Page<GymProfileInfo> findSearch (GymSearchCond cond, Pageable pageable);
 
     Long update(Long gymId, UpdateGymRequest request, MultipartFile profileImage, MultipartFile backgroundImage) throws IOException;
+
+    void createClasses(SignUpProgram programInfo);
 
 }

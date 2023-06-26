@@ -1,5 +1,6 @@
 package com.backend.fitta.entity.gym;
 
+import com.backend.fitta.entity.image.Image;
 import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.entity.utils.Auditing;
@@ -10,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +34,16 @@ public class Gym extends Auditing {
     private String backgroundImage;
     private String phoneNumber;
     private String address;
+    private String businessIdentificationNumber;
     @Enumerated(EnumType.STRING)
     private GenderDivision genderDivision;
+    @OneToMany(mappedBy = "gym")
+    private List<Program> programClass = new ArrayList<>();
     @OneToMany(mappedBy = "gym")
     private List<Staff> staff = new ArrayList<>();
     @OneToMany(mappedBy = "gym")
     private List<Member> member = new ArrayList<>();
 
-    private String businessIdentificationNumber;
 
     public Gym(String name, Owner owner, String profileImage, String backgroundImage, String phoneNumber, String address, GenderDivision genderDivision,String businessIdentificationNumber ) {
         this.name = name;
@@ -67,4 +71,16 @@ public class Gym extends Auditing {
         this.owner = owner;
         owner.getGym().add(this);
     }
+
+
+    /**
+     * createMethod
+     */
+
+    public Program createClasses(Program program){
+        program.addProgram(this);
+        return program;
+    }
+
+
 }
