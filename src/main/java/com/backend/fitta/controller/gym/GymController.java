@@ -1,13 +1,11 @@
 package com.backend.fitta.controller.gym;
 
-import com.backend.fitta.dto.Result;
 import com.backend.fitta.dto.gym.BasicGymInfo;
 import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.repository.gym.GymSearchCond;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
-import io.lettuce.core.output.ScanOutput;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -39,8 +37,9 @@ public class GymController {
     @Operation(summary = "헬스장 추가 메서드", description = "헬스장 추가 메서드입니다.")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> saveGym(@Valid @RequestPart("request") SaveGymRequest request,
-                                        @RequestPart(value = "images", required = false) Optional<List<MultipartFile>> images) throws IOException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request,images.orElse(new ArrayList<>())));
+                                        @RequestPart(value = "profileImage") Optional<MultipartFile> profileImage,
+                                        @RequestPart(value = "backgroundImage") Optional<MultipartFile> backgroundImage) throws IOException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(gymApiService.save(request, profileImage.orElse(null), backgroundImage.orElse(null)));
     }
 
 
@@ -59,8 +58,9 @@ public class GymController {
     @Operation(summary = "헬스장 정보 수정 메서드", description = "헬스장 id로 헬스장 정보를 찾아 헬스장 정보를 수정 할 수 있습니다.")
     @PutMapping("/{gymId}")
     public ResponseEntity<Long> updateGym(@PathVariable Long gymId, @Valid @RequestPart("request") UpdateGymRequest request,
-                                          @RequestPart(value = "images", required = false) Optional<List<MultipartFile>> images) throws IOException {
-        return ResponseEntity.ok(gymApiService.update(gymId, request, images.orElse(new ArrayList<>())));
+                                          @RequestPart(value = "profileImage") Optional<MultipartFile> profileImage,
+                                          @RequestPart(value = "backgroundImage") Optional<MultipartFile> backgroundImage) throws IOException {
+        return ResponseEntity.ok(gymApiService.update(gymId, request, profileImage.orElse(null), backgroundImage.orElse(null)));
     }
 
     @Operation(summary = "헬스장 삭제 메서드", description = "헬스장 id로 헬스장을 삭제할 수 있습니다.")

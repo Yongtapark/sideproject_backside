@@ -72,12 +72,12 @@ public class MemberApiService {
         return new Result(collect);
     }
 
-    public Long update(Long memberId, UpdateMemberRequest rq, MultipartFile multipartFile) throws IOException {
-        Member member = memberRepository.findById(memberId).orElseThrow();
+    public Long update(Long memberId, UpdateMemberRequest rq, MultipartFile profileImage) throws IOException {
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new MemberNotFoundException());
         String storeFileName = null;
-        if(multipartFile!=null){
-            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
-            multipartFile.transferTo(new File(FilePath.filePath + storeFileName));
+        if(profileImage!=null){
+            storeFileName = createStoreFileName(profileImage.getOriginalFilename());
+            profileImage.transferTo(new File(FilePath.filePath + storeFileName));
         }
         member.changeMemberInfo(rq.getEmail(), rq.getPassword(),rq.getName(), storeFileName, rq.getBirthdate(), rq.getPhoneNumber(), rq.getAddress(), rq.getHeight(), rq.getWeight(), rq.getOccupation(), rq.getNote());
 

@@ -9,6 +9,7 @@ import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.entity.gym.Owner;
 import com.backend.fitta.exception.AlreadyExistOwnerException;
 import com.backend.fitta.exception.OwnerNotFoundException;
+import com.backend.fitta.repository.file.FilePath;
 import com.backend.fitta.repository.owner.OwnerQueryRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
@@ -77,12 +78,12 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     }
 
     @Override
-    public Long update(Long id, UpdateOwnerRequest request, MultipartFile multipartFile) throws IOException {
+    public Long update(Long id, UpdateOwnerRequest request, MultipartFile profileImage) throws IOException {
         Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
         String storeFileName = null;
-        if(multipartFile!=null){
-            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
-            multipartFile.transferTo(new File("/Users/sunjun/Downloads/study/images/" + storeFileName));
+        if(profileImage!=null){
+            storeFileName = createStoreFileName(profileImage.getOriginalFilename());
+            profileImage.transferTo(new File(FilePath.filePath + storeFileName));
         }
         owner.changeOwnerInfo(request.getName(), storeFileName, request.getPassword(), request.getPhoneNumber(), request.getAddress(), request.getBusinessRegistrationNumber());
         return id;

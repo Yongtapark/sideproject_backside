@@ -24,7 +24,7 @@ public interface OwnerApiService {
 
     Result<List<BasicOwnerInfo>> findAll();
 
-    Long update(Long id, UpdateOwnerRequest request, MultipartFile multipartFile) throws IOException;
+    Long update(Long id, UpdateOwnerRequest request, MultipartFile profileImage) throws IOException;
 
 
     void deleteOwner(Long id);

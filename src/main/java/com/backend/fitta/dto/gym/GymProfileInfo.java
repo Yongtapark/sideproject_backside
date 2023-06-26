@@ -27,9 +27,7 @@ public class GymProfileInfo {
         this.phoneNumber = gym.getPhoneNumber();
         this.address = gym.getAddress();
         this.genderDivision = gym.getGenderDivision();
-        this.imageUrls = gym.getImage().stream()
-                .map(image -> new String(image.getStoreName()))
-                .collect(Collectors.toList());
+
     }
 //    @QueryProjection
 //    public GymProfileInfo(Long id, String name, String ownerName, String phoneNumber,String address, GenderDivision genderDivision, List<String> imageUrls) {
