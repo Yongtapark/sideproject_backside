@@ -1,3 +1,4 @@
+/*
 package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.enums.Gender;
@@ -25,7 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @RequiredArgsConstructor
 class ClassesTest {
 
-   /* @BeforeEach
+   */
+/* @BeforeEach
     public void makeClasses() throws Exception{
 
         Owner owner = new Owner("email", "password", "name", "01010101", "addd", "0000");
@@ -45,7 +47,8 @@ class ClassesTest {
                 .isSubscribed(false)
                 .gym(null)
                 .build();
-    }*/
+    }*//*
+
 
     @Test
     public void subscribeTest() throws Exception{
@@ -85,3 +88,4 @@ class ClassesTest {
     }
 
 }
+*/

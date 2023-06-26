@@ -24,13 +24,13 @@ public class Classes {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-    public Classes(String name, BigDecimal price, String note) {
+   /* public Classes(String name, BigDecimal price, String note) {
         this.name = name;
         this.price = price;
         this.note = note;
-    }
+    }*/
 
-    void addClasses(Gym gym){
+   /* void addClasses(Gym gym){
         this.gym=gym;
         gym.getClasses().add(this);
     }
@@ -42,5 +42,5 @@ public class Classes {
         if(gym!=null){
             addClasses(gym);
         }
-    }
+    }*/
 }

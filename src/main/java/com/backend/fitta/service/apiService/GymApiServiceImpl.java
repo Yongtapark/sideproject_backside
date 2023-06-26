@@ -6,7 +6,6 @@ import com.backend.fitta.dto.gym.GymProfileInfo;
 import com.backend.fitta.dto.gym.SaveGymRequest;
 import com.backend.fitta.dto.gym.UpdateGymRequest;
 import com.backend.fitta.entity.gym.Gym;
-import com.backend.fitta.entity.image.Image;
 import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.GymNotFoundException;
 import com.backend.fitta.exception.OwnerNotFoundException;
@@ -14,7 +13,6 @@ import com.backend.fitta.repository.file.FilePath;
 import com.backend.fitta.repository.gym.GymQueryRepository;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.gym.GymSearchCond;
-import com.backend.fitta.repository.image.ImageRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.GymApiService;
 import com.backend.fitta.service.interfaces.OwnerService;
@@ -40,13 +38,13 @@ public class GymApiServiceImpl implements GymApiService {
     private final GymQueryRepository gymQueryRepository;
     private final OwnerRepository ownerRepository;
     private final OwnerService ownerService;
-    private final ImageRepository imageRepository;
 
     @Override
-    public Long save(SaveGymRequest request,List<MultipartFile> images) throws IOException {
+    public Long save(SaveGymRequest request,MultipartFile profileImage, MultipartFile backgroundImage) throws IOException {
         Owner owner = ownerService.findById(request.getOwnerId());
-        Gym gym = new Gym(request.getName(), owner, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
-        saveImages(images, gym);
+        String profileFileName= confirmFile(profileImage);
+        String backgroundFileName = confirmFile(backgroundImage);
+        Gym gym = new Gym(request.getName(), owner, profileFileName, backgroundFileName, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision(), request.getBusinessIdentificationNumber());
         return gymRepository.save(gym).getId();
     }
 
@@ -65,11 +63,13 @@ public class GymApiServiceImpl implements GymApiService {
 //        return new Result(collect);
 //    }
 
+
     @Override
-    public Long update(Long id, UpdateGymRequest request, List<MultipartFile> images) throws IOException {
-        Gym findGym = gymRepository.findById(id).orElseThrow(() -> new GymNotFoundException());
-        findGym.changeGymInfo(request.getName(),request.getPhoneNumber(),request.getAddress(),request.getGenderDivision());
-        saveImages(images, findGym);
+    public Long update(Long gymId, UpdateGymRequest request, MultipartFile profileImage, MultipartFile backgroundImage) throws IOException {
+        Gym findGym = gymRepository.findById(gymId).orElseThrow(() -> new GymNotFoundException());
+        String profileFileName= confirmFile(profileImage);
+        String backgroundFileName = confirmFile(backgroundImage);
+        findGym.changeGymInfo(request.getName(), profileFileName, backgroundFileName, request.getPhoneNumber(), request.getAddress(), request.getGenderDivision());
         return findGym.getId();
     }
 
@@ -100,6 +100,15 @@ public class GymApiServiceImpl implements GymApiService {
         return new PageImpl<>(gymInfoList,pageable,all.getTotalElements());
     }
 
+    private String confirmFile(MultipartFile multipartFile) throws IOException {
+        String storeFileName = null;
+        if(multipartFile !=null){
+            storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
+            multipartFile.transferTo(new File(FilePath.filePath + storeFileName));
+        }
+        return storeFileName;
+    }
+
     private String createStoreFileName(String originalFilename) {
         String ext = extractExt(originalFilename);
         String uuid = UUID.randomUUID().toString();
@@ -109,16 +118,5 @@ public class GymApiServiceImpl implements GymApiService {
     private String extractExt(String originalFilename) {
         int pos = originalFilename.lastIndexOf(".");
         return originalFilename.substring(pos + 1);
-    }
-
-    private void saveImages(List<MultipartFile> images, Gym findGym) throws IOException {
-        for (MultipartFile multipartFile : images) {
-            // 이미지 저장
-            String originalFileName = multipartFile.getOriginalFilename();
-            String storeFileName = createStoreFileName(originalFileName);
-            multipartFile.transferTo(new File(FilePath.filePath + storeFileName));
-            Image image = new Image(originalFileName, storeFileName, findGym);
-            imageRepository.save(image);
-        }
     }
 }

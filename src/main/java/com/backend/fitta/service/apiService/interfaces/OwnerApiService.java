@@ -7,7 +7,9 @@ import com.backend.fitta.dto.owner.BasicOwnerInfo;
 import com.backend.fitta.dto.owner.SignUpOwnerRequest;
 import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.entity.owner.Owner;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface OwnerApiService {
@@ -22,7 +24,7 @@ public interface OwnerApiService {
 
     Result<List<BasicOwnerInfo>> findAll();
 
-    Long update(Long id, UpdateOwnerRequest request);
+    Long update(Long id, UpdateOwnerRequest request, MultipartFile profileImage) throws IOException;
 
 
     void deleteOwner(Long id);

@@ -17,7 +17,7 @@ public interface StaffApiService {
     Long save(SaveStaffRequest request);
     BasicStaffInfo findById(Long id);
     Page<BasicStaffInfo> findAll(Pageable pageable);
-    Long update(Long id, UpdateStaffRequest request, MultipartFile multipartFile) throws IOException;
+    Long update(Long id, UpdateStaffRequest request, MultipartFile profileImage) throws IOException;
     void delete(Long id);
     void saveTeamStaff(long staffId, long teamId);
 

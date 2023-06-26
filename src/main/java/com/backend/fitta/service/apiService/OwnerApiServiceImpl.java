@@ -9,6 +9,7 @@ import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.AlreadyExistOwnerException;
 import com.backend.fitta.exception.OwnerNotFoundException;
+import com.backend.fitta.file.FilePath;
 import com.backend.fitta.repository.owner.OwnerQueryRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;
@@ -16,9 +17,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -73,9 +78,14 @@ public class OwnerApiServiceImpl implements OwnerApiService {
     }
 
     @Override
-    public Long update(Long id, UpdateOwnerRequest request) {
+    public Long update(Long id, UpdateOwnerRequest request, MultipartFile profileImage) throws IOException {
         Owner owner = ownerRepository.findById(id).orElseThrow(() -> new OwnerNotFoundException());
-        owner.changeOwnerInfo(owner);
+        String storeFileName = null;
+        if(profileImage!=null){
+            storeFileName = createStoreFileName(profileImage.getOriginalFilename());
+            profileImage.transferTo(new File(FilePath.filePath + storeFileName));
+        }
+        owner.changeOwnerInfo(new Owner(request.getName(), storeFileName, request.getPassword(), request.getPhoneNumber(), request.getAddress(), request.getBusinessRegistrationNumber()));
         return id;
     }
 
@@ -116,5 +126,16 @@ public class OwnerApiServiceImpl implements OwnerApiService {
         return ownerQueryRepository.calculateAgeRate(ownerId);
     }
 
+
+    private String createStoreFileName(String originalFilename) {
+        String ext = extractExt(originalFilename);
+        String uuid = UUID.randomUUID().toString();
+        return uuid + "." + ext;
+    }
+
+    private String extractExt(String originalFilename) {
+        int pos = originalFilename.lastIndexOf(".");
+        return originalFilename.substring(pos + 1);
+    }
 
 }

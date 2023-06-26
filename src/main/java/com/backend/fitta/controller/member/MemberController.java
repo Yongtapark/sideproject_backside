@@ -57,9 +57,9 @@ public class MemberController {
     @Operation(summary = "회원 정보 수정 메서드", description = "회원 id로 회원을 찾아 회원의 정보를 수정 할 수 있습니다.")
     @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Valid @RequestPart UpdateMemberRequest request,
-                                             @RequestPart(value = "multipartFile", required = false) Optional<MultipartFile> multipartFile) throws IOException {
+                                             @RequestPart(value = "profileImage", required = false) Optional<MultipartFile> profileImage) throws IOException {
         validateExistMember(memberId);
-        return ResponseEntity.ok(memberApiService.update(memberId, request, multipartFile.orElse(null)));
+        return ResponseEntity.ok(memberApiService.update(memberId, request, profileImage.orElse(null)));
     }
 
     @Operation(summary = "회원 삭제 메서드", description = "회원 id로 회원을 삭제할 수 있습니다.")
