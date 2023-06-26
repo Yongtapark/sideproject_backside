@@ -1,4 +1,3 @@
-/*
 package com.backend.fitta.entity.gym;
 
 import com.backend.fitta.entity.enums.Gender;
@@ -9,6 +8,7 @@ import com.backend.fitta.entity.staff.Staff;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,35 +25,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RequiredArgsConstructor
 class ProgramTest {
 
-   */
-/* @BeforeEach
+ @BeforeEach
     public void makeClasses() throws Exception{
 
         Owner owner = new Owner("email", "password", "name", "01010101", "addd", "0000");
-        Gym gym = new Gym("powerGym", owner, "12312321", "adddr", GenderDivision.UNISEX,"123123");
+        Gym gym = new Gym("powerGym", owner,null,null, "12312321", "adddr", GenderDivision.UNISEX,"123123");
         Staff staff = new Staff("staff", LocalDate.of(1995, Month.MAY, 3), Gender.FEMALE, "0000000", "addr", gym, null);
 
 
-        gym.createClasses("기본",new BigDecimal(50000),"시설 이용비");
-        gym.createClasses("PT_120회",new BigDecimal(1200000),"120회");
-        gym.createClasses("PT_60회",new BigDecimal(600000),"60회");
-        gym.createClasses("그룹_PT",new BigDecimal(50000),"한달 정기 구독");
-        gym.createClasses("락커이용",new BigDecimal(20000),"락커이용");
+        gym.createClasses(new Program("기본",new BigDecimal(50000),"시설 이용비"));
+        gym.createClasses(new Program("PT_120회",new BigDecimal(1200000),"120회"));
+        gym.createClasses(new Program("PT_60회",new BigDecimal(600000),"60회"));
+        gym.createClasses(new Program("그룹_PT",new BigDecimal(50000),"한달 정기 구독"));
+        gym.createClasses(new Program("락커이용",new BigDecimal(20000),"락커이용"));
 
         Member test1 = Member.builder()
                 .name("test1")
                 .email("email@email")
-                .isSubscribed(false)
                 .gym(null)
                 .build();
-    }*//*
+    }
 
 
     @Test
     public void subscribeTest() throws Exception{
         //given
         Owner owner = new Owner("email", "password", "name", "01010101", "addd", "0000");
-        Gym gym = new Gym("powerGym", owner, "12312321", "adddr", GenderDivision.UNISEX,"123123");
+        Gym gym = new Gym("powerGym", owner,null,null, "12312321", "adddr", GenderDivision.UNISEX,"123123");
         Staff staff = new Staff("staff", LocalDate.of(1995, Month.MAY, 3), Gender.FEMALE, "0000000", "addr", gym, null);
 
 
@@ -101,4 +99,3 @@ class ProgramTest {
     }
 
 }
-*/

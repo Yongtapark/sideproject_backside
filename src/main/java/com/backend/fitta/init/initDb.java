@@ -1,4 +1,3 @@
-/*
 package com.backend.fitta.init;
 
 import com.backend.fitta.entity.enums.Gender;
@@ -35,10 +34,10 @@ public class initDb {
         initService.dbInit();
         initService.dbInitGym1();
         initService.dbInitGym2();
-        //initService.dbInitGym3();
+        initService.dbInitGym3();
     }
 
-//
+
     @Component
     @Transactional
     @RequiredArgsConstructor
@@ -48,6 +47,7 @@ public class initDb {
         private final GymRepository gymRepository;
         private final StaffRepository staffRepository;
         private final TeamRepository teamRepository;
+        private Owner mainOwner = null;
 
 
         //테스트용 맴버 생성
@@ -89,15 +89,12 @@ public class initDb {
                     .businessRegistrationNumber("asdasdasda")
                     .role(Role.OWNER)
                     .build();
-            Owner save = ownerRepository.save(owner);
+            mainOwner = ownerRepository.save(owner);
 
 
-            for (int i = 8; i <= 30; i++) {
-                gymRepository.save(new Gym("gym" + i, save, null, null, "0" + i + "-0000-0000", "gymAddress" + i, GenderDivision.UNISEX, "asd" + i + i));
-            }
-            Gym gym1 = new Gym("gym1", save, null, null, "01-0000-0000", "gymAddress1", GenderDivision.MALE_ONLY, "asdasd");
-            Gym gym2 = new Gym("gym2", save, null, null, "02-0000-0000", "gymAddress2", GenderDivision.FEMALE_ONLY, "asdasdad");
-            Gym gym3 = new Gym("gym3", save, null, null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX, "asdasdsad");
+            Gym gym1 = new Gym("gym1", mainOwner, null, null, "01-0000-0000", "gymAddress1", GenderDivision.MALE_ONLY, "asdasd");
+            Gym gym2 = new Gym("gym2", mainOwner, null, null, "02-0000-0000", "gymAddress2", GenderDivision.FEMALE_ONLY, "asdasdad");
+            Gym gym3 = new Gym("gym3", mainOwner, null, null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX, "asdasdsad");
 
             gymRepository.save(gym1);
             gymRepository.save(gym2);
@@ -274,36 +271,35 @@ public class initDb {
 
     }
 
-   */
-/* public void dbInitGym3(){
-        Owner save = ownerRepository.findById(1L).get();
-        Gym gym4 = new Gym("gym4", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym5 = new Gym("gym5", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym6 = new Gym("gym6", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym7 = new Gym("gym7", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym8 = new Gym("gym8", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym9 = new Gym("gym9", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym10 = new Gym("gym10", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym11 = new Gym("gym11", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym12 = new Gym("gym12", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym13 = new Gym("gym13", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym14 = new Gym("gym14", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym15 = new Gym("gym15", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym16 = new Gym("gym16", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym17 = new Gym("gym17", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym18 = new Gym("gym18", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym19 = new Gym("gym19", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym20 = new Gym("gym20", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym21 = new Gym("gym21", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym22 = new Gym("gym22", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym23 = new Gym("gym23", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym24 = new Gym("gym24", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym25 = new Gym("gym25", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym26 = new Gym("gym26", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym27 = new Gym("gym27", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym28 = new Gym("gym28", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym29 = new Gym("gym29", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
-        Gym gym30 = new Gym("gym30", save, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+ public void dbInitGym3(){
+        Owner save = ownerRepository.findById(mainOwner.getId()).get();
+        Gym gym4 = new Gym("gym4", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym5 = new Gym("gym5", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym6 = new Gym("gym6", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym7 = new Gym("gym7", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym8 = new Gym("gym8", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym9 = new Gym("gym9", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym10 = new Gym("gym10", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym11 = new Gym("gym11", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym12 = new Gym("gym12", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym13 = new Gym("gym13", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym14 = new Gym("gym14", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym15 = new Gym("gym15", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym16 = new Gym("gym16", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym17 = new Gym("gym17", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym18 = new Gym("gym18", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym19 = new Gym("gym19", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym20 = new Gym("gym20", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym21 = new Gym("gym21", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym22 = new Gym("gym22", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym23 = new Gym("gym23", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym24 = new Gym("gym24", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym25 = new Gym("gym25", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym26 = new Gym("gym26", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym27 = new Gym("gym27", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym28 = new Gym("gym28", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym29 = new Gym("gym29", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
+        Gym gym30 = new Gym("gym30", save,null,null, "03-0000-0000", "gymAddress3", GenderDivision.UNISEX,"asdasdsad");
         gymRepository.save(gym4);
         gymRepository.save(gym5);
         gymRepository.save(gym6);
@@ -332,7 +328,7 @@ public class initDb {
         gymRepository.save(gym29);
         gymRepository.save(gym30);
 
-    }*//*
+    }
 
 
 
@@ -340,4 +336,3 @@ public class initDb {
 
     }
 }
-*/

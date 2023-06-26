@@ -1,6 +1,5 @@
 package com.backend.fitta.entity.gym;
 
-import com.backend.fitta.entity.image.Image;
 import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.entity.staff.Staff;
 import com.backend.fitta.entity.utils.Auditing;

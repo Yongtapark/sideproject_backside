@@ -9,7 +9,8 @@ import com.backend.fitta.dto.owner.UpdateOwnerRequest;
 import com.backend.fitta.entity.owner.Owner;
 import com.backend.fitta.exception.AlreadyExistOwnerException;
 import com.backend.fitta.exception.OwnerNotFoundException;
-import com.backend.fitta.file.FilePath;
+
+import com.backend.fitta.repository.file.FilePath;
 import com.backend.fitta.repository.owner.OwnerQueryRepository;
 import com.backend.fitta.repository.owner.OwnerRepository;
 import com.backend.fitta.service.apiService.interfaces.OwnerApiService;

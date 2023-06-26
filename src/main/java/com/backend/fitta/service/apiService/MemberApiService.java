@@ -12,6 +12,7 @@ import com.backend.fitta.entity.gym.Registrations;
 import com.backend.fitta.entity.gym.Team;
 import com.backend.fitta.entity.member.Member;
 import com.backend.fitta.exception.*;
+import com.backend.fitta.repository.file.FilePath;
 import com.backend.fitta.repository.gym.GymRepository;
 import com.backend.fitta.repository.member.MemberRepository;
 import com.backend.fitta.repository.program.ProgramQueryRepository;

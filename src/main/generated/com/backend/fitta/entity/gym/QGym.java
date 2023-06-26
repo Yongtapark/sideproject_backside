@@ -26,9 +26,9 @@ public class QGym extends EntityPathBase<Gym> {
 
     public final StringPath address = createString("address");
 
-    public final StringPath businessIdentificationNumber = createString("businessIdentificationNumber");
+    public final StringPath backgroundImage = createString("backgroundImage");
 
-    public final ListPath<Classes, QClasses> classes = this.<Classes, QClasses>createList("classes", Classes.class, QClasses.class, PathInits.DIRECT2);
+    public final StringPath businessIdentificationNumber = createString("businessIdentificationNumber");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
@@ -36,8 +36,6 @@ public class QGym extends EntityPathBase<Gym> {
     public final EnumPath<com.backend.fitta.entity.enums.GenderDivision> genderDivision = createEnum("genderDivision", com.backend.fitta.entity.enums.GenderDivision.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final ListPath<com.backend.fitta.entity.image.Image, com.backend.fitta.entity.image.QImage> image = this.<com.backend.fitta.entity.image.Image, com.backend.fitta.entity.image.QImage>createList("image", com.backend.fitta.entity.image.Image.class, com.backend.fitta.entity.image.QImage.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;

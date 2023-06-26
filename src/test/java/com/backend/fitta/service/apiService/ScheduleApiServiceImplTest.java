@@ -122,4 +122,5 @@ class ScheduleApiServiceImplTest {
         assertThatThrownBy(() -> scheduleApiService.findById(savedScheduleId))
                 .isInstanceOf(ScheduleNotFoundException.class);
     }
-}*/
+}
+*/

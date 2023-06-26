@@ -94,9 +94,8 @@ class GymApiServiceImplTest {
         gymApiService.save(new SaveGymRequest("헬스장2", "01012341234", "대전", GenderDivision.UNISEX,owner.getId(),"12312312"));
         Result<List<BasicGymInfo>> all = gymApiService.findAll();
         //assertThat(all.getData().size()).isEqualTo(2);
-      */
-/*  assertThat(all.getData().get(0).getName()).isEqualTo("헬스장1");
-        assertThat(all.getData().get(1).getName()).isEqualTo("헬스장2");*//*
+  assertThat(all.getData().get(0).getName()).isEqualTo("헬스장1");
+        assertThat(all.getData().get(1).getName()).isEqualTo("헬스장2");
 
 
     }
@@ -144,4 +143,5 @@ class GymApiServiceImplTest {
         assertThat(gym.getOwner().getAddress()).isEqualTo("부천");
         assertThat(gym.getOwner().getBusinessRegistrationNumber()).isEqualTo("123456");
     }
-}*/
+}
+*/

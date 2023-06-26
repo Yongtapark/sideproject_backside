@@ -39,7 +39,7 @@ class StaffTest {
         Owner owner = new Owner("email", "password", "name", "01010101", "addd", "0000");
         Owner savedOwner = ownerRepository.save(owner);
 
-        Gym gym = new Gym("powerGym", savedOwner, "12312321", "adddr", GenderDivision.UNISEX,"123123");
+        Gym gym = new Gym("powerGym", savedOwner,null,null, "12312321", "adddr", GenderDivision.UNISEX,"123123");
         Gym savedGym = gymRepository.save(gym);
 
         Staff staff = new Staff("staff", LocalDate.of(1995, Month.MAY, 3), Gender.FEMALE, "0000000", "addr", savedGym, null);
@@ -48,7 +48,7 @@ class StaffTest {
     @Test
     void staffIntoGym(){
         Owner owner = new Owner("email","pass","박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
-        Gym gym = new Gym("testGym", owner, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX,"12312312");
+        Gym gym = new Gym("testGym", owner,null,null, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX,"12312312");
         Staff staff1 = new Staff(
                 "박직원",
                 LocalDate.of(1999,1,1),
@@ -79,7 +79,7 @@ class StaffTest {
     @Test
     void staffIntoTeam(){
         Owner owner = new Owner("email","pass","박사장", "010-0100-0000", "ownerAddress","1213-12314-8432-1112");
-        Gym gym = new Gym("testGym", owner, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX,"12312312");
+        Gym gym = new Gym("testGym", owner,null,null, "02-1234-1242", "testGymAddress", GenderDivision.UNISEX,"12312312");
         Team team = new Team("teamA",savedStaff);
         Staff staff1 = new Staff(
                 "박직원",

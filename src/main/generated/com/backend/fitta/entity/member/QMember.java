@@ -62,6 +62,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath profileImage = createString("profileImage");
 
+    public final ListPath<com.backend.fitta.entity.gym.Registrations, com.backend.fitta.entity.gym.QRegistrations> registrations = this.<com.backend.fitta.entity.gym.Registrations, com.backend.fitta.entity.gym.QRegistrations>createList("registrations", com.backend.fitta.entity.gym.Registrations.class, com.backend.fitta.entity.gym.QRegistrations.class, PathInits.DIRECT2);
+
     public final EnumPath<com.backend.fitta.entity.enums.Role> role = createEnum("role", com.backend.fitta.entity.enums.Role.class);
 
     public final com.backend.fitta.entity.gym.QSchedule schedule;
